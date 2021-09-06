@@ -43,8 +43,8 @@
                       <input
                         type="number"
                         min="0"
-                        :value="quantity"
-                        @input="persist"
+                        v-model="quantity"
+                        @change="persist(quantity)"
                         class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                       />
                     </div>
@@ -83,7 +83,7 @@
                 <button
                   class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-red-light shadow item-center hover:bg-red-dark focus:shadow-outline focus:outline-none"
                 >
-                  <span class="ml-2 mt-5px">Procceed to checkout</span>
+                  <span class="ml-2 mt-5px">Proceed to checkout</span>
                 </button>
                 <button @click="clearCart()"
                   class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow item-center hover:bg-gray-dark focus:shadow-outline focus:outline-none"
@@ -114,10 +114,21 @@ export default {
       localStorage.amount = 0
       return localStorage.amount;
     },
-    persist(){
+    persist(quantity){
+      localStorage.amount = quantity;
+      // this.quantity = localStorage.amount;
+      console.log(this.quantity)
+      // console.log(quantity);
+      // console.log(localStorage.amount); 
       // this.quantity = $event.target.value;
     }
   },
+  //    watch: {
+  //   quantity: function check() {
+  //     this.persist();
+      
+  //   },
+  // },
    async created() {
     if (this.quantity) {
       this.quantity = localStorage.amount;
