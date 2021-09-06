@@ -23,7 +23,7 @@ jobs:
     steps:
 #       - run: docker-compose up -d
     - run: npm install
-    - run: CI = npm run build
+    - run: docker run --name=ppclothesFE -d -p 80:80 frontend
 #     - run: npm ci
 #     - run: npm run build --if-present
     - run: npm test
