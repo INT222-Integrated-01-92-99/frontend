@@ -30,6 +30,15 @@ jobs:
 #       - run: docker-compose up -d
 #       - run: npm install
 #       - run: docker run --name=ppclothesFE -d -p 80:80 frontend
+# start
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+# end
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
