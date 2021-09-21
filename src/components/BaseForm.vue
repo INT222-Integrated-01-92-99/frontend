@@ -1,11 +1,11 @@
 <template>
-  <div class="form bg-cream-light pt-8 pb-14 bg-fixed">
+  <div class="form">
     <form class="w-5/6 2xl:w-3/5 mx-auto">
       <base-card class="w-full mx-auto">
         <p
           class="
-            font-serif
-            text-center text-cream-dark
+            font-prompt-regular-400
+            text-center
             2xl:text-5xl
             text-4xl
             font-bold
@@ -22,15 +22,51 @@
             <img :src="image" class="w-80 mx-auto" />
             <input
               type="file"
-              class="font-serif focus:outline-none w-52 mx-auto"
+              class="font-prompt-regular-400 focus:outline-none w-1/4 mx-auto"
               @change="uploadImg"
             />
-            <div v-if="UpPic" class="font-serif text-center text-red-600">
+            <div
+              v-if="UpPic"
+              class="font-prompt-regular-400 text-center text-red-600"
+            >
               Please upload your Product Images!
             </div>
             <div class="flex flex-row justify-center flex-wrap w-1/2 mx-auto">
               <div
                 @click="selectColor(color)"
+                v-for="color in colorArray"
+                :key="color.idColor"
+                class="
+                  items-center
+                  w-6
+                  h-6
+                  rounded-sm
+                  border
+                  hover:border-black
+                  transition ease-in duration-300 transform hover:-translate-y-1 active:translate-y-0 p-2
+                  hover:opacity-75
+                  m-2
+                  cursor-pointer
+                "
+                v-bind:style="{ backgroundColor: color.colorCode }"
+                :class="{
+                  'border-2 border-red-600': product.item
+                    .map((c) => c.color.idColor)
+                    .includes(color.idColor),
+                }"
+              ></div>
+
+              <div
+                class="font-prompt-regular-400 text-center text-red-600 mt-2"
+                v-if="ChooseColor"
+              >
+                Please select color!
+              </div>
+            </div>
+          </div>
+          <!--          <div class="flex flex-row justify-center flex-wrap w-1/2 mx-auto">
+              <div
+                @click="ifSelectCol=true, sendColor=color"
                 v-for="color in colorArray"
                 :key="color.idColor"
                 class="
@@ -49,16 +85,16 @@
                     .map((c) => c.color.idColor)
                     .includes(color.idColor),
                 }"
-              ></div>
+              ><base-select-color :if-select-col="ifSelectCol" :send-color="sendColor"></base-select-color></div>
 
               <div
-                class="font-serif text-center text-red-600 mt-2"
+                class="font-prompt-regular-400 text-center text-red-600 mt-2"
                 v-if="ChooseColor"
               >
                 Please select color!
               </div>
             </div>
-          </div>
+          </div> -->
           <div
             class="
               lg:space-y-3
@@ -70,7 +106,9 @@
             "
           >
             <div class="flex flex-col">
-              <label class="label font-serif lg:text-lg text-base" for="brands"
+              <label
+                class="label font-prompt-regular-400 lg:text-lg text-base"
+                for="brands"
                 >Brand:</label
               >
               <select
@@ -81,7 +119,7 @@
                 :class="{ 'bg-red-50': BrandInput }"
                 class="
                   input
-                  font-serif
+                  font-prompt-regular-400
                   w-full
                   mt-1
                   py-1
@@ -105,17 +143,17 @@
                 </option>
               </select>
             </div>
-            <p v-if="BrandInput" class="font-serif text-red-600">
+            <p v-if="BrandInput" class="font-prompt-regular-400 text-red-600">
               Please select the Brand!
             </p>
             <div class="flex flex-col">
-              <label class="font-serif lg:text-lg text-base"
+              <label class="font-prompt-regular-400 lg:text-lg text-base"
                 >Product Name:
               </label>
               <input
                 class="
                   input
-                  font-serif
+                  font-prompt-regular-400
                   w-full
                   mt-1
                   py-1
@@ -137,15 +175,52 @@
                 v-model.trim="enterProName"
               />
             </div>
-            <p v-if="ProInput" class="font-serif text-red-600">
+            <p v-if="ProInput" class="font-prompt-regular-400 text-red-600">
               Please enter your Product Name!
             </p>
             <div class="flex flex-col">
-              <label class="font-serif lg:text-lg text-base">Price: </label>
+              <label class="font-prompt-regular-400 lg:text-lg text-base"
+                >In stocks:
+              </label>
               <input
                 class="
                   input
-                  font-serif
+                  font-prompt-regular-400
+                  w-full
+                  mt-1
+                  py-1
+                  px-4
+                  rounded-sm
+                  bg-white
+                  dark:bg-gray-800
+                  border border-gray-400
+                  dark:border-gray-700
+                  text-gray-800
+                  focus:border-indigo-500
+                  focus:outline-none
+                "
+                :class="{ 'bg-red-50': InStocksInput }"
+                id="proAmount"
+                type="number"
+                placeholder="InStocks"
+                v-model.number="enterInStocks"
+              />
+            </div>
+            <p
+              v-if="InStocksInput"
+              class="font-prompt-regular-400 text-red-600"
+            >
+              Please enter in stocks! (Do not use decimal number and negative
+              integer)
+            </p>
+            <div class="flex flex-col">
+              <label class="font-prompt-regular-400 lg:text-lg text-base"
+                >Price:
+              </label>
+              <input
+                class="
+                  input
+                  font-prompt-regular-400
                   w-full
                   mt-1
                   py-1
@@ -166,18 +241,18 @@
                 v-model.trim="enterPrice"
               />
             </div>
-            <p v-if="PriceInput" class="font-serif text-red-600">
+            <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
               Please enter your Price! (Do not use decimal number and negative
               integer)
             </p>
             <div class="flex flex-col">
-              <label class="font-serif lg:text-lg text-base"
+              <label class="font-prompt-regular-400 lg:text-lg text-base"
                 >Manufactured Date:
               </label>
               <input
                 class="
                   input
-                  font-serif
+                  font-prompt-regular-400
                   w-full
                   mt-1
                   py-1
@@ -197,17 +272,17 @@
                 v-model.trim="enterDate"
               />
             </div>
-            <p v-if="MFDInput" class="font-serif text-red-600">
+            <p v-if="MFDInput" class="font-prompt-regular-400 text-red-600">
               Please select the Manufactured Date!
             </p>
             <div class="flex flex-col">
-              <label class="font-serif lg:text-lg text-base"
+              <label class="font-prompt-regular-400 lg:text-lg text-base"
                 >Description:
               </label>
               <textarea
                 class="
                   input
-                  font-serif
+                  font-prompt-regular-400
                   w-full
                   h-20
                   mt-1
@@ -228,7 +303,10 @@
                 v-model.trim="enterDescript"
               />
             </div>
-            <p v-if="DescriptInput" class="font-serif text-red-600">
+            <p
+              v-if="DescriptInput"
+              class="font-prompt-regular-400 text-red-600"
+            >
               Please enter the Description!
             </p>
           </div>
@@ -238,34 +316,33 @@
             <base-button
               @click.prevent="submitForm"
               class="
-                font-serif
+                font-prompt-regular-400
                 lg:text-base
                 text-sm
                 py-1
                 px-11
                 rounded-sm
-                hover:bg-green-600
+                hover:bg-red-dark
                 hover:text-white
               "
-              bgcolor="bg-green-500"
+              bgcolor="bg-red-light"
               txtcolor="text-white"
               :txtbutt="proId == 'add' ? 'Add' : 'Save'"
             ></base-button>
             <base-button
               @click.prevent="clearForm, this.$router.push('/product/views')"
               class="
-                font-serif
+                font-prompt-regular-400
                 lg:text-base
                 text-sm
                 py-1
                 px-9
                 rounded-sm
-                border border-red-700
-                hover:bg-red-700
+                hover:bg-gray-dark
                 hover:text-white
               "
-              bgcolor=""
-              txtcolor="text-red-700"
+              bgcolor="bg-gray-light"
+              txtcolor="text-white"
               txtbutt="Cancel"
             ></base-button>
           </div>
@@ -288,12 +365,14 @@ export default {
       enterBrand: "",
       enterProName: "",
       enterDate: "",
+      enterInStocks: "",
       enterPrice: "",
       enterDescript: "",
       UpPic: false,
       BrandInput: false,
       ProInput: false,
       MFDInput: false,
+      InStocksInput: false,
       PriceInput: false,
       DescriptInput: false,
       ChooseColor: false,
@@ -303,14 +382,23 @@ export default {
       },
       productArray: [],
       urlImage: "http://localhost:3000/image",
+      ifSelectCol: false,
+      sendColor: null,
     };
   },
   methods: {
     checkForm() {
-      this.UpPic = this.image == require("../assets/icon/clothes-hanger.svg") ? true : false;
+      this.UpPic =
+        this.image == require("../assets/icon/clothes-hanger.svg")
+          ? true
+          : false;
       this.BrandInput = this.enterBrand === "" ? true : false;
       this.ProInput = this.enterProName === "" ? true : false;
       this.MFDInput = this.enterDate === "" ? true : false;
+      this.InStocksInput =
+        this.enterInStocks === "" ||
+        this.enterInStocks % 1 != 0 ||
+        this.enterInStocks < 0;
       this.PriceInput =
         this.enterPrice === "" ||
         this.enterPrice % 1 != 0 ||
@@ -323,6 +411,7 @@ export default {
         (this.enterBrand = "");
       this.enterProName = "";
       this.enterDate = "";
+      this.enterInStocks = "";
       this.enterPrice = "";
       this.enterDescript = "";
       this.product = {
@@ -339,11 +428,13 @@ export default {
         !this.BrandInput &&
         !this.ProInput &&
         !this.MFDInput &&
+        !this.InStocksInput &&
         !this.PriceInput &&
         !this.DescriptInput &&
         !this.ChooseColor
       ) {
-        this.idProduct = await this.fetch("http://localhost:3000/getmaxidPro") + 1;
+        this.idProduct =
+          (await this.fetch("http://localhost:3000/getmaxidPro")) + 1;
         const addPro = {
           idProduct: this.idProduct,
           imgFile: this.imgFile,
@@ -351,6 +442,7 @@ export default {
           brandName: this.enterBrand,
           proName: this.enterProName,
           proDescription: this.enterDescript,
+          proAmount: this.enterInStocks,
           proPrice: this.enterPrice,
           proMFDDATE: this.enterDate,
           proCol: this.product.item,
@@ -367,47 +459,53 @@ export default {
           brandName: this.enterBrand,
           proName: this.enterProName,
           proDescription: this.enterDescript,
+          proAmount: this.enterInStocks,
           proPrice: this.enterPrice,
           proMFDDATE: this.enterDate,
           proCol: this.product.item,
         };
         this.editProduct(sendEdit);
+        alert("Edited");
       }
       this.clearForm();
     },
     async editProduct(editPro) {
-        this.checkForm()
-        editPro.proCol = editPro.proCol.map(e => e = {idPro: editPro.idProduct, color: e.color});
-        const jsonPro = await JSON.stringify({
-            idPro: editPro.idProduct,
-            brand: editPro.brandName,
-            proName: editPro.proName,
-            proDescript: editPro.proDescription,
-            proPrice: editPro.proPrice,
-            proMfd: editPro.proMFDDATE,
-            proPathImg: editPro.proPathImg,
-            item: editPro.proCol,});
-        console.log(jsonPro);
-        const blob = await new Blob([jsonPro], {
-          type: "application/json",
-        });
-        let formData = new FormData();
-        await formData.append("editProduct", blob);
-        if(this.imgFile == null){
-        const res = await fetch("http://localhost:3000/edit",{
+      console.log(editPro);
+      this.checkForm();
+      editPro.proCol = editPro.proCol.map(
+        (e) => (e = { idPro: editPro.idProduct, color: e.color })
+      );
+      const jsonPro = await JSON.stringify({
+        idPro: editPro.idProduct,
+        brand: editPro.brandName,
+        proName: editPro.proName,
+        proDescript: editPro.proDescription,
+        proAmount: editPro.proAmount,
+        proPrice: editPro.proPrice,
+        proMfd: editPro.proMFDDATE,
+        proPathImg: editPro.proPathImg,
+        prowithcolor: editPro.proCol,
+      });
+      console.log(jsonPro);
+      const blob = await new Blob([jsonPro], {
+        type: "application/json",
+      });
+      let formData = new FormData();
+      await formData.append("editProduct", blob);
+      if (this.imgFile == null) {
+        const res = await fetch("http://localhost:3000/edit", {
           method: "PUT",
-          body: formData
+          body: formData,
         });
-        const data = await res.json()
-        console.log(data);
-      } else{
+        const data = await res.json();
+        console.log(data)
+      } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
-        await fetch("http://localhost:3000/edit/image",{
+        await fetch("http://localhost:3000/edit/image", {
           method: "PUT",
-          body: formData
+          body: formData,
         });
       }
-
     },
     uploadImg(event) {
       const file = event.target.files[0];
@@ -415,12 +513,15 @@ export default {
         const reader = new FileReader();
         reader.onload = (event) => {
           this.image = event.target.result;
-          this.UpPic = this.image == require("../assets/icon/clothes-hanger.svg") ? true : false;
+          this.UpPic =
+            this.image == require("../assets/icon/clothes-hanger.svg")
+              ? true
+              : false;
         };
         reader.readAsDataURL(file);
         this.imgFile = file;
         this.img = file.name;
-      }else{
+      } else {
         return "Please upload only picture.";
       }
     },
@@ -477,9 +578,10 @@ export default {
       this.enterBrand = product.brand;
       this.enterProName = product.proName;
       this.enterDescript = product.proDescript;
+      this.enterInStocks = product.proAmount;
       this.enterPrice = product.proPrice;
       this.enterDate = product.proMfd;
-      this.product.item = product.item; //ไม่แน่ใจ
+      this.product.item = product.prowithcolor;
     }
   },
   watch: {
