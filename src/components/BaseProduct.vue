@@ -1,5 +1,5 @@
 <template>
-  <div class="oneProduct bg-cream-light bg-fixed">
+  <div class="oneProduct">
     <div class="flex flex-wrap justify-center gap-x-20 gap-y-10">
       <base-card
         v-for="pro in productArray"
@@ -18,14 +18,17 @@
         <router-link :to="'/detail?id=' + pro.idPro">
           <img class="mb-6" :src="urlImage + '/' + pro.proPathImg" />
           <div class="mt-3 px-6 text-left">
-            <p class="font-serif font-medium text-lg">
-              Brand: {{ pro.brand.brandName }}
+            <p class="font-prompt-regular-400 text-lg">
+              <span class="font-medium">Brand :</span> {{ pro.brand.brandName }}
             </p>
-            <p class="font-serif font-medium text-lg">
-              Product Name: {{ pro.proName }}
+            <p class="font-prompt-regular-400 text-lg">
+              <span class="font-medium">Product Name :</span> {{ pro.proName }}
             </p>
-            <p class="font-serif font-medium text-lg">
-              Price: {{ pro.proPrice }} THB
+            <p class="font-prompt-regular-400 text-lg">
+              <span class="font-medium">In stocks :</span> {{ pro.proAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}
+            </p>
+            <p class="font-prompt-regular-400 text-lg">
+              <span class="font-medium">Price : </span><span class="text-red-light font-medium"> {{ pro.proPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} THB</span>
             </p>
           </div>
         </router-link>
@@ -34,7 +37,7 @@
             <base-button
               class="
                 focus:outline-none
-                font-serif
+                font-prompt-regular-400
                 text-base
                 py-1
                 lg:px-8
@@ -51,7 +54,7 @@
             @click.prevent="(sendId = pro.idPro), (sendToDelete = true)"
             class="
               focus:outline-none
-              font-serif
+              font-prompt-regular-400
               text-base
               lg:px-6
               px-4

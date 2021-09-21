@@ -13,57 +13,57 @@
           ></div>
           <div class="flex flex-col w-full md:w-1/2 p-4">
             <div class="flex flex-col flex-1 justify-center mb-8">
-              <h1 class="text-4xl text-center font-thin">Profile</h1>
-              <div class="w-full mt-4">
+              <h1 class="font-prompt-regular-400 font-bold text-4xl text-center">Profile</h1>
+              <div class="w-full mt-10">
                 <div class="form-horizontal w-3/4 mx-auto">
                   <div class="flex -mx-3">
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Firstname</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Firstname</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Firstname
                       </div>
                     </div>
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Lastname</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Lastname</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Lastname
                       </div>
                     </div>
                   </div>
                   <div class="flex -mx-3">
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Username</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Username</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Username
                       </div>
                     </div>
 
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Password</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Password</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Password
                       </div>
                     </div>
                   </div>
                   <div class="flex -mx-3">
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Email</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Email</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Email
                       </div>
                     </div>
 
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Phone</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Phone</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Phone
                       </div>
                     </div>
                   </div>
                   <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5">
-                      <div class="text-xs font-semibold px-1">Address</div>
-                      <div class="text-xs font-semibold px-1 pt-4">
+                      <div class="font-prompt-regular-400 text-base font-medium px-1">Address</div>
+                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Address
                       </div>
                     </div>
@@ -72,7 +72,7 @@
                   <div class="flex flex-col mt-8">
                     <button
                       type="submit"
-                      class="border border-red-light text-red-light hover:bg-red-light hover:text-white text-sm font-semibold py-2 px-4 rounded"
+                      class="font-prompt-regular-400 border border-red-light text-red-light hover:bg-red-light hover:text-white text-sm font-medium py-2 px-4 rounded"
                     >
                       Edit Profile
                     </button>
