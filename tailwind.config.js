@@ -11,7 +11,10 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'roboto-500': ['"Roboto"', 'cursive']
+        'rozha': ['"Rozha One"', 'cursive'],
+        'prompt-regular-400': ['"Prompt"', 'cursive'],
+        'prompt-medium-500': ['"Prompt"', 'cursive'],
+        'prompt-bold-700': ['"Prompt"', 'cursive'],
       },
       zIndex: { '-10': '-10', },
       colors: {
