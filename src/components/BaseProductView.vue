@@ -16,7 +16,7 @@
         View Products
       </h1>
     </div>
-    <div class="pt-2 w-1/3 relative mx-auto text-gray-600 flex-col mb-10">
+    <div class="pt-2 2xl:w-1/3 lg:w-1/3 w-1/2 relative mx-auto text-gray-600 flex-col mb-10">
       <input
         class="font-prompt-regular-400 border-b-2 border-gray-400 bg-white h-10 w-full px-1 pr-16 text-sm focus:border-gray-dark focus:outline-none"
         type="search"
@@ -43,7 +43,7 @@
           />
         </svg>
       </button>
-      <div class="space-x-6">
+      <div class="space-x-6 w-full">
         <span class="font-prompt-regular-400 cursor-pointer hover:underline"
           >LOUIS VUITTON</span
         >
