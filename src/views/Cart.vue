@@ -15,7 +15,7 @@
       <div class="flex my-10 space-x-5">
         <div class="w-3/4 bg-white border-2 border-gray-light px-10 py-10">
           <div class="flex justify-between border-b pb-8">
-            <h1 class="font-prompt-regular-400 font-medium text-2xl">
+            <h1 class="font-prompt-regular-400 font-medium 2xl:text-2xl lg:text-xl text-lg">
               Shopping Cart
             </h1>
             <!-- <h2 class="font-semibold text-2xl">3 Items</h2> -->
@@ -47,19 +47,22 @@
           <div v-for="pc in cart.cartDetails" :key="pc.idCartDetail">
             <div class="flex items-center -mx-8 px-6 py-5">
               <!--<div v-for="pc in cart" :key="pc.idCart">-->
-              <div class="flex w-2/5">
-                <div class="w-2/5">
+              <div class="2xl:flex lg:flex md:flex-row w-2/5">
+                <div class="2xl:w-2/5">
                   <img class="" :src="urlImage + '/' + pc.product.proPathImg" />
                 </div>
-                <div class="flex flex-col space-y-3 ml-4 flex-grow">
-                  <span class="font-prompt-regular-400 font-medium text-sm">
+                <div class="flex flex-col space-y-3 ml-4 flex-grow 2xl:text-sm lg:text-sm text-xs">
+                  <span class="font-prompt-regular-400 font-medium">
                     {{ pc.product.proName }}</span
                   >
-                  <span class="font-prompt-regular-400 font-medium text-gray-light text-sm">{{
-                    pc.product.brand.brandName
-                  }}</span>
-                  <span class="inline-flex font-prompt-regular-400 font-medium text-sm">
-                    Color: &nbsp;  
+                  <span
+                    class="font-prompt-regular-400 font-medium text-gray-light"
+                    >{{ pc.product.brand.brandName }}</span
+                  >
+                  <span
+                    class="inline-flex font-prompt-regular-400 font-medium"
+                  >
+                    Color: &nbsp;
                     <div
                       class="
                       w-6
@@ -72,7 +75,7 @@
                   ></span>
                   <a
                     href="#"
-                    class="font-prompt-regular-400 font-medium hover:underline text-red-light text-xs"
+                    class="font-prompt-regular-400 font-medium hover:underline text-red-light"
                     >Remove</a
                   >
                 </div>
@@ -96,7 +99,7 @@
                   d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
                 />
               </svg> -->
-               <!-- <div class="relative flex flex-row w-1/3 h-8">
+                <!-- <div class="relative flex flex-row w-1/3 h-8">
                   <input
                     type="number"
                     min="0"
@@ -105,18 +108,19 @@
                     class="w-full font-prompt-regular-400 font-medium text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                   />
                 </div> -->
-                <div class="relative flex flex-row w-1/3 h-8">
+                <div class="relative flex flex-row 2xl:w-1/3 lg:w-1/3 w-1/2 h-8">
                   <input
                     type="number"
                     min="0"
-                    value="{{ this.cart.cartDetails.proPerPiece }}"
+                    v-model="pc.proPerPiece"
+                    @change="persist(pc)"
                     class="w-full font-prompt-regular-400 font-medium text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                   />
                 </div>
               </div>
               <!-- quantity -->
               <span
-                class="text-center w-1/5 font-prompt-regular-400 font-medium text-sm"
+                class="text-center w-1/5 font-prompt-regular-400 font-medium 2xl:text-sm lg:text-sm text-xs"
                 >{{
                   pc.product.proPrice
                     .toString()
@@ -125,21 +129,25 @@
                 THB</span
               >
               <span
-                class="text-center w-1/5 font-prompt-regular-400 font-medium text-sm"
-                >{{ (pc.proPerPiece * pc.product.proPrice).toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} THB</span
+                class="text-center w-1/5 font-prompt-regular-400 font-medium 2xl:text-sm lg:text-sm text-xs"
+                >{{
+                  (pc.proPerPiece * pc.product.proPrice)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }}
+                THB</span
               >
             </div>
-            <hr/>
+            <hr />
           </div>
           <!-- item 1 -->
           <!-- </div> -->
         </div>
         <div id="summary" class="border-2 border-gray-light w-1/4 px-8 py-10">
           <h1
-            class="font-prompt-regular-400 font-medium text-2xl border-b pb-8"
+            class="font-prompt-regular-400 font-medium 2xl:text-2xl lg:text-xl text-lg border-b pb-8"
           >
-            Order Summary
+            Total Cost
           </h1>
           <!-- <div class="flex justify-between mt-10 mb-5">
             <span class="font-semibold text-sm uppercase">Items 3</span>
@@ -173,19 +181,18 @@
           </button> -->
           <div class="mt-1">
             <div
-              class="flex font-prompt-regular-400 font-medium justify-between py-6 text-base uppercase"
+              class="flex font-prompt-regular-400 font-medium justify-center py-6 2xl:text-base lg:text-sm uppercase"
             >
-              <span>Total cost</span>
               <span class="text-red-light font-semibold">600 THB</span>
             </div>
             <button
               @click="clearCart()"
-              class="bg-gray-light font-prompt-regular-400 font-medium tracking-wider hover:bg-gray-dark py-3 text-sm text-white uppercase w-full"
+              class="bg-gray-light font-prompt-regular-400 font-medium tracking-wider hover:bg-gray-dark py-3 2xl:text-sm lg:text-sm text-xs text-white uppercase w-full"
             >
               Clear cart
             </button>
             <button
-              class="mt-3 bg-red-light font-prompt-regular-400 font-medium tracking-wider hover:bg-red-dark py-3 text-sm text-white uppercase w-full"
+              class="mt-3 bg-red-light font-prompt-regular-400 font-medium tracking-wider hover:bg-red-dark py-3 2xl:text-sm lg:text-sm text-xs text-white uppercase w-full"
             >
               Purchase
             </button>
@@ -193,104 +200,6 @@
         </div>
       </div>
     </div>
-    <!-- component -->
-    <!-- <div class="flex justify-center pt-2">
-      <div
-        class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5"
-      >
-        <div class="flex-1">
-          <table class="w-full text-sm lg:text-base" cellspacing="0">
-            <thead>
-              <tr class="h-12 uppercase">
-                <th class="hidden md:table-cell"></th>
-                <th class="pl-4 text-left">Product details</th>
-                <th class="lg:text-right text-left pl-5 lg:pl-0">
-                  <span class="lg:hidden" title="Quantity">Qtd</span>
-                  <span class="hidden lg:inline">Quantity</span>
-                </th>
-                <th class="hidden text-right md:table-cell">Unit price</th>
-                <th class="text-right">Total price</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td class="hidden w-1/4 pr-5 md:table-cell">
-                  <img
-                    src="../assets/base-clothes.png"
-                    class="w-full h-full rounded-none"
-                    alt="Thumbnail"
-                  />
-                </td>
-                <td class="pb-32">
-                  <p class="mb-2 md:ml-4">Earphone</p>
-                  <p class="mb-2 md:ml-4">Brand</p>
-                  <p class="mb-2 md:ml-4">Color</p>
-                  <button type="submit" class="text-gray-700 md:ml-4">
-                    <small>(Remove item)</small>
-                  </button>
-                </td>
-                <td class="justify-center md:justify-end md:flex mt-6">
-                  <div class="w-20 h-10">
-                    <div class="relative flex flex-row w-full h-8">
-                      <input
-                        type="number"
-                        min="0"
-                        v-model="quantity"
-                        @change="persist(quantity)"
-                        class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
-                      />
-                    </div>
-                  </div>
-                </td>
-                <td class="pb-56 hidden text-right md:table-cell">
-                  <span class="text-sm lg:text-base font-medium">
-                    10.00€
-                  </span>
-                </td>
-                <td class="pb-56 text-right">
-                  <span class="text-sm lg:text-base font-medium">
-                    20.00€
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <hr class="pb-6 mt-6" />
-          <div class="my-4 mt-6 -mx-2 lg:flex">
-            <div class="lg:px-2 lg:w-full">
-              <div class="p-4">
-                <div class="flex justify-between border-b">
-                  <div
-                    class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
-                  >
-                    Subtotal
-                  </div>
-                  <div
-                    class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-red-light"
-                  >
-                    148,827.53 THB
-                  </div>
-                </div>
-                <div class="flex">
-                  <button
-                    class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-red-light shadow item-center hover:bg-red-dark focus:shadow-outline focus:outline-none"
-                  >
-                    <span class="ml-2 mt-5px">Proceed to checkout</span>
-                  </button>
-                  <button
-                    @click="clearCart()"
-                    class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow item-center hover:bg-gray-dark focus:shadow-outline focus:outline-none"
-                  >
-                    <span class="ml-2 mt-5px">Clear cart</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -303,6 +212,7 @@ export default {
       quantity: localStorage.amount,
       image: { url: "" },
       urlImage: "http://localhost:3000/image",
+      x: 0,
     };
   },
   methods: {
@@ -312,14 +222,42 @@ export default {
       return data;
     },
     clearCart() {
-      confirm("Are you sure to clear your cart?")
+      confirm("Are you sure to clear your cart?");
       window.location.reload();
       localStorage.amount = 0;
       return localStorage.amount;
     },
-    persist(quantity) {
-      localStorage.amount = quantity;
-      console.log(this.quantity);
+    persist(edit) {
+      if (edit.proPerPiece <= edit.product.proAmount) {
+        const editQuan = {
+          idProduct: edit.product.idPro,
+          amount: edit.proPerPiece,
+          idCartDetail: edit.idCartDetail,
+          sendIdColor: edit.color.idColor,
+        };
+        this.x = edit.proPerPiece;
+        this.editAmount(editQuan);
+      } else {
+        this.x = edit.proPerPiece;
+        alert("Sorry, Product is not enough.");
+        this.x;
+      }
+      // localStorage.amount = quantity;
+      // console.log(this.quantity);
+    },
+    async editAmount(editQuan) {
+      console.log(editQuan);
+
+      try {
+        await fetch(
+          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          {
+            method: "PUT",
+          }
+        );
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
     },
   },
   async created() {
