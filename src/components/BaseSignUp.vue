@@ -8,10 +8,10 @@
           class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-full lg:h-full bg-white sm:mx-0"
         >
           <div
-            class="hidden md:block md:w-1/2 rounded-r-lg"
+            class="hidden lg:block lg:w-1/2"
             style="background: url('https://blog.bonfire.com/wp-content/uploads/2018/05/make-custom-merch-with-bonfire.jpg'); background-size: cover; background-position: center center;"
           ></div>
-          <div class="flex flex-col w-full md:w-1/2 p-4">
+          <div class="flex flex-col w-full lg:w-1/2 p-4">
             <div class="flex flex-col flex-1 justify-center mb-8">
               <h1 class="font-prompt-regular-400 font-bold text-4xl text-center">Sign Up</h1>
               <div class="w-full mt-10">

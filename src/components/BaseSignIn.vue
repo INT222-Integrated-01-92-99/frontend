@@ -9,10 +9,10 @@
           class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-full lg:h-full bg-white sm:mx-0"
         >
           <div
-            class="hidden md:block md:w-1/2 rounded-r-lg"
+            class="hidden lg:block lg:w-1/2"
             style="background: url('https://images.squarespace-cdn.com/content/v1/582abbefb3db2b4f0a63192f/1488239517608-0J3PK4TMBEN2TSGBBCB3/image-asset.jpeg'); background-size: cover; background-position: center center;"
           ></div>
-          <div class="flex flex-col w-full md:w-1/2 p-4">
+          <div class="flex flex-col w-full lg:w-1/2 p-4">
             <div class="flex flex-col flex-1 justify-center mb-8">
               <h1
                 class="font-prompt-regular-400 font-bold text-4xl text-center"
