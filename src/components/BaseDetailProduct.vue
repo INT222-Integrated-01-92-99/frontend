@@ -12,7 +12,10 @@
             {{ product.proName }}
           </h3>
           <h3 class="text-red-light 2xl:text-2xl text-lg font-semibold">
-            {{ product.proPrice }} THB
+            {{
+              product.proPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }}
+            THB
           </h3>
           <h3 class="2xl:text-base text-lg font-medium">
             {{ product.brand.brandName }}
@@ -41,9 +44,9 @@
                 "
               v-bind:style="{ backgroundColor: color.color.colorCode }"
               :class="{
-                'border-8 border-red-500': products.item.color?.idColor=== color.color.idColor
-                  // 'border-8 border-red-500': product.prowithcolor
-                  
+                'border-8 border-red-500':
+                  products.item.color?.idColor === color.color.idColor,
+                // 'border-8 border-red-500': product.prowithcolor
               }"
             ></div>
           </div>
@@ -52,13 +55,17 @@
               <p>In stocks : {{ product.proAmount }}</p>
             </div>
             <span>Quantity: </span>
-            <button class="cart_button" @click="updateCart('subtract')">
-              -
-            </button>
+            <span class="space-x-3">
+              <button class="cart_button" @click="updateCart('subtract')">
+                -
+              </button>
 
-            <span class="cart_quantity">{{ initialAmount }}</span>
+              <span class="cart_quantity">{{ initialAmount }}</span>
 
-            <button class="cart_button" @click="updateCart('add')">+</button>
+              <button class="cart_button" @click="updateCart('add')">
+                +
+              </button>
+            </span>
           </div>
 
           <div
@@ -116,9 +123,6 @@ export default {
       initialAmount: 0,
       colorArray: [],
       cart: [],
-      cartId: {
-        item: [],
-      },
       account: [],
       products: {
         item: [],
@@ -145,36 +149,77 @@ export default {
       }
     },
     selectColor(color) {
-      this.products.item = color
+      this.products.item = color;
       console.log(this.products.item);
-      console.log(this.cart.cartDetails.product)
     },
     addToCart() {
-      console.log(this.cart.cartDetails.map((c) => c.product.idPro));
-      if(this.initialAmount <= this.cartD.product.proAmount){
-      if (
-        this.cart.cartDetails
-          .map((c) => c.product.idPro)
-          .includes(this.product.idPro)
-      ) {
-        console.log("edit karbbbbbbbb");
+      // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
+      // console.log(this.cart.cartDetails.lenght)
+      console.log("กดค่าาาา")
+      console.log(this.products.item.color?.idColor)
+      if (this.initialAmount <= this.product.proAmount) {
+        if (
+          this.cart.cartDetails
+            .map((c) => c.product.idPro)
+            .includes(this.product.idPro)
+        ) {
+          if (
+            this.cart.cartDetails
+              .map((c) => c.color.idColor)
+              .includes(this.products.item.color?.idColor)
+          ) {
+            console.log("edit karbbbbbbbb");
+            for (let i = 0; i < this.cartD.length; i++) {
+              const editProDetail = {
+                idProduct: this.product.idPro,
+                amount: this.initialAmount,
+                idCartDetail: this.cartD[i].idCartDetail,
+                sendIdColor: this.products.item.color.idColor,
+              };
+
+              this.editDetailPro(editProDetail);
+            }
+          }else{
+            console.log("ออกเถิดหนาแม่")
+            const proForCar = {
+            idProduct: this.product.idPro,
+            amount: this.initialAmount,
+            idCart: this.account.idAccount,
+            sendIdColor: this.products.item.color.idColor,
+          };
+          this.addToCartDetail(proForCar);
+            }
+        } else {
+          console.log("Add cart karbbbbbbbb");
+          console.log(typeof this.products.item);
+          const proForCart = {
+            idProduct: this.product.idPro,
+            amount: this.initialAmount,
+            idCart: this.account.idAccount,
+            sendIdColor: this.products.item.color.idColor,
+          };
+          this.addToCartDetail(proForCart);
+          localStorage.amount =
+            parseInt(localStorage.amount) + this.initialAmount;
+          // window.location.reload();
+          this.initialAmount = 0;
+        }
       } else {
-        console.log("Add cart karbbbbbbbb");
-        console.log(typeof this.products.item);
-        const proForCart = {
-          idProduct: this.product.idPro,
-          amount: this.initialAmount,
-          idCart: this.account.idAccount,
-          sendIdColor: this.products.item.color.idColor,
-        };
-        this.addToCartDetail(proForCart);
-        localStorage.amount =
-          parseInt(localStorage.amount) + this.initialAmount;
-        // window.location.reload();
-        this.initialAmount = 0;
+        alert("Sorry, Product is not enough.");
       }
-      }else{
-        alert("Sorry, Product is not enough.")
+    },
+    async editDetailPro(editQuan) {
+      console.log(editQuan);
+
+      try {
+        await fetch(
+          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          {
+            method: "PUT",
+          }
+        );
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
       }
     },
     async addToCartDetail(proInCart) {
