@@ -1,4 +1,4 @@
-FROM node:latest as frontend
+FROM node:14.16-alpine3.10 as frontend
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
