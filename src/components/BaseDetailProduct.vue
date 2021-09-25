@@ -72,6 +72,15 @@
                 +
               </button>
             </span>
+            
+            <div
+              class="font-prompt-regular-400 text-center text-red-600 mt-2"
+              v-if="SelectAmount"
+            >
+              Please select amount!
+            </div>
+
+
           </div>
 
           <div
@@ -138,6 +147,7 @@ export default {
       idCartDetailArray: [],
       idCartDetail: [],
       ChooseColor: false,
+      SelectAmount: false,
     };
   },
   methods: {
@@ -163,7 +173,7 @@ export default {
     addToCart() {
       // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
       this.checkChoosePro();
-      if(!this.ChooseColor){
+      if(!this.ChooseColor && !this.SelectAmount){
       if (this.initialAmount <= this.product.proAmount) {
         if (
           this.cart.cartDetails
@@ -259,6 +269,7 @@ export default {
     },
     checkChoosePro(){
       this.ChooseColor = this.products.item.length === 0 ? true : false;
+      this.SelectAmount = this.initialAmount === 0 ? true : false;
     }
     //   amountProduct(id){
     // 	return this.totalCart;
