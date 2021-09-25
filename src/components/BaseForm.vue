@@ -581,6 +581,7 @@ export default {
         // "http://localhost:3000/product/" + this.proId
         `${process.env.VUE_APP_ROOT_API}product/` + this.proId
       );
+      this.checkForm();
       this.idProduct = product.idPro;
       this.image = this.urlImage + "/" + product.proPathImg;
       this.img = product.proPathImg;
