@@ -212,7 +212,6 @@ export default {
   },
   async DelAll(proForDel) {
       confirm("Are you sure to clear your cart?");
-      console.log(proForDel);
       try {
         await fetch(
           `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
