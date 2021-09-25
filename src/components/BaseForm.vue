@@ -577,11 +577,11 @@ export default {
     // this.productArray = await this.fetch("http://localhost:3000/product/");
     this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
     if (!isNaN(this.proId)) {
+      this.checkForm();
       const product = await this.fetch(
         // "http://localhost:3000/product/" + this.proId
         `${process.env.VUE_APP_ROOT_API}product/` + this.proId
       );
-      this.checkForm();
       this.idProduct = product.idPro;
       this.image = this.urlImage + "/" + product.proPathImg;
       this.img = product.proPathImg;
