@@ -127,9 +127,8 @@ export default {
       products: {
         item: [],
       },
-
-      //totalCart:0,
-      // proColor: []
+      idCartDetailArray: [],
+      idCartDetail:[],
     };
   },
   methods: {
@@ -154,32 +153,35 @@ export default {
     },
     addToCart() {
       // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
-      // console.log(this.cart.cartDetails.lenght)
-      console.log("กดค่าาาา")
-      console.log(this.products.item.color?.idColor)
       if (this.initialAmount <= this.product.proAmount) {
         if (
           this.cart.cartDetails
             .map((c) => c.product.idPro)
             .includes(this.product.idPro)
-        ) {
+        )
+        {
           if (
             this.cart.cartDetails
               .map((c) => c.color.idColor)
               .includes(this.products.item.color?.idColor)
           ) {
-            console.log("edit karbbbbbbbb");
-            for (let i = 0; i < this.cartD.length; i++) {
-              const editProDetail = {
+            console.log("edit");
+            for (let i = 0; i < this.cart.cartDetails.length; i++) {
+              this.idCartDetailArray.push(this.cart.cartDetails[i])
+              console.log(this.idCartDetailArray)
+            }
+            console.log("ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray)
+            this.idCartDetail = this.idCartDetailArray.find( c => c.product.idPro === this.product.idPro && c.color.idColor == this.products.item.color.idColor)
+            console.log("idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail)
+            const editProDetail = {
                 idProduct: this.product.idPro,
                 amount: this.initialAmount,
-                idCartDetail: this.cartD[i].idCartDetail,
+                sendIdCartDetail: this.idCartDetail.idCartDetail,
                 sendIdColor: this.products.item.color.idColor,
               };
-
-              this.editDetailPro(editProDetail);
-            }
-          }else{
+            this.editDetailPro(editProDetail);
+          }
+          else{
             console.log("ออกเถิดหนาแม่")
             const proForCar = {
             idProduct: this.product.idPro,
@@ -188,10 +190,10 @@ export default {
             sendIdColor: this.products.item.color.idColor,
           };
           this.addToCartDetail(proForCar);
-            }
+            } 
+
         } else {
-          console.log("Add cart karbbbbbbbb");
-          console.log(typeof this.products.item);
+          console.log("Add new product in cart");
           const proForCart = {
             idProduct: this.product.idPro,
             amount: this.initialAmount,
@@ -199,10 +201,10 @@ export default {
             sendIdColor: this.products.item.color.idColor,
           };
           this.addToCartDetail(proForCart);
-          localStorage.amount =
-            parseInt(localStorage.amount) + this.initialAmount;
-          // window.location.reload();
-          this.initialAmount = 0;
+          // localStorage.amount =
+          //   parseInt(localStorage.amount) + this.initialAmount;
+          // // window.location.reload();
+          // this.initialAmount = 0;
         }
       } else {
         alert("Sorry, Product is not enough.");
@@ -213,7 +215,7 @@ export default {
 
       try {
         await fetch(
-          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
           }
@@ -236,42 +238,6 @@ export default {
         console.log(`Could not save! ${error}`);
       }
     },
-
-    //     async editProduct(editPro) {
-    //     this.checkForm()
-    //     editPro.proCol = editPro.proCol.map(e => e = {idPro: editPro.idProduct, color: e.color});
-    //     const jsonPro = await JSON.stringify({
-    //         idPro: editPro.idProduct,
-    //         brand: editPro.brandName,
-    //         proName: editPro.proName,
-    //         proDescript: editPro.proDescription,
-    //         proPrice: editPro.proPrice,
-    //         proMfd: editPro.proMFDDATE,
-    //         proPathImg: editPro.proPathImg,
-    //         item: editPro.proCol,});
-    //     console.log(jsonPro);
-    //     const blob = await new Blob([jsonPro], {
-    //       type: "application/json",
-    //     });
-    //     let formData = new FormData();
-    //     await formData.append("editProduct", blob);
-    //     if(this.imgFile == null){
-    //     const res = await fetch("http://localhost:3000/edit",{
-    //       method: "PUT",
-    //       body: formData
-    //     });
-    //     const data = await res.json()
-    //     console.log(data);
-    //   } else{
-    //     formData.append("image", editPro.imgFile, editPro.proPathImg);
-    //     await fetch("http://localhost:3000/edit/image",{
-    //       method: "PUT",
-    //       body: formData
-    //     });
-    //   }
-
-    // },
-
     //   amountProduct(id){
     // 	return this.totalCart;
     // }
@@ -288,7 +254,6 @@ export default {
     this.product = await this.fetch(this.urlProduct + `/${id}`);
     this.image = await fetch(this.urlImage + "/" + this.product.proPathImg);
     this.cart = await this.fetch("http://localhost:3000/cart/1");
-    this.cartD = await this.fetch("http://localhost:3000/cartdetails");
     this.account = await this.fetch("http://localhost:3000/account/1");
   },
 };
