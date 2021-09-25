@@ -467,7 +467,6 @@ export default {
           proCol: this.product.item,
         };
         this.editProduct(sendEdit);
-        alert("Edited");
       }
       this.clearForm();
     },
@@ -502,6 +501,7 @@ export default {
         });
         const data = await res.json();
         console.log(data)
+        alert("Edited");
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
         // await fetch("http://localhost:3000/edit/image", {
@@ -509,6 +509,7 @@ export default {
           method: "PUT",
           body: formData,
         });
+        alert("Edited");
       }
     },
     uploadImg(event) {
