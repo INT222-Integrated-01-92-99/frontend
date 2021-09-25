@@ -454,6 +454,7 @@ export default {
         alert("Your product is add already.");
         this.clearForm();
       } else {
+        this.checkForm();
         const sendEdit = {
           idProduct: this.idProduct,
           imgFile: this.imgFile,
