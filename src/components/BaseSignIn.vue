@@ -56,21 +56,23 @@
                         <div
                           class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
                         >
-                          <i
+                          <!-- <i
                             class="mdi mdi-email-outline text-gray-400 text-lg"
-                          ></i>
+                          ></i> -->
                         </div>
                         <input
-                          :type="[showPassword ? 'text' : 'password']"
+                          :type="type"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Password"
                         />
-                        <button
-                          class="block"
-                          @click.prevent="showPassword = !showPassword"
-                        >
-                          1
-                        </button>
+                        <div class="relative">
+                          <button
+                            class="absolute inset-y-0 right-0 w-8 border-2 border-gray-200 rounded-r-lg"
+                            @click.prevent="showPassword"
+                          >
+                            <img class="" :src="eye" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -108,12 +110,24 @@
 export default {
   data() {
     return {
-      showPassword: false,
+      type: "password",
+      btnText: "Show Password",
+      eye: require("../assets/icon/show.png"),
+      // showPassword: false,
       // password: "",
       // passwordFieldType: "password",
     };
   },
   methods: {
+    showPassword() {
+      if (this.type === "password") {
+        this.type = "text";
+        this.eye = require("../assets/icon/hide.png");
+      } else {
+        this.type = "password";
+        this.eye = require("../assets/icon/show.png");
+      }
+    },
     // switchVisibility() {
     //   this.passwordFieldType =
     //     this.passwordFieldType === "password" ? "text" : "password";
