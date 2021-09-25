@@ -114,7 +114,7 @@
                     17,859.3 THB
                   </div>
                 </div>
-                <button
+                <button @click="loopCartForDelAll()"
                   class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow item-center hover:bg-gray-dark focus:shadow-outline focus:outline-none"
                 >
                   <span class="ml-2 mt-5px">Clear cart</span>
@@ -143,6 +143,7 @@ export default {
       image: { url: "" },
       urlImage: "http://localhost:3000/image",
       x: 0,
+      cartDetails: [],
     };
   },
   methods: {
@@ -150,27 +151,6 @@ export default {
       const res = await fetch(url);
       const data = await res.json(url);
       return data;
-    },
-    // sendDelAll(clearAll){
-    //   console.log(clearAll.idCartDetail)
-    // },
-    async sendDelAll(clearAll) {
-      confirm("Are you sure to clear your cart?");
-      console.log(clearAll.idCartDetail);
-      try {
-        await fetch(
-          `http://localhost:3000/deletemultipleitemincart?idcartdetail=${clearAll.idCartDetail}`,
-          {
-            method: "DELETE",
-          }
-        );
-      } catch (error) {
-        console.log(`Could not delete all product! ${error}`);
-      }
-
-      // window.location.reload();
-      // localStorage.amount = 0;
-      // return localStorage.amount;
     },
 
     persist(edit) {
@@ -222,6 +202,31 @@ export default {
         idCartDetail: idCartDe.idCartDetail,
       };
       this.deleteOne(oneProDel);
+    },
+    loopCartForDelAll(){
+      for(let i=0; i<this.cart.cartDetails.length; i++){
+        this.cartDetails.push(this.cart.cartDetails[i].idCartDetail)
+      }
+      this.DelAll(this.cartDetails);
+      
+  },
+  async DelAll(proForDel) {
+      confirm("Are you sure to clear your cart?");
+      console.log(proForDel);
+      try {
+        await fetch(
+          `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
+          {
+            method: "DELETE",
+          }
+        );
+      } catch (error) {
+        console.log(`Could not delete all product! ${error}`);
+      }
+
+      // window.location.reload();
+      // localStorage.amount = 0;
+      // return localStorage.amount;
     },
   },
   async created() {
