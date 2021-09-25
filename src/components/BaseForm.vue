@@ -455,32 +455,19 @@ export default {
         this.clearForm();
       } else {
         this.checkForm();
-        if (
-          this.proId == "add" &&
-          // this.image !== require("../assets/icon/clothes-hanger.svg")&&
-          !this.UpPic &&
-          !this.BrandInput &&
-          !this.ProInput &&
-          !this.MFDInput &&
-          !this.InStocksInput &&
-          !this.PriceInput &&
-          !this.DescriptInput &&
-          !this.ChooseColor
-        ) {
-          const sendEdit = {
-            idProduct: this.idProduct,
-            imgFile: this.imgFile,
-            proPathImg: this.img,
-            brandName: this.enterBrand,
-            proName: this.enterProName,
-            proDescription: this.enterDescript,
-            proAmount: this.enterInStocks,
-            proPrice: this.enterPrice,
-            proMFDDATE: this.enterDate,
-            proCol: this.product.item,
-          };
-          this.editProduct(sendEdit);
-        }
+        const sendEdit = {
+          idProduct: this.idProduct,
+          imgFile: this.imgFile,
+          proPathImg: this.img,
+          brandName: this.enterBrand,
+          proName: this.enterProName,
+          proDescription: this.enterDescript,
+          proAmount: this.enterInStocks,
+          proPrice: this.enterPrice,
+          proMFDDATE: this.enterDate,
+          proCol: this.product.item,
+        };
+        this.editProduct(sendEdit);
       }
       this.clearForm();
     },
@@ -514,12 +501,12 @@ export default {
           body: formData,
         });
         const data = await res.json();
-        console.log(data);
+        console.log(data)
         alert("Edited");
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
         // await fetch("http://localhost:3000/edit/image", {
-        await fetch(`${process.env.VUE_APP_ROOT_API}/edit/image`, {
+          await fetch(`${process.env.VUE_APP_ROOT_API}/edit/image`, {
           method: "PUT",
           body: formData,
         });
@@ -589,9 +576,7 @@ export default {
     // this.colorArray = await this.fetch("http://localhost:3000/color");
     this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}color`);
     // this.productArray = await this.fetch("http://localhost:3000/product/");
-    this.productArray = await this.fetch(
-      `${process.env.VUE_APP_ROOT_API}product/`
-    );
+    this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
     if (!isNaN(this.proId)) {
       const product = await this.fetch(
         // "http://localhost:3000/product/" + this.proId
@@ -607,7 +592,7 @@ export default {
       this.enterPrice = product.proPrice;
       this.enterDate = product.proMfd;
       this.product.item = product.prowithcolor;
-      this.checkForm();
+      this.checkForm();    
     }
   },
   watch: {
