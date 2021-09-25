@@ -73,12 +73,12 @@
               </button>
             </span>
             
-            <div
+            <span
               class="font-prompt-regular-400 text-center text-red-600 mt-2"
               v-if="SelectAmount"
             >
               Please select amount!
-            </div>
+            </span>
 
 
           </div>
