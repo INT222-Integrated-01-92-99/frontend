@@ -49,6 +49,12 @@
                 // 'border-8 border-red-500': product.prowithcolor
               }"
             ></div>
+            <div
+              class="font-prompt-regular-400 text-center text-red-600 mt-2"
+              v-if="ChooseColor"
+            >
+              Please select color!
+            </div>
           </div>
           <div class="cart">
             <div class="inStocks flex flex-row">
@@ -130,7 +136,8 @@ export default {
         item: [],
       },
       idCartDetailArray: [],
-      idCartDetail:[],
+      idCartDetail: [],
+      ChooseColor: false,
     };
   },
   methods: {
@@ -155,13 +162,14 @@ export default {
     },
     addToCart() {
       // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
+      this.checkChoosePro();
+      if(!this.ChooseColor){
       if (this.initialAmount <= this.product.proAmount) {
         if (
           this.cart.cartDetails
             .map((c) => c.product.idPro)
             .includes(this.product.idPro)
-        )
-        {
+        ) {
           if (
             this.cart.cartDetails
               .map((c) => c.color.idColor)
@@ -169,31 +177,37 @@ export default {
           ) {
             console.log("edit");
             for (let i = 0; i < this.cart.cartDetails.length; i++) {
-              this.idCartDetailArray.push(this.cart.cartDetails[i])
-              console.log(this.idCartDetailArray)
+              this.idCartDetailArray.push(this.cart.cartDetails[i]);
+              console.log(this.idCartDetailArray);
             }
-            console.log("ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray)
-            this.idCartDetail = this.idCartDetailArray.find( c => c.product.idPro === this.product.idPro && c.color.idColor == this.products.item.color.idColor)
-            console.log("idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail)
+            console.log(
+              "ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray
+            );
+            this.idCartDetail = this.idCartDetailArray.find(
+              (c) =>
+                c.product.idPro === this.product.idPro &&
+                c.color.idColor == this.products.item.color.idColor
+            );
+            console.log(
+              "idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail
+            );
             const editProDetail = {
-                idProduct: this.product.idPro,
-                amount: this.initialAmount,
-                sendIdCartDetail: this.idCartDetail.idCartDetail,
-                sendIdColor: this.products.item.color.idColor,
-              };
+              idProduct: this.product.idPro,
+              amount: this.initialAmount,
+              sendIdCartDetail: this.idCartDetail.idCartDetail,
+              sendIdColor: this.products.item.color.idColor,
+            };
             this.editDetailPro(editProDetail);
-          }
-          else{
-            console.log("ออกเถิดหนาแม่")
+          } else {
+            console.log("ออกเถิดหนาแม่");
             const proForCar = {
-            idProduct: this.product.idPro,
-            amount: this.initialAmount,
-            idCart: this.account.idAccount,
-            sendIdColor: this.products.item.color.idColor,
-          };
-          this.addToCartDetail(proForCar);
-            } 
-
+              idProduct: this.product.idPro,
+              amount: this.initialAmount,
+              idCart: this.account.idAccount,
+              sendIdColor: this.products.item.color.idColor,
+            };
+            this.addToCartDetail(proForCar);
+          }
         } else {
           console.log("Add new product in cart");
           const proForCart = {
@@ -211,6 +225,7 @@ export default {
       } else {
         alert("Sorry, Product is not enough.");
       }
+    }
     },
     async editDetailPro(editQuan) {
       console.log(editQuan);
@@ -242,6 +257,9 @@ export default {
         console.log(`Could not save! ${error}`);
       }
     },
+    checkChoosePro(){
+      this.ChooseColor = this.products.item.length === 0 ? true : false;
+    }
     //   amountProduct(id){
     // 	return this.totalCart;
     // }
