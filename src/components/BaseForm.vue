@@ -577,7 +577,6 @@ export default {
     // this.productArray = await this.fetch("http://localhost:3000/product/");
     this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
     if (!isNaN(this.proId)) {
-      this.checkForm();
       const product = await this.fetch(
         // "http://localhost:3000/product/" + this.proId
         `${process.env.VUE_APP_ROOT_API}product/` + this.proId
@@ -592,6 +591,7 @@ export default {
       this.enterPrice = product.proPrice;
       this.enterDate = product.proMfd;
       this.product.item = product.prowithcolor;
+      this.checkForm();    
     }
   },
   watch: {
