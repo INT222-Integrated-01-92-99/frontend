@@ -505,7 +505,7 @@ export default {
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
         // await fetch("http://localhost:3000/edit/image", {
-          await fetch(`${process.env.VUE_APP_ROOT_API}image`, {
+          await fetch(`${process.env.VUE_APP_ROOT_API}/edit/image`, {
           method: "PUT",
           body: formData,
         });
