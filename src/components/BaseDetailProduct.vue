@@ -44,7 +44,7 @@
                 "
               v-bind:style="{ backgroundColor: color.color.colorCode }"
               :class="{
-                'border-8 border-red-500':
+                'w-8 h-8 border-8 border-red-500':
                   products.item.color?.idColor === color.color.idColor,
                 // 'border-8 border-red-500': product.prowithcolor
               }"

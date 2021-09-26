@@ -50,7 +50,7 @@
                 "
                 v-bind:style="{ backgroundColor: color.colorCode }"
                 :class="{
-                  'border-2 border-red-600': product.item
+                  'w-8 h-8 border-2 border-red-600': product.item
                     .map((c) => c.color.idColor)
                     .includes(color.idColor),
                 }"
