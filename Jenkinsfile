@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('remove whole data') {
+        stage('remove whole data in workspace') {
             steps {
                 sh 'rm -rf *'
             }
