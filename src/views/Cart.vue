@@ -1,6 +1,6 @@
 <template>
   <div class="detail h-screen">
-    <div class="mx-auto fixed w-full bg-gray-extra-light pt-20">
+    <div class="bg-gray-extra-light pt-20">
       <button
         @click="this.$router.push('/product/views')"
         :class="{ 'text-red-light underline': routes == '/product/views' }"
