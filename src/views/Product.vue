@@ -1,7 +1,7 @@
 <template>
   <div class="product mb-5">
     <div
-      class="fixed bg-gray-extra-light pt-20 lg:pr-20 pr-16 flex justify-end space-x-2"
+      class="mx-auto fixed w-full bg-gray-extra-light pt-20 lg:pr-20 pr-16 flex justify-end space-x-2"
     >
       <base-button
         @click="(viewAddChange = true), this.$router.push('/product/views')"
