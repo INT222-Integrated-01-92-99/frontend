@@ -419,21 +419,68 @@ export default {
         item: [],
       };
     },
+    // async submitForm() {
+    //   this.checkForm();
+    //   if (
+    //     this.proId == "add" &&
+    //     // this.image !== require("../assets/icon/clothes-hanger.svg")&&
+    //     !this.UpPic &&
+    //     !this.BrandInput &&
+    //     !this.ProInput &&
+    //     !this.MFDInput &&
+    //     !this.InStocksInput &&
+    //     !this.PriceInput &&
+    //     !this.DescriptInput &&
+    //     !this.ChooseColor
+    //   ) {
+    //     this.idProduct =
+    //       // (await this.fetch("http://localhost:3000/getmaxidPro")) + 1;
+    //       (await this.fetch(`${process.env.VUE_APP_ROOT_API}getmaxidPro`)) + 1;
+    //     const addPro = {
+    //       idProduct: this.idProduct,
+    //       imgFile: this.imgFile,
+    //       proPathImg: this.img,
+    //       brandName: this.enterBrand,
+    //       proName: this.enterProName,
+    //       proDescription: this.enterDescript,
+    //       proAmount: this.enterInStocks,
+    //       proPrice: this.enterPrice,
+    //       proMFDDATE: this.enterDate,
+    //       proCol: this.product.item,
+    //     };
+
+    //     this.$parent.regist(addPro);
+    //     alert("Your product is add already.");
+    //     this.clearForm();
+    //   } else {
+    //     this.checkForm();
+    //     const sendEdit = {
+    //       idProduct: this.idProduct,
+    //       imgFile: this.imgFile,
+    //       proPathImg: this.img,
+    //       brandName: this.enterBrand,
+    //       proName: this.enterProName,
+    //       proDescription: this.enterDescript,
+    //       proAmount: this.enterInStocks,
+    //       proPrice: this.enterPrice,
+    //       proMFDDATE: this.enterDate,
+    //       proCol: this.product.item,
+    //     };
+    //     this.editProduct(sendEdit);
+    //   }
+    //   this.clearForm();
+    // },
     async submitForm() {
-      console.log(this.enterBrand);
       this.checkForm();
-      if (
-        this.proId == "add" &&
-        // this.image !== require("../assets/icon/clothes-hanger.svg")&&
-        !this.UpPic &&
+      if (this.proId == "add"){
+        if(!this.UpPic &&
         !this.BrandInput &&
         !this.ProInput &&
         !this.MFDInput &&
         !this.InStocksInput &&
         !this.PriceInput &&
         !this.DescriptInput &&
-        !this.ChooseColor
-      ) {
+        !this.ChooseColor) {
         this.idProduct =
           // (await this.fetch("http://localhost:3000/getmaxidPro")) + 1;
           (await this.fetch(`${process.env.VUE_APP_ROOT_API}getmaxidPro`)) + 1;
@@ -453,8 +500,17 @@ export default {
         this.$parent.regist(addPro);
         alert("Your product is add already.");
         this.clearForm();
+      }
       } else {
         this.checkForm();
+        if(!this.UpPic &&
+        !this.BrandInput &&
+        !this.ProInput &&
+        !this.MFDInput &&
+        !this.InStocksInput &&
+        !this.PriceInput &&
+        !this.DescriptInput &&
+        !this.ChooseColor){
         const sendEdit = {
           idProduct: this.idProduct,
           imgFile: this.imgFile,
@@ -470,6 +526,7 @@ export default {
         this.editProduct(sendEdit);
       }
       this.clearForm();
+      }
     },
     async editProduct(editPro) {
       console.log(editPro);
