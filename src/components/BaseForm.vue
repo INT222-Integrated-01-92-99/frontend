@@ -199,6 +199,7 @@
                   focus:border-indigo-500
                   focus:outline-none
                 "
+                min="0"
                 :class="{ 'bg-red-50': InStocksInput }"
                 id="proAmount"
                 type="number"
@@ -211,7 +212,7 @@
               class="font-prompt-regular-400 text-red-600"
             >
               Please enter in stocks! (Do not use decimal number, negative
-              integer and comma.)
+              integer.)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -236,6 +237,7 @@
                 "
                 :class="{ 'bg-red-50': PriceInput }"
                 id="price"
+                min="1"
                 type="number"
                 placeholder="Price"
                 v-model.trim="enterPrice"
@@ -243,7 +245,7 @@
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
               Please enter your Price! (Do not use decimal number, negative
-              integer and comma.)
+              integer.)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"

@@ -60,9 +60,18 @@
             <div class="inStocks flex flex-row">
               <p>In stocks : {{ product.proAmount }}</p>
             </div>
-            <span>Quantity: </span>
-            <span class="space-x-3">
-              <button class="cart_button" @click="updateCart('subtract')">
+            <div class="mt-3 space-x-3 inline-flex">
+              <span>Quantity : </span>
+              <span class="relative flex flex-row w-20">
+                <input
+                  type="number"
+                  min="0"
+                  v-model="this.initialAmount"
+                  @change="boxQuan(this.initialAmount, product)"
+                  class="w-full font-medium text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
+                />
+              </span>
+              <!--  <button class="cart_button" @click="updateCart('subtract')">
                 -
               </button>
 
@@ -70,17 +79,14 @@
 
               <button class="cart_button" @click="updateCart('add')">
                 +
-              </button>
-            </span>
-            
+              </button> -->
+            </div>
             <span
               class="font-prompt-regular-400 text-center text-red-600 mt-2"
               v-if="SelectAmount"
             >
-              Please select amount!
+              Please select amount and amount cannot be negative number!
             </span>
-
-
           </div>
 
           <div
@@ -156,16 +162,16 @@ export default {
       const data = await res.json(url);
       return data;
     },
-    updateCart(updateType) {
-      if (updateType === "subtract") {
-        if (this.initialAmount !== 0) {
-          //ก็แค่เพื่อไม่ให้จำนวนสินค้าติดลบ
-          this.initialAmount--;
-        }
-      } else {
-        this.initialAmount++;
-      }
-    },
+    // updateCart(updateType) {
+    //   if (updateType === "subtract") {
+    //     if (this.initialAmount !== 0) {
+    //       //ก็แค่เพื่อไม่ให้จำนวนสินค้าติดลบ
+    //       this.initialAmount--;
+    //     }
+    //   } else {
+    //     this.initialAmount++;
+    //   }
+    // },
     selectColor(color) {
       this.products.item = color;
       console.log(this.products.item);
@@ -173,75 +179,76 @@ export default {
     addToCart() {
       // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
       this.checkChoosePro();
-      if(!this.ChooseColor && !this.SelectAmount){
-      if (this.initialAmount <= this.product.proAmount) {
-        if (
-          this.cart.cartDetails
-            .map((c) => c.product.idPro)
-            .includes(this.product.idPro)
-        ) {
+      if (!this.ChooseColor && !this.SelectAmount) {
+        if (this.initialAmount <= this.product.proAmount) {
           if (
             this.cart.cartDetails
-              .map((c) => c.color.idColor)
-              .includes(this.products.item.color?.idColor)
+              .map((c) => c.product.idPro)
+              .includes(this.product.idPro)
           ) {
-            console.log("edit");
-            for (let i = 0; i < this.cart.cartDetails.length; i++) {
-              this.idCartDetailArray.push(this.cart.cartDetails[i]);
-              console.log(this.idCartDetailArray);
+            if (
+              this.cart.cartDetails
+                .map((c) => c.color.idColor)
+                .includes(this.products.item.color?.idColor)
+            ) {
+              console.log("edit");
+              for (let i = 0; i < this.cart.cartDetails.length; i++) {
+                this.idCartDetailArray.push(this.cart.cartDetails[i]);
+                console.log(this.idCartDetailArray);
+              }
+              console.log(
+                "ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray
+              );
+              this.idCartDetail = this.idCartDetailArray.find(
+                (c) =>
+                  c.product.idPro === this.product.idPro &&
+                  c.color.idColor == this.products.item.color.idColor
+              );
+              console.log(
+                "idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail
+              );
+              const editProDetail = {
+                idProduct: this.product.idPro,
+                amount: this.initialAmount,
+                sendIdCartDetail: this.idCartDetail.idCartDetail,
+                sendIdColor: this.products.item.color.idColor,
+              };
+              this.editDetailPro(editProDetail);
+            
+            } else {
+              //      if (
+              //   this.cart.cartDetails
+              //     .map((c) => !c.product.idPro)
+              //     .includes(this.product.idPro)
+              // ){
+              console.log("ADD");
+              const proForCar = {
+                idProduct: this.product.idPro,
+                amount: this.initialAmount,
+                idCart: this.account.idAccount,
+                sendIdColor: this.products.item.color.idColor,
+              };
+              this.addToCartDetail(proForCar);
+              // }
             }
-            console.log(
-              "ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray
-            );
-            this.idCartDetail = this.idCartDetailArray.find(
-              (c) =>
-                c.product.idPro === this.product.idPro &&
-                c.color.idColor == this.products.item.color.idColor
-            );
-            console.log(
-              "idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail
-            );
-            const editProDetail = {
-              idProduct: this.product.idPro,
-              amount: this.initialAmount,
-              sendIdCartDetail: this.idCartDetail.idCartDetail,
-              sendIdColor: this.products.item.color.idColor,
-            };
-            this.editDetailPro(editProDetail);
           } else {
-        //      if (
-        //   this.cart.cartDetails
-        //     .map((c) => !c.product.idPro)
-        //     .includes(this.product.idPro)
-        // ){
-            console.log("ADD");
-            const proForCar = {
+            console.log("Add new product in cart");
+            const proForCart = {
               idProduct: this.product.idPro,
               amount: this.initialAmount,
               idCart: this.account.idAccount,
               sendIdColor: this.products.item.color.idColor,
             };
-            this.addToCartDetail(proForCar);
-          // }
-        }
+            this.addToCartDetail(proForCart);
+            // localStorage.amount =
+            //   parseInt(localStorage.amount) + this.initialAmount;
+            // // window.location.reload();
+            // this.initialAmount = 0;
+          }
         } else {
-          console.log("Add new product in cart");
-          const proForCart = {
-            idProduct: this.product.idPro,
-            amount: this.initialAmount,
-            idCart: this.account.idAccount,
-            sendIdColor: this.products.item.color.idColor,
-          };
-          this.addToCartDetail(proForCart);
-          // localStorage.amount =
-          //   parseInt(localStorage.amount) + this.initialAmount;
-          // // window.location.reload();
-          // this.initialAmount = 0;
+          alert("Sorry, Product is not enough.");
         }
-      } else {
-        alert("Sorry, Product is not enough.");
       }
-    }
     },
     async editDetailPro(editQuan) {
       console.log(editQuan);
@@ -254,6 +261,7 @@ export default {
             method: "PUT",
           }
         );
+        alert("Edit your cart already")
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -269,15 +277,30 @@ export default {
             method: "POST",
           }
         );
+        // this.cart = await this.fetch("http://localhost:3000/cart/1");
         this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+        alert("Add to cart")
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
     },
-    checkChoosePro(){
+    checkChoosePro() {
       this.ChooseColor = this.products.item.length === 0 ? true : false;
       this.SelectAmount = this.initialAmount === 0 ? true : false;
-    }
+    },
+    boxQuan(initial, product) {
+      // localStorage.amount = quantity;
+      // console.log(this.quantity);
+      if(initial < 0){
+        this.SelectAmount = true;
+        this.initialAmount = 0;
+      } else {
+        if(initial > product.proAmount){
+        alert("Sorry, Product is not enough.");
+        this.initialAmount = 0;
+        }
+      }
+    },
     //   amountProduct(id){
     // 	return this.totalCart;
     // }
@@ -287,8 +310,10 @@ export default {
     // if (localStorage.amount) {
     //   this.initialAmount = localStorage.amount;
     // }
+
+    //ไม่ได้ใช้
     // this.colorArray = await this.fetch("http://localhost:3000/color");
-    this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}image`);
+    // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}color`);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get("id");

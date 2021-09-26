@@ -167,7 +167,10 @@ export default {
         alert("Sorry, Product is not enough.");
         edit.proPerPiece = 1;
       } else{
-        this.removeOne(edit.idCartDetail);
+        const delProWhenZero ={
+          idCartDetail: edit.idCartDetail,
+        }
+        this.removeOne(delProWhenZero);
       }
       // localStorage.amount = quantity;
       // console.log(this.quantity);
