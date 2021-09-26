@@ -209,11 +209,11 @@ export default {
             };
             this.editDetailPro(editProDetail);
           } else {
-             if (
-          this.cart.cartDetails
-            .map((c) => !c.product.idPro)
-            .includes(this.product.idPro)
-        ){
+        //      if (
+        //   this.cart.cartDetails
+        //     .map((c) => !c.product.idPro)
+        //     .includes(this.product.idPro)
+        // ){
             console.log("ADD");
             const proForCar = {
               idProduct: this.product.idPro,
@@ -222,7 +222,7 @@ export default {
               sendIdColor: this.products.item.color.idColor,
             };
             this.addToCartDetail(proForCar);
-          }
+          // }
         }
         } else {
           console.log("Add new product in cart");
