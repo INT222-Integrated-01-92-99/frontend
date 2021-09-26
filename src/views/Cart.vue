@@ -165,8 +165,9 @@ export default {
         this.editAmount(editQuan);
       } else if(edit.proPerPiece > edit.product.proAmount) {
         alert("Sorry, Product is not enough.");
+        edit.proPerPiece = 1;
       } else{
-        this.deleteOne(edit.idCartDetail);
+        this.removeOne(edit.idCartDetail);
       }
       // localStorage.amount = quantity;
       // console.log(this.quantity);
