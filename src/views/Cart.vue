@@ -155,19 +155,18 @@ export default {
     },
 
     persist(edit) {
-      if (edit.proPerPiece <= edit.product.proAmount) {
+      if (edit.proPerPiece <= edit.product.proAmount && edit.proPerPiece >=1) {
         const editQuan = {
           idProduct: edit.product.idPro,
           amount: edit.proPerPiece,
           idCartDetail: edit.idCartDetail,
           sendIdColor: edit.color.idColor,
         };
-        this.x = edit.proPerPiece;
         this.editAmount(editQuan);
-      } else {
-        this.x = edit.proPerPiece;
+      } else if(edit.proPerPiece > edit.product.proAmount) {
         alert("Sorry, Product is not enough.");
-        this.x;
+      } else{
+        this.deleteOne(edit.idCartDetail);
       }
       // localStorage.amount = quantity;
       // console.log(this.quantity);
