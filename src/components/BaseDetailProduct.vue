@@ -170,7 +170,7 @@ export default {
       this.products.item = color;
       console.log(this.products.item);
     },
-    addToCart() {
+    async addToCart() {
       // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
       this.checkChoosePro();
       if(!this.ChooseColor && !this.SelectAmount){
@@ -222,6 +222,7 @@ export default {
               sendIdColor: this.products.item.color.idColor,
             };
             this.addToCartDetail(proForCar);
+            this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
           // }
         }
         } else {
@@ -233,6 +234,7 @@ export default {
             sendIdColor: this.products.item.color.idColor,
           };
           this.addToCartDetail(proForCart);
+          this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
           // localStorage.amount =
           //   parseInt(localStorage.amount) + this.initialAmount;
           // // window.location.reload();
