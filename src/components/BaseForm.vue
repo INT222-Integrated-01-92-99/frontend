@@ -210,8 +210,8 @@
               v-if="InStocksInput"
               class="font-prompt-regular-400 text-red-600"
             >
-              Please enter in stocks! (Do not use decimal number and negative
-              integer)
+              Please enter in stocks! (Do not use decimal number, negative
+              integer and comma.)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -236,14 +236,14 @@
                 "
                 :class="{ 'bg-red-50': PriceInput }"
                 id="price"
-                type="text"
+                type="number"
                 placeholder="Price"
                 v-model.trim="enterPrice"
               />
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your Price! (Do not use decimal number and negative
-              integer)
+              Please enter your Price! (Do not use decimal number, negative
+              integer and comma.)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
