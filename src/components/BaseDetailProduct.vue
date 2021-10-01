@@ -25,7 +25,6 @@
           </p>
           <p class="2xl:text-base text-sm">MFD : {{ product.proMfd }}</p>
           <span>Color</span>
-          {{ products.item }}
           <div class="flex flex-row">
             <div
               @click="selectColor(color)"
