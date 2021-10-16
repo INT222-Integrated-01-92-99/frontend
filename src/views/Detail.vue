@@ -20,7 +20,15 @@ export default {
   data() {
     return {
       routes: "/product/views",
+      amount: 0,
     };
   },
+  methods:{
+    // showNumToParent(num){
+    //   console.log("showNumToParent() work!")
+    //   this.amount = num
+    //   // this.$parent.showNumCart(this.amount);
+    // }
+  }
 };
 </script>

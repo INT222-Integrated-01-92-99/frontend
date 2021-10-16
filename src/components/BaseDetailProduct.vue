@@ -70,15 +70,7 @@
                   class="w-full font-medium text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                 />
               </span>
-              <!--  <button class="cart_button" @click="updateCart('subtract')">
-                -
-              </button>
-
-              <span class="cart_quantity">{{ initialAmount }}</span>
-
-              <button class="cart_button" @click="updateCart('add')">
-                +
-              </button> -->
+              
             </div>
             <span
               class="font-prompt-regular-400 text-center text-red-600 mt-2"
@@ -135,14 +127,14 @@ export default {
   data() {
     return {
       product: { brand: { brandName: "" } },
-      // urlProduct: "http://localhost:3000/product",
-      urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
+      urlProduct: "http://localhost:3000/product",
+      // urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
       sendToDelete: false,
       sendId: 0,
-      // urlImage: "http://localhost:3000/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}image`,
+      urlImage: "http://localhost:3000/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
       image: { url: "" },
-      initialAmount: 0,
+      initialAmount: 1,
       colorArray: [],
       cart: [],
       account: [],
@@ -153,6 +145,7 @@ export default {
       idCartDetail: [],
       ChooseColor: false,
       SelectAmount: false,
+      numCart: 0,
     };
   },
   methods: {
@@ -161,16 +154,23 @@ export default {
       const data = await res.json(url);
       return data;
     },
-    // updateCart(updateType) {
-    //   if (updateType === "subtract") {
-    //     if (this.initialAmount !== 0) {
-    //       //ก็แค่เพื่อไม่ให้จำนวนสินค้าติดลบ
-    //       this.initialAmount--;
-    //     }
-    //   } else {
-    //     this.initialAmount++;
-    //   }
+    memLocal(num){
+      // localStorage.amount =
+            //   parseInt(localStorage.amount) + this.initialAmount;
+            // // window.location.reload();
+            // this.initialAmount = 0;
+      localStorage.amount = num
+      
+    },
+    // sendNumPro(recNumCart){
+    //   console.log("sendNumPro() worked!")
+    //   const num = {
+    //       numCart: recNumCart,
+    //     };
+
+    //     this.$parent.showNumToParent(num);
     // },
+  
     selectColor(color) {
       this.products.item = color;
       console.log(this.products.item);
@@ -239,10 +239,6 @@ export default {
               sendIdColor: this.products.item.color.idColor,
             };
             this.addToCartDetail(proForCart);
-            // localStorage.amount =
-            //   parseInt(localStorage.amount) + this.initialAmount;
-            // // window.location.reload();
-            // this.initialAmount = 0;
           }
         } else {
           alert("Sorry, Product is not enough.");
@@ -254,8 +250,8 @@ export default {
 
       try {
         await fetch(
-          // `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
           }
@@ -267,18 +263,22 @@ export default {
     },
     async addToCartDetail(proInCart) {
       console.log(proInCart);
-
+      this.numCart++
+      console.log("numcart = " + this.numCart);
       try {
         await fetch(
-          // `http://localhost:3000/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          `http://localhost:3000/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
           {
             method: "POST",
           }
         );
-        // this.cart = await this.fetch("http://localhost:3000/cart/1");
-        this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
         alert("Add to cart")
+        this.memLocal(parseInt(this.numCart));
+        this.$forceUpdate();
+        // this.sendNumPro(this.numCart)
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -288,27 +288,22 @@ export default {
       this.SelectAmount = this.initialAmount === 0 ? true : false;
     },
     boxQuan(initial, product) {
-      // localStorage.amount = quantity;
-      // console.log(this.quantity);
       if(initial < 0){
         this.SelectAmount = true;
-        this.initialAmount = 0;
+        this.initialAmount
       } else {
         if(initial > product.proAmount){
         alert("Sorry, Product is not enough.");
-        this.initialAmount = 0;
+        this.initialAmount
         }
       }
     },
-    //   amountProduct(id){
-    // 	return this.totalCart;
-    // }
   },
   computed: {},
   async created() {
-    // if (localStorage.amount) {
-    //   this.initialAmount = localStorage.amount;
-    // }
+    if (localStorage.amount) {
+      this.numCart = localStorage.amount;
+    }
 
     //ไม่ได้ใช้
     // this.colorArray = await this.fetch("http://localhost:3000/color");
@@ -318,10 +313,10 @@ export default {
     const id = urlParams.get("id");
     this.product = await this.fetch(this.urlProduct + `/${id}`);
     this.image = await fetch(this.urlImage + "/" + this.product.proPathImg);
-    // this.cart = await this.fetch("http://localhost:3000/cart/1");
-    this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-    // this.account = await this.fetch("http://localhost:3000/account/1");
-    this.account = await this.fetch(`${process.env.VUE_APP_ROOT_API}account/1`);
+    this.cart = await this.fetch("http://localhost:3000/cart/1");
+    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+    this.account = await this.fetch("http://localhost:3000/account/1");
+    // this.account = await this.fetch(`${process.env.VUE_APP_ROOT_API}account/1`);
   },
 };
 </script>
