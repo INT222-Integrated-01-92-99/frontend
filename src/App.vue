@@ -1,5 +1,169 @@
 <template>
-  <nav
+  <body class="antialiased">
+    <nav
+      class="navbar mx-auto fixed w-full md:pr-16 top-0 text-black bg-white border-b-2 border-black flex flex-wrap items-center"
+    >
+      <div class="pl-10 flex-1 flex justify-between items-center">
+        <router-link
+          @click="changePath('/')"
+          to="/"
+          class="font-rozha text-2xl font-medium p-2"
+          >PUSH & PULL
+        </router-link>
+      </div>
+
+      <label for="menu-toggle" class="pointer-cursor lg:hidden block"
+        ><svg
+          class="fill-current text-gray-900"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+        >
+          <title>menu</title>
+          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg
+      ></label>
+      <input class="hidden" type="checkbox" id="menu-toggle" />
+
+      <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
+        <nav>
+          <ul
+            class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0 pl-10"
+          >
+            <li>
+              <router-link
+                @click="changePath('/')"
+                to="/"
+                :class="{ 'text-red-light': routes == '/' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                >Home</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                @click="changePath('/team')"
+                to="/team"
+                :class="{ 'text-red-light': routes == '/team' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                >Team</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                @click="changePath('/product/views')"
+                to="/product/views"
+                :class="{ 'text-red-light': routes == '/product/views' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                >Product</router-link
+              >
+            </li>
+
+            <li>
+              <router-link
+                @click="changePath('/signup')"
+                to="/signup"
+                :class="{ 'text-red-light': routes == '/signup' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                >Sign Up</router-link
+              >
+            </li>
+            <!-- <li class="md:visible invisible font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0">|</li> -->
+            <li>
+              <router-link
+                @click="changePath('/signin')"
+                to="/signin"
+                :class="{ 'text-red-light': routes == '/signin' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+              >
+                Sign In
+              </router-link>
+            </li>
+
+            <li>
+              <div class="2xl:relative lg:p-4 py-3 px-0">
+                <button
+                  @click="isOpen = !isOpen"
+                  class="mt-1 focus:outline-none "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"
+                    />
+                  </svg>
+                </button>
+                <div
+                  v-if="isOpen"
+                  @click="isOpen = false"
+                  class="2xl:fixed top-0 right-0 bottom-0 left-0 h-full w-full"
+                ></div>
+                <div
+                  v-if="isOpen"
+                  class="2xl:absolute bg-white 2xl:border 2xl:border-black 2xl:rounded-sm w-max"
+                >
+                  <router-link
+                    @click="changePath('/profile')"
+                    to="/profile"
+                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
+                    >My Profile</router-link
+                  >
+                  <router-link
+                    @click="changePath('/reciept')"
+                    to="/reciept"
+                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
+                    >Purchase History</router-link
+                  >
+                  <router-link
+                    @click="changePath('/')"
+                    to="/"
+                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
+                    >Log Out</router-link
+                  >
+                </div>
+              </div>
+            </li>
+            <li>
+              <router-link
+                @click="changePath('/cart')"
+                to="/cart"
+                :class="{
+                  'border-red-light': routes == '/cart',
+                }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                ><button class="mt-1 focus:outline-none">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    enable-background="new 0 0 24 24"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                  >
+                    <g>
+                      <rect fill="none" height="24" width="24" />
+                      <path
+                        d="M18,6h-2c0-2.21-1.79-4-4-4S8,3.79,8,6H6C4.9,6,4,6.9,4,8v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8C20,6.9,19.1,6,18,6z M12,4c1.1,0,2,0.9,2,2h-4C10,4.9,10.9,4,12,4z M18,20H6V8h2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V8h4v2c0,0.55,0.45,1,1,1s1-0.45,1-1V8 h2V20z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <span class="font-prompt-regular-400 total-quantity">
+                  {{ totalQuantity }}
+                </span></router-link
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+
+    <!-- <nav
     class="navbar mx-auto fixed w-full p-3 pr-20 md:pr-16 top-0 text-black bg-white border-b-2 border-black"
   >
     <ul class="2xl:space-x-10 space-x-8 mt-1 flex-row">
@@ -44,12 +208,12 @@
           >
         </li>
         <div class="space-x-5" style="float:right">
-          <!-- <li>
+          <li>
             <router-link
               style="float:right"
-              @click="changePath('/sign-up')"
-              to="/sign-up"
-              :class="{ 'text-red-light': routes == '/sign-up' }"
+              @click="changePath('/signup')"
+              to="/signup"
+              :class="{ 'text-red-light': routes == '/signup' }"
               class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
               >Sign Up</router-link
             >
@@ -58,14 +222,14 @@
           <li>
             <router-link
               style="float:right"
-              @click="changePath('/sign-in')"
-              to="/sign-in"
-              :class="{ 'text-red-light': routes == '/sign-in' }"
+              @click="changePath('/signin')"
+              to="/signin"
+              :class="{ 'text-red-light': routes == '/signin' }"
               class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
             >
               Sign In
             </router-link>
-          </li> -->
+          </li>
           <li>
             <router-link
               style="float:right"
@@ -91,138 +255,16 @@
                 <img class="" src="./assets/icon/shopping-bag.svg" />
               </button>
               <span class="font-prompt-regular-400 total-quantity">
-                {{ numCart() }}
+                {{ totalQuantity }}
               </span></router-link
             >
           </li>
         </div>
       </div>
     </ul>
-  </nav>
-  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <router-link
-      style="float:left"
-      @click="changePath('/')"
-      to="/"
-      class="ml-20 font-rozha text-2xl font-medium p-2"
-      >PUSH & PULL
-    </router-link>
-    
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-   
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link
-            style="float:left"
-            @click="changePath('/')"
-            to="/"
-            :class="{ 'text-red-light': routes == '/' }"
-            class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
-            >Home</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link
-            style="float:left"
-            @click="changePath('/team')"
-            to="/team"
-            :class="{ 'text-red-light': routes == '/team' }"
-            class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
-            >Team</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link
-            style="float:left"
-            @click="changePath('/product/views')"
-            to="/product/views"
-            :class="{ 'text-red-light': routes == '/product/views' }"
-            class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
-            >Product</router-link
-          >
-        </li>
-      </ul>
-      <li>
-        <router-link
-          style="float:right"
-          @click="changePath('/sign-up')"
-          to="/sign-up"
-          :class="{ 'text-red-light': routes == '/sign-up' }"
-          class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
-          >Sign Up</router-link
-        >
-      </li>
-      <li class="pt-2">|</li>
-      <li>
-        <router-link
-          style="float:right"
-          @click="changePath('/sign-in')"
-          to="/sign-in"
-          :class="{ 'text-red-light': routes == '/sign-in' }"
-          class="mt-1 font-prompt-regular-400 text-base font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:text-red-light active:translate-y-0 p-2"
-        >
-          Sign In
-        </router-link>
-      </li>
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <button class="mt-1 focus:outline-none">
-            <img class="" src="./assets/icon/account.svg" />
-          </button>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <router-link
-            @click="changePath('/profile')"
-            to="/profile"
-            :class="{ 'text-red-light': routes == '/profile' }"
-            class="dropdown-item"
-            href="#"
-            >Profile</router-link
-          >
-          <a class="dropdown-item" href="#">Purchase History</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Logout</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <router-link
-          @click="changePath('/cart')"
-          to="/cart"
-          :class="{
-            'bg-red-light rounded-sm text-white': routes == '/cart',
-          }"
-          class="text-base hover:text-white font-medium transition ease-in duration-300 transform hover:-translate-y-1 hover:bg-red-light active:translate-y-0 p-2"
-          ><button class="mt-1 focus:outline-none">
-            <img class="" src="./assets/icon/shopping-bag.svg" />
-          </button>
-          <span class="font-prompt-regular-400 total-quantity">
-            {{ numCart() }}
-          </span></router-link
-        >
-      </li>
-    </div>
   </nav> -->
-
-  <router-view />
+    <router-view />
+  </body>
 </template>
 
 <script>
@@ -232,11 +274,23 @@ export default {
   data() {
     return {
       routes: "/",
+      isOpen: false,
       initialAmount: 0,
       amountOnCart: 0,
       cart: [],
     };
   },
+  // created() {
+  //   const handleEscape = (e) => {
+  //     if (e.key === "Esc" || e.key === "Escape") {
+  //       this.isOpen = false;
+  //     }
+  //   };
+  //   document.addEventListener("keydown", handleEscape);
+  //   this.vm.$once("hook:beforeDestroy", () => {
+  //     document.removeEventListener("keydown", handleEscape);
+  //   });
+  // },
   methods: {
     changePath(path) {
       this.routes = path;
@@ -247,39 +301,44 @@ export default {
         navToggle.item(i).classList.toggle("hidden");
       }
     },
-    numCart() {
-      // console.log(this.cart.cartDetails.length)
-      // return this.cart.cartDetails.length
-    },
+    // numCart() {
+    //   // console.log(this.cart.cartDetails.length)
+    //   // return this.cart.cartDetails.length
+    // },
+    // showNumCart(recieveNum){
+    //   console.log("ShowNumCart() Worked!")
+    //   this.amountOnCart = recieveNum;
+    // },
     async fetch(url) {
       const res = await fetch(url);
       const data = await res.json(url);
       return data;
     },
   },
-  // watch: {
-  //   trueToCart: function check() {
-  //     if (this.trueToCart == true) {
-  //       this.totalQuantity();
-  //     }
-  //   },
-  // },
+  watch: {
+    "localStorage.amount": function check() {
+      // console.log(this.totalQuantity())
+    },
+  },
   computed: {
-    // totalQuantity() {
-    //   //มีproductทั้งหมดกี่ชิ้นในตระกร้า (ไว้แสดงบนรูปตระกร้า)
-    //   // return this.amountOnCart + this.initialAmount;
-    //   // return localStorage.amount;
-    //   return this.cart.cartDetails.length
-    // },
+    totalQuantity() {
+      //มีproductทั้งหมดกี่ชิ้นในตระกร้า (ไว้แสดงบนรูปตระกร้า)
+      // return this.amountOnCart + this.initialAmount;
+      return localStorage.getItem("amount");
+    },
   },
   async created() {
-    // this.cart = await this.fetch("http://localhost:3000/cart/1");
-    this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+    this.cart = await this.fetch("http://localhost:3000/cart/1");
+    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
   },
 };
 </script>
 
 <style>
+#menu-toggle:checked + #menu {
+  display: block;
+}
+
 nav {
   z-index: 10;
 }
@@ -289,10 +348,14 @@ nav.scrolled {
   border-bottom: 0px;
 }
 
-li {
+/* svg:hover {
+  fill: #a34655;
+} */
+
+/* li {
   float: left;
   display: block;
   text-align: left;
   text-decoration: none;
-}
+} */
 </style>
