@@ -19,7 +19,7 @@
                 <p
                   class="font-prompt-regular-400 text-red-light lg:text-base text-sm pt-2"
                 >
-                  Backend, Database, Network
+                  Backend, Database
                 </p>
               </div>
             </div>
@@ -37,7 +37,7 @@
                 <p
                   class="font-prompt-regular-400 text-red-light lg:text-base text-sm pt-2"
                 >
-                  Front-end Developer, Database, Devops, Network
+                  Front-end Developer, Database, Devops
                 </p>
               </div>
             </div>
@@ -55,7 +55,7 @@
                 <p
                   class="font-prompt-regular-400 text-red-light lg:text-base text-sm pt-2"
                 >
-                  Front-end Developer, Database, Devops, Network
+                  Front-end Developer, Database, Devops
                 </p>
               </div>
             </div>
