@@ -141,8 +141,8 @@ export default {
       cart: [],
       quantity: localStorage.amount,
       image: { url: "" },
-      // urlImage: "http://localhost:3000/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}image`,
+      urlImage: "http://localhost:3000/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
       x: 0,
       cartDetails: [],
     };
@@ -180,8 +180,8 @@ export default {
 
       try {
         await fetch(
-          // `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
           }
@@ -193,12 +193,13 @@ export default {
     async deleteOne(deletePro) {
       try {
         await fetch(
-          // `http://localhost:3000/deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
-          `${process.env.VUE_APP_ROOT_API}deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
+          `http://localhost:3000/deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
+          // `${process.env.VUE_APP_ROOT_API}deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
           {
             method: "DELETE",
           }
         );
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
       } catch (error) {
         console.log(`Could not delete! ${error}`);
       }
@@ -208,20 +209,21 @@ export default {
         idCartDetail: idCartDe.idCartDetail,
       };
       this.deleteOne(oneProDel);
+      localStorage.amount--;
     },
     loopCartForDelAll(){
       for(let i=0; i<this.cart.cartDetails.length; i++){
         this.cartDetails.push(this.cart.cartDetails[i].idCartDetail)
       }
       this.DelAll(this.cartDetails);
-      
+      localStorage.amount = 0;
   },
   async DelAll(proForDel) {
       confirm("Are you sure to clear your cart?");
       try {
         await fetch(
-          // `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
-          `${process.env.VUE_APP_ROOT_API}deletemultipleitemincart?idcartdetail=${proForDel}`,
+          `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
+          // `${process.env.VUE_APP_ROOT_API}deletemultipleitemincart?idcartdetail=${proForDel}`,
           {
             method: "DELETE",
           }
@@ -229,15 +231,15 @@ export default {
       } catch (error) {
         console.log(`Could not delete all product! ${error}`);
       }
-
+      this.cart = await this.fetch("http://localhost:3000/cart/1");
       // window.location.reload();
       // localStorage.amount = 0;
       // return localStorage.amount;
     },
   },
   async created() {
-    // this.cart = await this.fetch("http://localhost:3000/cart/1");
-    this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+    this.cart = await this.fetch("http://localhost:3000/cart/1");
+    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
     // this.image = await fetch(this.urlImage + "/" + this.cart.cartDetails.product.proPathImg);
     if (this.quantity) {
       this.quantity = localStorage.amount;

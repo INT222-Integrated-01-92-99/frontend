@@ -86,12 +86,12 @@ export default {
     return {
       brandArray: [],
       productArray: [],
-      urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
-      urlBrand: `${process.env.VUE_APP_ROOT_API}brand`,
-      urlImage: `${process.env.VUE_APP_ROOT_API}image`,
-      // urlProduct: "http://localhost:3000/product",
-      // urlBrand: "http://localhost:3000/brand",
-      // urlImage: "http://localhost:3000/image",
+      // urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
+      // urlBrand: `${process.env.VUE_APP_ROOT_API}brand`,
+      // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
+      urlProduct: "http://localhost:3000/product",
+      urlBrand: "http://localhost:3000/brand",
+      urlImage: "http://localhost:3000/image",
       sendToDelete: false,
       sendId: 0,
     };
