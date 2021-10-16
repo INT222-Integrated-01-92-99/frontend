@@ -7,6 +7,8 @@ import Cart from '../views/Cart.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import Profile from '../views/Profile.vue'
+import Receipt from '../views/Receipt.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -24,7 +26,15 @@ const routes = [
     alias: '/product',
     name: 'Product',
     component: Product,
-    props: true
+    props: true,
+    // beforeEnter: (to, from, next) => {
+    //   if(store.getters['auth/authenticated'] && role =='staff'){
+    //     return next({
+    //       path: '/product/add'
+    //     })
+    //   }
+    //   next()
+    // }
   },
   {
     path: '/detail',
@@ -33,12 +43,12 @@ const routes = [
 
   },
   {
-    path: '/sign-in',
+    path: '/signin',
     name: 'SignIn',
     component: SignIn,
   },
   {
-    path: '/sign-up',
+    path: '/signup',
     name: 'SignUp',
     component: SignUp,
   },
@@ -51,6 +61,27 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    beforeEnter: (to, from, next) => {
+      if(!store.getters['auth/authenticated']){
+        return next({
+          name: 'SignIn'
+        })
+      }
+      next()
+    }
+  },
+  {
+    path: '/receipt',
+    name: 'Receipt',
+    component: Receipt,
+    beforeEnter: (to, from, next) => {
+      if(!store.getters['auth/authenticated']){
+        return next({
+          name: 'SignIn'
+        })
+      }
+      next()
+    }
   }
 ]
 

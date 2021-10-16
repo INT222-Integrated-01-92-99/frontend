@@ -20,11 +20,11 @@
                 Sign In
               </h1>
               <div class="w-full mt-4">
-                <form class="form-horizontal w-3/4 mx-auto">
+                <form @submit.prevent="submit" class="form-horizontal w-3/4 mx-auto">
                   <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5">
                       <label
-                        for=""
+                        for="email"
                         class="font-prompt-regular-400 text-base font-medium px-1"
                         >Username</label
                       >
@@ -37,7 +37,10 @@
                           ></i>
                         </div>
                         <input
-                          type="email"
+                          type="text"
+                          name="email"
+                          id="email"
+                          v-model = "form.enterEmail"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Username"
                         />
@@ -47,7 +50,7 @@
                   <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5">
                       <label
-                        for=""
+                        for="password"
                         class="font-prompt-regular-400 text-base font-medium px-1"
                         >Password</label
                       >
@@ -56,12 +59,15 @@
                         <div
                           class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
                         >
-                          <!-- <i
+                          <i
                             class="mdi mdi-email-outline text-gray-400 text-lg"
-                          ></i> -->
+                          ></i>
                         </div>
                         <input
                           :type="type"
+                          name = "password"
+                          id = "password"
+                          v-model = "form.enterPassword"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Password"
                         />
@@ -107,27 +113,48 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+// import axios from 'axios'
 export default {
   data() {
     return {
+      form:{
+        enterEmail: '',
+        enterPassword: '',
+      },
       type: "password",
-      btnText: "Show Password",
-      eye: require("../assets/icon/show.png"),
-      // showPassword: false,
-      // password: "",
-      // passwordFieldType: "password",
+      eye: require("../assets/icon/hide.png"),
+
     };
   },
   methods: {
     showPassword() {
       if (this.type === "password") {
         this.type = "text";
-        this.eye = require("../assets/icon/hide.png");
+        this.eye = require("../assets/icon/show.png");
       } else {
         this.type = "password";
-        this.eye = require("../assets/icon/show.png");
+        this.eye = require("../assets/icon/hide.png");
       }
     },
+    ...mapActions({
+      signIn: 'http://localhost:8081/signin'
+    }),
+    submit() {
+      this.signIn(this.form).then(() => {
+        this.$router.replace({
+          name: 'Product' //page ที่อยากให้เห็นหลังจากloginเข้ามา
+        }).catch(() => {
+          console.log('Failed to login')
+        })
+      })
+    }
+    // async submit() {
+    //   let response = await axios.post('http://localhost:8081/signin', this.form) //รอลิงค์จากฟลุ๊ค
+    //   console.log(response.data)
+    // } ย้ายสิ่งนี้ไปไว้ในstore/auth.js
+
+
     // switchVisibility() {
     //   this.passwordFieldType =
     //     this.passwordFieldType === "password" ? "text" : "password";

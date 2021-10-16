@@ -120,10 +120,9 @@
                     >Purchase History</router-link
                   >
                   <router-link
-                    @click="changePath('/')"
-                    to="/"
+                    @click.prevent="signOut"
                     class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
-                    >Log Out</router-link
+                    >Sign Out</router-link
                   >
                 </div>
               </div>
@@ -268,6 +267,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: [],
   components: {},
@@ -314,6 +314,17 @@ export default {
       const data = await res.json(url);
       return data;
     },
+    ...mapActions({
+        signOutAction: 'auth/signOut'
+    }),
+
+    signOut() {
+      this.this.signOutAction().then(() => {
+        this.$router.replace({
+          name: 'Home'
+        })
+      })
+    }
   },
   watch: {
     "localStorage.amount": function check() {

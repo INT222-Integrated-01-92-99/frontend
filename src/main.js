@@ -8,8 +8,25 @@ import BaseForm from './components/BaseForm.vue'
 import BaseProductView from './components/BaseProductView.vue'
 import BaseDelete from './components/BaseDelete.vue'
 import BaseSelectColor from './components/BaseSelectColor.vue'
+import Vue from 'vue'
+import store from './store'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-const app = createApp(App).use(router)
+require('@/store/subscriber')
+
+
+Vue.config.productionTip = false
+
+store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
+    new Vue({
+        router,
+        store,
+        render: h => h(App)
+    }).$mount('#app')
+})
+
+const app = createApp(App).use(router).use(VueAxios, axios)
 app.component('base-card', BaseCard)
 app.component('base-button', BaseButton)
 app.component('base-form', BaseForm)
