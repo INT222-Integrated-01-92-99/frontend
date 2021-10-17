@@ -57,7 +57,15 @@
                 >Product</router-link
               >
             </li>
-
+            <li>
+              <router-link
+                @click="changePath('/role')"
+                to="/role"
+                :class="{ 'text-red-light': routes == '/role' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                >Manage</router-link
+              >
+            </li>
             <li>
               <router-link
                 @click="changePath('/signup')"
@@ -267,7 +275,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   props: [],
   components: {},
@@ -315,16 +323,16 @@ export default {
       return data;
     },
     ...mapActions({
-        signOutAction: 'auth/signOut'
+      signOutAction: "auth/signOut",
     }),
 
     signOut() {
       this.this.signOutAction().then(() => {
         this.$router.replace({
-          name: 'Home'
-        })
-      })
-    }
+          name: "Home",
+        });
+      });
+    },
   },
   watch: {
     "localStorage.amount": function check() {
@@ -359,9 +367,9 @@ nav.scrolled {
   border-bottom: 0px;
 }
 
-/* svg:hover {
+svg:hover {
   fill: #a34655;
-} */
+}
 
 /* li {
   float: left;

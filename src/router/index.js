@@ -8,6 +8,8 @@ import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import Profile from '../views/Profile.vue'
 import Receipt from '../views/Receipt.vue'
+import Role from '../views/Role.vue'
+import Brand from '../views/Brand.vue'
 import store from '@/store'
 
 const routes = [
@@ -74,15 +76,25 @@ const routes = [
     path: '/receipt',
     name: 'Receipt',
     component: Receipt,
-    beforeEnter: (to, from, next) => {
-      if(!store.getters['auth/authenticated']){
-        return next({
-          name: 'SignIn'
-        })
-      }
-      next()
-    }
-  }
+    // beforeEnter: (to, from, next) => {
+    //   if(!store.getters['auth/authenticated']){
+    //     return next({
+    //       name: 'SignIn'
+    //     })
+    //   }
+    //   next()
+    // }
+  },
+  {
+    path: '/role',
+    name: 'Role',
+    component: Role,
+  },
+  {
+    path: '/addbrand',
+    name: 'Brand',
+    component: Brand,
+  },
 ]
 
 const router = createRouter({
