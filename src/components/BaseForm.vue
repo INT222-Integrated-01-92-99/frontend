@@ -396,7 +396,7 @@ export default {
           ? true
           : false;
       this.BrandInput = this.enterBrand === "" ? true : false;
-      this.ProInput = this.enterProName === "" ? true : false;
+      this.ProInput = this.enterProName === "" || this.enterProName === this.productArray.proName
       this.MFDInput = this.enterDate === "" ? true : false;
       this.InStocksInput =
         this.enterInStocks === "" ||
@@ -449,7 +449,6 @@ export default {
         };
 
         this.$parent.regist(addPro);
-        alert("Your product is add already.");
         this.clearForm();
       }
       } else {
@@ -584,6 +583,7 @@ export default {
     // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}color`);
     this.productArray = await this.fetch("http://localhost:3000/product/");
     // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
+    console.log(this.productArray)
     if (!isNaN(this.proId)) {
       const product = await this.fetch(
         "http://localhost:3000/product/" + this.proId

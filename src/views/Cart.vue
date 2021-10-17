@@ -219,7 +219,7 @@ export default {
       localStorage.amount = 0;
   },
   async DelAll(proForDel) {
-      confirm("Are you sure to clear your cart?");
+      if(confirm("Are you sure to clear your cart?")){
       try {
         await fetch(
           `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
@@ -228,10 +228,11 @@ export default {
             method: "DELETE",
           }
         );
-      } catch (error) {
+      }catch (error) {
         console.log(`Could not delete all product! ${error}`);
       }
       this.cart = await this.fetch("http://localhost:3000/cart/1");
+      }
       // window.location.reload();
       // localStorage.amount = 0;
       // return localStorage.amount;
@@ -246,6 +247,7 @@ export default {
             method: "POST",
           }
         );
+        localStorage.amount = 0;
         this.cart = await this.fetch("http://localhost:3000/cart/1");
       } catch (error) {
         console.log(`Could not purchase! ${error}`);
