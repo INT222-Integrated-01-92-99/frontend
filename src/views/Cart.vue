@@ -111,7 +111,7 @@
                   <div
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                   >
-                    17,859.3 THB
+                    17,000
                   </div>
                 </div>
                 <button @click="loopCartForDelAll()"
@@ -119,7 +119,7 @@
                 >
                   <span class="ml-2 mt-5px">Clear cart</span>
                 </button>
-                <button
+                <button @click="purchase(this.cart)"
                   class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-red-light shadow item-center hover:bg-red-dark focus:shadow-outline focus:outline-none"
                 >
                   <span class="ml-2 mt-5px">Purchase</span>
@@ -235,6 +235,21 @@ export default {
       // window.location.reload();
       // localStorage.amount = 0;
       // return localStorage.amount;
+    },
+    async purchase(idPro) {
+      console.log("purchase")
+      try {
+        await fetch(
+          `http://localhost:3000/purchase?idcart=${idPro.idCart}`,
+          // `${process.env.VUE_APP_ROOT_API}purchase?idcart=${idPro.idCart}`,
+          {
+            method: "POST",
+          }
+        );
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
+      } catch (error) {
+        console.log(`Could not purchase! ${error}`);
+      }
     },
   },
   async created() {
