@@ -4,7 +4,7 @@
       class="bg-gray-extra-light pt-20 lg:pr-20 pr-16 flex justify-end space-x-2"
     >
       <base-button
-        @click="(viewAddChange = true), this.$router.push({path:'product',query:{plan: 'views'}})"
+        @click="(viewAddChange = true), this.$router.push('/product/views')"
         txtcolor="text-black"
         txtbutt="View Products"
         class="font-prompt-regular-400 focus:outline-none py-2 px-2 pt-4 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
@@ -14,7 +14,7 @@
         |
       </p>
       <base-button
-        @click="(viewAddChange = false), this.$router.push({path:'product',query:{plan: 'add'}})"
+        @click="(viewAddChange = false), this.$router.push('/product/add')"
         txtcolor="text-black"
         txtbutt="Add Product"
         class="font-prompt-regular-400 focus:outline-none py-2 px-2 pt-4 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
@@ -71,6 +71,7 @@ export default {
           method: "POST",
           body: formData,
         });
+        alert("Added.");
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
