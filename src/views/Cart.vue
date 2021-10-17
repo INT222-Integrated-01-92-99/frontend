@@ -239,6 +239,7 @@ export default {
     },
     async purchase(idPro) {
       console.log("purchase")
+      if(confirm("Please check your cart carefully before buying, Do you want to buy this order?")){
       try {
         await fetch(
           `http://localhost:3000/purchase?idcart=${idPro.idCart}`,
@@ -251,6 +252,7 @@ export default {
         this.cart = await this.fetch("http://localhost:3000/cart/1");
       } catch (error) {
         console.log(`Could not purchase! ${error}`);
+      }
       }
     },
   },
