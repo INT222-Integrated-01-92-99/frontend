@@ -23,11 +23,26 @@
         <span class="font-prompt-regular-400">Back</span>
       </button>
     </div>
-    <div class="flex justify-center my-6" v-for="r in receipt"
-              :key="r.idReceipt"
-             >
+    <div class="2xl:pt-6 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+      <h1
+        class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
+      >
+        Purchase History
+      </h1>
+    </div>
+    <div class="justify-center">
       <div
-        class="
+        class="flex-row justify-center my-6"
+        v-for="r in receipt"
+        :key="r.idReceipt"
+      >
+        <div class="ml-40 font-prompt-regular-400">
+          #{{ r.idReceipt }}<br />
+          Purchase Date: {{ r.datePurchase }}
+        </div>
+        <div
+          class="
+        mx-auto
           flex flex-col
           w-full
           p-8
@@ -37,60 +52,60 @@
           md:w-4/5
           lg:w-4/5
         "
-      >
-        <div class="flex-1">
-          <table class="w-full text-sm lg:text-base" cellspacing="0">
-            <thead class="border-b-2">
-              <tr class="h-12 uppercase">
-                <th class="hidden md:table-cell"></th>
-                <th class="text-left">Product</th>
-                <th class="lg:text-center text-left pl-5 lg:pl-0">
-                  <span class="lg:hidden" title="Quantity">Qtd</span>
-                  <span class="hidden lg:inline">Quantity</span>
-                </th>
-                <th class="hidden text-center md:table-cell">Unit price</th>
-                <th class="text-center">Total price</th>
-              </tr>
-            </thead>
+        >
+          <div class="flex-1">
+            <table class="w-full text-sm lg:text-base" cellspacing="0">
+              <thead class="border-b-2">
+                <tr class="h-12 uppercase">
+                  <th class="pl-4 text-left">Product</th>
+                  <th class="lg:text-center text-left pl-5 lg:pl-0">
+                    <span class="lg:hidden" title="Quantity">Qtd</span>
+                    <span class="hidden lg:inline">Quantity</span>
+                  </th>
+                  <th class="hidden text-center md:table-cell">Unit price</th>
+                  <th class="text-center">Total price</th>
+                </tr>
+              </thead>
 
-            <tbody
-              
-            >
-              <tr v-for="rd in r.receiptDetailsList" :key="rd.idReceiptDetails">
-                <td class="w-1/4">
-                  <p class="mt-5 mb-2 md:ml-4">{{ rd.proName }}</p>
-                  <p class="mb-2 md:ml-4">{{ rd.brandName }}</p>
-                </td>
-                <td class="justify-center md:justify-end md:flex mt-6">
-                  <div class="mt-14">
-                    <div class="relative flex flex-row w-1/2 h-8">
+              <tbody>
+                <tr
+                  v-for="rd in r.receiptDetailsList"
+                  :key="rd.idReceiptDetails"
+                >
+                  <td class="w-1/4">
+                    <p class="mt-5 mb-2 md:ml-4">{{ rd.proName }}</p>
+                    <p class="mb-2 md:ml-4">{{ rd.brandName }}</p>
+                    <p class="mb-2 md:ml-4">Color: {{ rd.color.colorName }}</p>
+                  </td>
+                  <td class="hidden text-center md:table-cell">
+                    <p class="text-sm lg:text-base font-medium">
                       {{ rd.proPerPiece }}
-                    </div>
-                  </div>
-                </td>
-                <td class="hidden text-center md:table-cell">
-                  <span class="text-sm lg:text-base font-medium">
-                    {{
-                      rd.proPrice
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }}
-                    THB
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="text-sm lg:text-base font-medium">
-                    {{
-                      (rd.proPerPiece * rd.proPrice)
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }}
-                    THB
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    </p>
+                  </td>
+                  <td class="hidden text-center md:table-cell">
+                    <span class="text-sm lg:text-base font-medium">
+                      {{
+                        rd.proPrice
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }}
+                      THB
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="text-sm lg:text-base font-medium">
+                      {{
+                        (rd.proPerPiece * rd.proPrice)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }}
+                      THB
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -117,4 +132,3 @@ export default {
   },
 };
 </script>
-
