@@ -57,167 +57,162 @@
         </svg>
       </button>
     </div>
-
-    <button
-      @click="isOpen = !isOpen"
-      class="text-4xl ml-32 bg-red-light hover:bg-red-dark text-white rounded-full px-2"
-    >
-      +
-    </button>
-
-    <div v-if="isOpen" class="overflow-x-auto">
-      <div class="flex items-center justify-center font-sans overflow-hidden">
-        <div
-          class="overflow-scroll overflow-x-auto overflow-y-auto w-full lg:w-5/6"
-        >
-          <div class="bg-white shadow-md rounded my-6">
-            <table class="min-w-max w-full table-auto">
-              <thead>
-                <tr
-                  class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
-                >
-                  <th class="py-3 px-6 text-left">BRAND ID</th>
-                  <th class="py-3 px-6 text-left">BRAND NAME</th>
-                  <th class="py-3 px-6 text-left">ACTION</th>
-                </tr>
-              </thead>
-              <tbody class="text-gray-600 text-sm font-light">
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="py-3 px-6 text-left whitespace-normal">
-                    <div class="flex items-center">
-                      <input
-                        class="bg-white border p-2 rounded-sm"
-                        type="text"
-                        placeholder="Brand ID"
-                      />
-                    </div>
-                  </td>
-                  <td class="py-3 px-6 text-left">
-                    <div class="flex items-center">
-                      <input
-                        class="bg-white border p-2 rounded-sm"
-                        type="text"
-                        placeholder="Brand Name"
-                      />
-                    </div>
-                  </td>
-                  <td class="py-3 px-6 text-center">
-                    <div class="flex item-center justify-start">
-                      <div
-                        class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
+    <div class="w-11/12 mx-auto">
+      <div class="mt-10 overflow-x-auto">
+        <div class="flex items-center justify-center font-sans overflow-hidden">
+          <div class="w-full lg:w-5/6">
+            <base-button
+              @click="isOpen = !isOpen"
+              class="font-prompt-regular-400 focus:outline-none py-1 px-7 rounded-sm hover:bg-red-dark"
+              bgcolor="bg-red-light"
+              txtcolor="text-white"
+              txtbutt="Add Brand"
+            ></base-button>
+            <div
+              v-if="isOpen"
+              class="overflow-scroll overflow-x-auto overflow-y-auto bg-white rounded my-6"
+            >
+              <table class="min-w-max w-full table-auto">
+                <thead>
+                  <tr
+                    class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                  >
+                    <th class="py-3 px-6 text-left">BRAND ID</th>
+                    <th class="py-3 px-6 text-left">BRAND NAME</th>
+                    <th class="py-3 px-6 text-center">ACTION</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                  <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6 text-left whitespace-normal">
+                      <div class="flex items-center">
+                        <input
+                          class="bg-white border p-2 rounded-sm"
+                          type="text"
+                          placeholder="Brand ID"
+                        />
                       </div>
-                      <div
-                        class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
+                    </td>
+                    <td class="py-3 px-6 text-left">
+                      <div class="flex items-center">
+                        <input
+                          class="bg-white border p-2 rounded-sm"
+                          type="text"
+                          placeholder="Brand Name"
+                        />
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                    <td class="py-3 px-6 text-center">
+                      <div class="flex item-center justify-center">
+                        <div class="w-4 mr-2">
+                          <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <hr class="mt-3 mx-auto w-5/6" />
+      <hr class="mt-6 mx-auto w-5/6" />
 
-    <!-- component -->
-    <div class="overflow-x-auto">
-      <div class="flex items-center justify-center font-sans overflow-hidden">
-        <div
-          class="overflow-scroll overflow-x-auto overflow-y-auto w-full h-96 lg:w-5/6"
-        >
-          <div class="bg-white shadow-md rounded my-6">
-            <table class="min-w-max w-full table-auto">
-              <thead>
-                <tr
-                  class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
-                >
-                  <th class="py-3 px-6 text-left">BRAND ID</th>
-                  <th class="py-3 px-6 text-left">BRAND NAME</th>
-                  <th class="py-3 px-6 text-center">ACTION</th>
-                </tr>
-              </thead>
-              <tbody class="text-gray-600 text-sm font-light">
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="py-3 px-6 text-left whitespace-nowrap">
-                    <div class="flex items-center">
-                      <span class="font-medium">1</span>
-                    </div>
-                  </td>
-                  <td class="py-3 px-6 text-left">
-                    <div class="flex items-center">
-                      <span>BRAND NAME</span>
-                    </div>
-                  </td>
-                  <td class="py-3 px-6 text-center">
-                    <div class="flex item-center justify-center">
-                      <div
-                        class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
+      <!-- component -->
+      <div class="overflow-x-auto">
+        <div class="flex items-center justify-center font-sans overflow-hidden">
+          <div
+            class="overflow-scroll overflow-x-auto overflow-y-auto w-full h-96 lg:w-5/6"
+          >
+            <div class="bg-white rounded my-6">
+              <table class="min-w-max w-full table-auto">
+                <thead>
+                  <tr
+                    class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                  >
+                    <th class="border-r p-2 w-4">
+                      <input type="checkbox" />
+                    </th>
+                    <th class="py-3 px-6 text-left">BRAND ID</th>
+                    <th class="py-3 px-6 text-left">BRAND NAME</th>
+                    <th class="py-3 px-6 text-center">ACTION</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                  <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                      <div class="flex items-center">
+                        <input type="checkbox" />
                       </div>
-                      <div
-                        class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
+                    </td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                      <div class="flex items-center">
+                        <span class="font-medium">1</span>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                    <td class="py-3 px-6 text-left">
+                      <div class="flex items-center">
+                        <span>BRAND NAME</span>
+                      </div>
+                    </td>
+                    <td class="py-3 px-6 text-center">
+                      <div class="flex item-center justify-center">
+                        <div class="w-4 mr-2">
+                          <button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24px"
+                              viewBox="0 0 24 24"
+                              width="24px"
+                              fill="#000000"
+                            >
+                              <path d="M0 0h24v24H0z" fill="none" />
+                              <path
+                                d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="w-4 mr-2">
+                          <button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24px"
+                              viewBox="0 0 24 24"
+                              width="24px"
+                              fill="#000000"
+                            >
+                              <path d="M0 0h24v24H0z" fill="none" />
+                              <path
+                                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="w-4 mr-2">
+                          <button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24px"
+                              viewBox="0 0 24 24"
+                              width="24px"
+                              fill="#000000"
+                            >
+                              <path d="M0 0h24v24H0z" fill="none" />
+                              <path
+                                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
