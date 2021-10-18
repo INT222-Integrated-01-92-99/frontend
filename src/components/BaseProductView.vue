@@ -16,11 +16,14 @@
         View Products
       </h1>
     </div>
-    <div class="pt-2 2xl:w-1/3 lg:w-1/3 w-1/2 relative mx-auto text-gray-600 flex-col mb-10">
+    <div
+      class="pt-2 2xl:w-1/3 lg:w-1/3 w-1/2 relative mx-auto text-gray-600 flex-col mb-10"
+    > <form @submit.prevent="getData">
       <input
         class="font-prompt-regular-400 border-b-2 border-gray-400 bg-white h-10 w-full px-1 pr-16 text-sm focus:border-gray-dark focus:outline-none"
         type="search"
         name="search"
+        v-model="this.query"
         placeholder="Search"
       />
       <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
@@ -43,18 +46,13 @@
           />
         </svg>
       </button>
+      </form>
       <div class="space-x-6 w-full">
-        <span class="font-prompt-regular-400 cursor-pointer hover:underline"
-          >LOUIS VUITTON</span
-        >
-        <span class="font-prompt-regular-400 cursor-pointer hover:underline"
-          >SHEIN</span
-        >
-        <span class="font-prompt-regular-400 cursor-pointer hover:underline"
-          >H&M</span
-        >
-        <span class="font-prompt-regular-400 cursor-pointer hover:underline"
-          >UNIQLO</span
+        <span
+          v-for="b in brand"
+          :key="b.idBrand"
+          class="font-prompt-regular-400 cursor-pointer hover:underline"
+          >{{ b.brandName }}</span
         >
       </div>
     </div>
@@ -63,6 +61,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import BaseProduct from "./BaseProduct.vue";
 export default {
   name: "Product",
@@ -74,7 +73,11 @@ export default {
   emits: [],
 
   data() {
-    return {};
+    return {
+      brand: [],
+      keepId: 1,
+      query: null,
+    };
   },
   methods: {
     topFunction() {
@@ -99,9 +102,42 @@ export default {
         }
       }
     },
+    async fetch(url) {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // async getData(){
+    //   try {
+    //     await fetch(
+    //       `http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`,
+    //       // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+    //       {
+    //         method: "GET",
+    //       }
+    //     );
+    //   } catch (error) {
+    //     console.log(`Could not save! ${error}`);
+    //   }
+    // }
+
+    async getData(){
+      // await axios.get(`http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`).then((response)=>{
+        await axios.get(`http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`).then((response)=>{
+        this.data = response.data.product
+        console.log(this.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    }
   },
-  created() {
+  async created() {
     window.addEventListener("scroll", this.backToTop);
+    this.brand = await this.fetch("http://localhost:3000/brand");
   },
 };
 </script>
