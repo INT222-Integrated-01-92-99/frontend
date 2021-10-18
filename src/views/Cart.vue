@@ -10,6 +10,13 @@
         <span class="font-prompt-regular-400">Back</span>
       </button>
     </div>
+    <div class="2xl:pt-6 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+      <h1
+        class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
+      >
+        Cart
+      </h1>
+    </div>
     <div class="flex justify-center my-6">
       <div
         class="flex flex-col w-full p-8 text-gray-800 border-2 border-gray-500 pin-r pin-y md:w-4/5 lg:w-4/5"
@@ -111,7 +118,8 @@
                   <div
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                   >
-                    17,000
+                   {{this.cart.totalPrice.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
                   </div>
                 </div>
                 <button @click="loopCartForDelAll()"
@@ -154,7 +162,7 @@ export default {
       return data;
     },
 
-    persist(edit) {
+    async persist(edit) {
       if (edit.proPerPiece <= edit.product.proAmount && edit.proPerPiece >=1) {
         const editQuan = {
           idProduct: edit.product.idPro,
@@ -166,6 +174,7 @@ export default {
       } else if(edit.proPerPiece > edit.product.proAmount) {
         alert("Sorry, Product is not enough.");
         edit.proPerPiece = 1;
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
       } else{
         const delProWhenZero ={
           idCartDetail: edit.idCartDetail,
@@ -186,6 +195,7 @@ export default {
             method: "PUT",
           }
         );
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -249,10 +259,10 @@ export default {
           }
         );
         localStorage.amount = 0;
-        this.cart = await this.fetch("http://localhost:3000/cart/1");
       } catch (error) {
         console.log(`Could not purchase! ${error}`);
       }
+      this.cart = await this.fetch("http://localhost:3000/cart/1");
       }
     },
   },
