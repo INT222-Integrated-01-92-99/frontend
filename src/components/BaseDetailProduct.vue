@@ -263,8 +263,6 @@ export default {
     },
     async addToCartDetail(proInCart) {
       console.log(proInCart);
-      this.numCart++
-      console.log("numcart = " + this.numCart);
       try {
         await fetch(
           `http://localhost:3000/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
@@ -276,6 +274,7 @@ export default {
         this.cart = await this.fetch("http://localhost:3000/cart/1");
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
         alert("Add to cart")
+        this.numCart++
         this.memLocal(parseInt(this.numCart));
         this.$forceUpdate();
         // this.sendNumPro(this.numCart)
