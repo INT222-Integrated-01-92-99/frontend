@@ -36,7 +36,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="pc in cart.cartDetails" :key="pc.idCartDetail" class="border-b-2">
+              <tr
+                v-for="pc in cart.cartDetails"
+                :key="pc.idCartDetail"
+                class="border-b-2"
+              >
                 <td class="pb-4 md:table-cell">
                   <img
                     :src="urlImage + '/' + pc.product.proPathImg"
@@ -46,7 +50,9 @@
                 <td class="w-1/4">
                   <p class="mt-5 mb-2 md:ml-4">{{ pc.product.proName }}</p>
                   <p class="mb-2 md:ml-4">{{ pc.product.brand.brandName }}</p>
-                  <div class="mb-2 md:ml-4 inline-flex font-prompt-regular-400 font-medium">
+                  <div
+                    class="mb-2 md:ml-4 inline-flex font-prompt-regular-400 font-medium"
+                  >
                     Color: &nbsp;
                     <div
                       class="
@@ -56,8 +62,8 @@
                       border
                       "
                       v-bind:style="{ backgroundColor: pc.color.colorCode }"
-                    ></div
-                  ></div>
+                    ></div>
+                  </div>
                   <div class="mb-5">
                     <button
                       @click="this.removeOne(pc)"
@@ -104,8 +110,8 @@
             </tbody>
           </table>
           <div class="w-full my-4 mt-6 -mx-2 lg:flex">
-            <div class="lg:px-2 lg:w-1/2">
-              <div class="p-4 bg-gray-100 rounded-full">
+            <div class="lg:px-2 lg:w-full">
+              <div class=" p-4 bg-gray-100 rounded-full">
                 <h1 class="ml-2 font-bold uppercase">Order Details</h1>
               </div>
               <div class="p-4">
@@ -118,20 +124,27 @@
                   <div
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                   >
-                   {{this.cart.totalPrice.toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                    {{
+                      this.cart.totalPrice
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }} THB
                   </div>
                 </div>
-                <button @click="loopCartForDelAll()"
-                  class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow item-center hover:bg-gray-dark focus:shadow-outline focus:outline-none"
-                >
-                  <span class="ml-2 mt-5px">Clear cart</span>
-                </button>
-                <button @click="purchase(this.cart)"
-                  class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-red-light shadow item-center hover:bg-red-dark focus:shadow-outline focus:outline-none"
-                >
-                  <span class="ml-2 mt-5px">Purchase</span>
-                </button>
+                <div class="space-x-10">
+                  <button
+                    @click="loopCartForDelAll()"
+                    class="w-2/5 px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow  hover:bg-gray-dark focus:shadow-outline focus:outline-none"
+                  >
+                    <span class="ml-2 mt-5px">Clear cart</span>
+                  </button>
+                  <button
+                    @click="purchase(this.cart)"
+                    class="w-2/5 px-10 py-3 mt-6 font-medium text-white uppercase bg-red-light shadow  hover:bg-red-dark focus:shadow-outline focus:outline-none"
+                  >
+                    <span class="ml-2 mt-5px">Purchase</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -163,7 +176,7 @@ export default {
     },
 
     async persist(edit) {
-      if (edit.proPerPiece <= edit.product.proAmount && edit.proPerPiece >=1) {
+      if (edit.proPerPiece <= edit.product.proAmount && edit.proPerPiece >= 1) {
         const editQuan = {
           idProduct: edit.product.idPro,
           amount: edit.proPerPiece,
@@ -171,14 +184,14 @@ export default {
           sendIdColor: edit.color.idColor,
         };
         this.editAmount(editQuan);
-      } else if(edit.proPerPiece > edit.product.proAmount) {
+      } else if (edit.proPerPiece > edit.product.proAmount) {
         alert("Sorry, Product is not enough.");
         edit.proPerPiece = 1;
         this.cart = await this.fetch("http://localhost:3000/cart/1");
-      } else{
-        const delProWhenZero ={
+      } else {
+        const delProWhenZero = {
           idCartDetail: edit.idCartDetail,
-        }
+        };
         this.removeOne(delProWhenZero);
       }
       // localStorage.amount = quantity;
@@ -221,48 +234,60 @@ export default {
       this.deleteOne(oneProDel);
       localStorage.amount--;
     },
-    loopCartForDelAll(){
-      for(let i=0; i<this.cart.cartDetails.length; i++){
-        this.cartDetails.push(this.cart.cartDetails[i].idCartDetail)
+    loopCartForDelAll() {
+      if(this.cart.cartDetails.length == 0){
+        alert("Your cart is empty");
+      }else{
+      for (let i = 0; i < this.cart.cartDetails.length; i++) {
+        this.cartDetails.push(this.cart.cartDetails[i].idCartDetail);
       }
       this.DelAll(this.cartDetails);
       localStorage.amount = 0;
-  },
-  async DelAll(proForDel) {
-      if(confirm("Are you sure to clear your cart?")){
-      try {
-        await fetch(
-          `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
-          // `${process.env.VUE_APP_ROOT_API}deletemultipleitemincart?idcartdetail=${proForDel}`,
-          {
-            method: "DELETE",
-          }
-        );
-      }catch (error) {
-        console.log(`Could not delete all product! ${error}`);
       }
-      this.cart = await this.fetch("http://localhost:3000/cart/1");
+    },
+    async DelAll(proForDel) {
+      if (confirm("Are you sure to clear your cart?")) {
+        try {
+          await fetch(
+            `http://localhost:3000/deletemultipleitemincart?idcartdetail=${proForDel}`,
+            // `${process.env.VUE_APP_ROOT_API}deletemultipleitemincart?idcartdetail=${proForDel}`,
+            {
+              method: "DELETE",
+            }
+          );
+        } catch (error) {
+          console.log(`Could not delete all product! ${error}`);
+        }
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
       }
       // window.location.reload();
       // localStorage.amount = 0;
       // return localStorage.amount;
     },
     async purchase(idPro) {
-      console.log("purchase")
-      if(confirm("Please check your cart carefully before buying, Do you want to buy this order?")){
-      try {
-        await fetch(
-          `http://localhost:3000/purchase?idcart=${idPro.idCart}`,
-          // `${process.env.VUE_APP_ROOT_API}purchase?idcart=${idPro.idCart}`,
-          {
-            method: "POST",
+      if (idPro.cartDetails.length == 0) {
+        alert("Your cart is empty");
+      } else {
+        if (
+          confirm(
+            "Please check your cart carefully before buying, Do you want to buy this order?"
+          )
+        ) {
+          console.log("เข้าpurchase")
+          try {
+            await fetch(
+              `http://localhost:3000/purchase?idcart=${idPro.idCart}`,
+              // `${process.env.VUE_APP_ROOT_API}purchase?idcart=${idPro.idCart}`,
+              {
+                method: "POST",
+              }
+            );
+            localStorage.amount = 0;
+          } catch (error) {
+            console.log(`Could not purchase! ${error}`);
           }
-        );
-        localStorage.amount = 0;
-      } catch (error) {
-        console.log(`Could not purchase! ${error}`);
-      }
-      this.cart = await this.fetch("http://localhost:3000/cart/1");
+          this.cart = await this.fetch("http://localhost:3000/cart/1");
+        }
       }
     },
   },
