@@ -1,5 +1,6 @@
 <template>
   <div class="oneProduct">
+  <div v-if="productArray.length == 0" class="font-prompt-regular-400 text-lg text-center text-gray-dark"> Product not found. </div>
     <div class="flex flex-wrap justify-center gap-x-20 gap-y-10">
       <base-card
         v-for="pro in productArray"
@@ -79,7 +80,7 @@
 
 <script>
 export default {
-  props: [],
+  props: ['search-pro','brand-id','show-all'],
   emits: [],
 
   data() {
@@ -112,5 +113,17 @@ export default {
     this.brandArray = await this.fetch(this.urlBrand);
     this.productArray = await this.fetch(this.urlProduct);
   },
+   watch: {
+    searchPro: async function check() {
+        this.productArray = this.searchPro
+      },
+    brandId: async function checkIdBrand() {
+      this.productArray = await this.fetch(this.urlProduct);
+      this.productArray = this.productArray.filter(f => f.brand.idBrand == this.brandId)
+      },
+    showAll: async function all(){
+      this.productArray = await this.fetch(this.urlProduct);
+    }
+      }
 };
 </script>
