@@ -20,7 +20,10 @@
                 Sign In
               </h1>
               <div class="w-full mt-4">
-                <form @submit.prevent="submit" class="form-horizontal w-3/4 mx-auto">
+                <form
+                  @submit.prevent="submit"
+                  class="form-horizontal w-3/4 mx-auto"
+                >
                   <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5">
                       <label
@@ -40,7 +43,7 @@
                           type="text"
                           name="email"
                           id="email"
-                          v-model = "form.enterEmail"
+                          v-model="form.enterEmail"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Username"
                         />
@@ -65,9 +68,9 @@
                         </div>
                         <input
                           :type="type"
-                          name = "password"
-                          id = "password"
-                          v-model = "form.enterPassword"
+                          name="password"
+                          id="password"
+                          v-model="form.enterPassword"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Password"
                         />
@@ -113,18 +116,17 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 // import axios from 'axios'
 export default {
   data() {
     return {
-      form:{
-        enterEmail: '',
-        enterPassword: '',
+      form: {
+        enterEmail: "",
+        enterPassword: "",
       },
       type: "password",
       eye: require("../assets/icon/hide.png"),
-
     };
   },
   methods: {
@@ -138,22 +140,23 @@ export default {
       }
     },
     ...mapActions({
-      signIn: 'http://localhost:8081/signin'
+      signIn: "http://localhost:8081/signin",
     }),
     submit() {
       this.signIn(this.form).then(() => {
-        this.$router.replace({
-          name: 'Product' //page ที่อยากให้เห็นหลังจากloginเข้ามา
-        }).catch(() => {
-          console.log('Failed to login')
-        })
-      })
-    }
+        this.$router
+          .replace({
+            name: "Product", //page ที่อยากให้เห็นหลังจากloginเข้ามา
+          })
+          .catch(() => {
+            console.log("Failed to login");
+          });
+      });
+    },
     // async submit() {
     //   let response = await axios.post('http://localhost:8081/signin', this.form) //รอลิงค์จากฟลุ๊ค
     //   console.log(response.data)
     // } ย้ายสิ่งนี้ไปไว้ในstore/auth.js
-
 
     // switchVisibility() {
     //   this.passwordFieldType =
