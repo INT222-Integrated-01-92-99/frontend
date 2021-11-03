@@ -72,6 +72,7 @@
               v-if="isOpen"
               class="overflow-scroll overflow-x-auto overflow-y-auto bg-white rounded my-6"
             >
+            <form>
               <table class="min-w-max w-full table-auto">
                 <thead>
                   <tr
@@ -88,83 +89,147 @@
                     <th class="py-3 px-6 text-left">ACTION</th>
                   </tr>
                 </thead>
+                
                 <tbody class="text-gray-600 text-sm font-light">
                   <tr class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="py-3 px-6 text-left whitespace-normal">
                       <div class="flex items-center">
-                        <input
-                          class="bg-white border p-2 rounded-sm"
-                          type="text"
-                          placeholder="User ID"
-                        />
+                        1
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <input
+                          id="username"
+                          :class="{ 'bg-red-50': validate.usernameInput }"
                           class="bg-white border p-2 rounded-sm"
                           type="text"
                           placeholder="Username"
+                          v-model.trim="person.username"
                         />
                       </div>
+                      <p
+                        v-if="validate.usernameInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please enter your username!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <input
+                          id="password"
+                          :class="{ 'bg-red-50': validate.passwordInput }"
                           class="bg-white border p-2 rounded-sm"
                           type="text"
                           placeholder="Password"
+                          v-model.trim="person.password"
                         />
                       </div>
+                      <p
+                        v-if="validate.passwordInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please enter your password!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <input
+                          id="firstname"
+                          :class="{ 'bg-red-50': validate.firstnameInput }"
                           class="bg-white border p-2 rounded-sm"
                           type="text"
                           placeholder="Firstname"
+                          v-model.trim="person.firstname"
                         />
                       </div>
+                      <p
+                        v-if="validate.firstnameInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please enter your firstname!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <input
+                          id="lastname"
+                          :class="{ 'bg-red-50': validate.lastnameInput }"
                           class="bg-white border p-2 rounded-sm"
                           type="text"
                           placeholder="Lastname"
+                          v-model.trim="person.lastname"
                         />
                       </div>
+                      <p
+                        v-if="validate.lastnameInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please enter your lastname!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <input
+                          id="phone"
+                          :class="{ 'bg-red-50': validate.phoneInput }"
                           class="bg-white border p-2 rounded-sm"
                           type="text"
                           placeholder="Phone"
+                          v-model="person.phone"
                         />
                       </div>
+                      <p
+                        v-if="validate.phoneInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please enter your phone number (10 digits)!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <textarea
+                          id="address"
+                          :class="{ 'bg-red-50': validate.addressInput }"
                           class="bg-white border p-2 rounded-sm"
                           type="textarea"
                           placeholder="Address"
+                          v-model.trim="person.address"
                         />
                       </div>
+                      <p
+                        v-if="validate.addressInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please enter your address!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <select class="bg-white border p-2 rounded-sm">
-                          <option value="volvo">Member</option>
-                          <option value="saab">Staff</option>
+                        <select
+                          class="bg-white border p-2 rounded-sm"
+                          id="roles"
+                          name="roleslist"
+                          v-model="person.role"
+                          :class="{ 'bg-red-50': validate.selectRole }"
+                        >
+                          <option v-for="r in roles" :key="r.idRole" :value="r">
+                            {{ r }}</option
+                          >
                         </select>
                       </div>
+                      <p
+                        v-if="validate.selectRole"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Please select user role!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
                         <div class="w-4 mr-2">
-                          <button>
+                          <button @click="clickAdd()">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -184,10 +249,12 @@
                   </tr>
                 </tbody>
               </table>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
       <hr class="mt-6 mx-auto w-5/6" />
       <!-- component -->
       <div class="overflow-x-auto mb-10">
@@ -329,7 +396,72 @@ export default {
   data() {
     return {
       isOpen: false,
+      people: [],
+      roles: [],
+      person: {
+        username: "",
+        password: "",
+        firstname: "",
+        lastname: "",
+        phone: "",
+        address: "",
+        role: "",
+      },
+      validate: {
+        usernameInput: false,
+        passwordInput: false,
+        firstnameInput: false,
+        lastnameInput: false,
+        phoneInput: false,
+        addressInput: false,
+        selectRole: false,
+      },
     };
+  },
+  methods: {
+    checkForm() {
+      this.validate.usernameInput = this.person.username != "";
+      this.validate.passwordInput = this.person.password != "";
+      this.validate.firstnameInput = this.person.firstname != "";
+      this.validate.lastnameInput = this.person.lastname != "";
+      this.validate.phoneInput =
+        this.person.phone != "" && this.person.phone.length == 10;
+      this.validate.addressInput = this.person.address != "";
+      this.validate.selectRole = this.person.role != "";
+    },
+    clickAdd() {
+      console.log("click");
+      this.checkForm();
+    },
+    async addMember(member) {
+      console.log(member);
+      try {
+        await fetch(
+          `http://localhost:3000/addmember?`,
+          // `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          {
+            method: "POST",
+          }
+        );
+        this.people = await this.fetch("http://localhost:3000/cart/1");
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+        alert("Add member");
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
+    },
+    async fetch(url) {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  async created() {
+    this.people = await this.fetch("http://localhost:3000/member"); //สมมุติล้วนๆทำทิพย์
   },
 };
 </script>
