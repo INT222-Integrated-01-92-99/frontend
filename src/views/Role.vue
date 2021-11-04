@@ -94,7 +94,7 @@
                   <tr class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="py-3 px-6 text-left whitespace-normal">
                       <div class="flex items-center">
-                        1
+                        Auto generate after adding
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
@@ -229,7 +229,7 @@
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
                         <div class="w-4 mr-2">
-                          <button @click="clickAdd()">
+                          <button @click="addAccount()">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -283,7 +283,7 @@
                   </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
-                  <tr class="border-b border-gray-200 hover:bg-gray-100">
+                  <tr v-for="r in this.people" :key="r.idAccount" class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="py-3 px-6 text-left whitespace-normal">
                       <div class="flex items-center">
                         <input type="checkbox" />
@@ -291,48 +291,49 @@
                     </td>
                     <td class="py-3 px-6 text-left whitespace-normal">
                       <div class="flex items-center">
-                        <span class="font-medium">1</span>
+                        <span class="font-medium">{{ r.idAccount }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>lnWza007</span>
+                        <span>{{ r.accUsername }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>safasffhjg</span>
+                        <span>{{ r.accPass }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>Eshal</span>
+                        <span>{{ r.accFname }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>Rosas</span>
+                        <span>{{ r.accLname }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>088222222</span>
+                        <span>{{ r.accPhone }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center ">
-                        <span class="">111/11 soiblabla bk 11111 </span>
+                        <span class="">{{ r.accAddress }} </span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>Member</span>
+                        <span>{{ r.accRole }}</span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
+                        <div v-show="showSave">
                         <div class="w-4 mr-2">
-                          <button>
+                          <button @click="editAccount()">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -347,8 +348,9 @@
                             </svg>
                           </button>
                         </div>
-                        <div class="w-4 mr-2">
-                          <button>
+                        </div>
+                        <div v-if="showEdit" class="w-4 mr-2">
+                          <button @click="showSaveEdit(r)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -364,7 +366,7 @@
                           </button>
                         </div>
                         <div class="w-4 mr-2">
-                          <button>
+                          <button @click="delRole(r)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -396,6 +398,8 @@ export default {
   data() {
     return {
       isOpen: false,
+      showSave: false,
+      showEdit: true,
       people: [],
       roles: [],
       person: {
@@ -419,7 +423,7 @@ export default {
     };
   },
   methods: {
-    checkForm() {
+    check() {
       this.validate.usernameInput = this.person.username != "";
       this.validate.passwordInput = this.person.password != "";
       this.validate.firstnameInput = this.person.firstname != "";
@@ -429,26 +433,67 @@ export default {
       this.validate.addressInput = this.person.address != "";
       this.validate.selectRole = this.person.role != "";
     },
-    clickAdd() {
-      console.log("click");
-      this.checkForm();
-    },
-    async addMember(member) {
-      console.log(member);
+    async addAccount() {
+      this.check()
+      console.log();
       try {
-        await fetch(
-          `http://localhost:3000/addmember?`,
-          // `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
-          {
-            method: "POST",
-          }
-        );
-        this.people = await this.fetch("http://localhost:3000/cart/1");
-        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-        alert("Add member");
+        const jsonPro = await JSON.stringify(this.person);
+        const blob = await new Blob([jsonPro], {
+          type: "application/json",
+        });
+      let formData = new FormData();
+      await formData.append("newAccount", blob);
+        await fetch("http://localhost:3000/registaccount", {
+        // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
+          method: "POST",
+          body: formData,
+        });
+        this.people = await this.fetch("http://localhost:3000/account");
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
+    },
+    async editAccount() {
+      this.check()
+      this.showEdit = true,
+      this.showSave = false;
+      console.log();
+      try {
+        const jsonPro = await JSON.stringify(this.person);
+        const blob = await new Blob([jsonPro], {
+          type: "application/json",
+        });
+      let formData = new FormData();
+      await formData.append("editAccount", blob);
+        await fetch("http://localhost:3000/editaccount", {
+        // await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
+          method: "PUT",
+          body: formData,
+        });
+        this.people = await this.fetch("http://localhost:3000/account");
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
+    },
+    async delRole(roleId) {
+      this.check();
+      try {
+        await fetch(
+          `http://localhost:3000/deleteaccount?idAccount=${roleId.idAccount}`,
+          // `${process.env.VUE_APP_ROOT_API}addbrand?BrandName=${brandName}`,
+          {
+            method: "DELETE",
+          }
+        );
+        this.people = await this.fetch("http://localhost:3000/account");
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
+    },
+    showSaveEdit(){
+      this.check();
+      this.showEdit = false,
+      this.showSave = true;
     },
     async fetch(url) {
       try {
@@ -461,7 +506,7 @@ export default {
     },
   },
   async created() {
-    this.people = await this.fetch("http://localhost:3000/member"); //สมมุติล้วนๆทำทิพย์
+    this.people = await this.fetch("http://localhost:3000/account");
   },
 };
 </script>

@@ -272,29 +272,6 @@
                         <span>{{ b.brandName }}</span>
                       </div>
                     </td>
-                    <!-- <td v-show="ifNotEdit" class="py-3 px-6 text-left">
-                      <div class="flex items-center">
-                        <span>{{ b.brandName }}</span>
-                      </div>
-                    </td>
-                    <td v-show="showSave" class="py-3 px-6 text-left">
-                      <div class="flex items-center">
-                        <input
-                          class="bg-white border p-2 rounded-sm"
-                          :class="{ 'bg-red-50': b.brandName === '' }"
-                          id="brandName"
-                          type="text"
-                          placeholder="Brand Name"
-                          v-model.trim="b.brandName"
-                        />
-                      </div>
-                      <p
-                        v-if="b.brandName === '' "
-                        class="font-prompt-regular-400 text-red-600"
-                      >
-                        Enter Brand Name!
-                      </p>
-                    </td> -->
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
                         <div v-show="showSave">
@@ -369,7 +346,6 @@ export default {
       brandInput: false,
       brandCreated: [],
       showSave: false,
-      ifNotEdit: true,
       showEdit: true,
       brandIdForCheck: '',
     };
@@ -422,14 +398,12 @@ export default {
       this.check();
       this.showEdit = false,
       this.showSave = true;
-      this.ifNotEdit = false;
       this.brandIdForCheck = idBrand.idBrand;
     },
     async saveEdit(brand) {
       this.check();
       this.showEdit = true,
       this.showSave = false;
-      this.ifNotEdit = true;
       this.brandIdForCheck = '';
       try {
         await fetch(
