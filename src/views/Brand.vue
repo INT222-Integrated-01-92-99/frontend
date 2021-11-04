@@ -1,29 +1,71 @@
 <template>
   <div class="brand">
     <div
-      class="bg-gray-extra-light pt-20 lg:pr-20 pr-16 flex justify-end space-x-2"
+      class="
+        bg-gray-extra-light
+        pt-20
+        lg:pr-20
+        pr-16
+        flex
+        justify-end
+        space-x-2
+      "
     >
       <base-button
         @click="this.$router.push('/role')"
         txtcolor="text-black"
         txtbutt="Manage Role"
-        class="font-prompt-regular-400 focus:outline-none py-2 px-2 pt-4 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
+        class="
+          font-prompt-regular-400
+          focus:outline-none
+          py-2
+          px-2
+          pt-4
+          text-base text-black
+          hover:text-red-light
+          transition
+          ease-in
+          duration-200
+          transform
+          hover:-translate-y-1
+          active:translate-y-0
+          focus:text-red-light
+        "
       >
       </base-button>
-      <p class="text-center text-black text-lg pt-3">
-        |
-      </p>
+      <p class="text-center text-black text-lg pt-3">|</p>
       <base-button
         @click="this.$router.push('/addbrand')"
         txtcolor="text-black"
         txtbutt="Manage Brand"
-        class="font-prompt-regular-400 focus:outline-none py-2 px-2 pt-4 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
+        class="
+          font-prompt-regular-400
+          focus:outline-none
+          py-2
+          px-2
+          pt-4
+          text-base text-black
+          hover:text-red-light
+          transition
+          ease-in
+          duration-200
+          transform
+          hover:-translate-y-1
+          active:translate-y-0
+          focus:text-red-light
+        "
       >
       </base-button>
     </div>
     <div class="2xl:pt-6 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
       <h1
-        class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
+        class="
+          font-prompt-regular-400
+          text-center text-cream-dark
+          2xl:text-5xl
+          text-4xl
+          font-bold
+        "
       >
         Manage Brand
       </h1>
@@ -31,7 +73,17 @@
     <!-- component -->
     <div class="flex justify-center 2xl:w-1/3 lg:w-1/3 w-1/2 relative mx-auto">
       <input
-        class="font-prompt-regular-400 border-b-2 border-gray-400 bg-white h-10 w-full px-1 pr-16 text-sm focus:border-gray-dark focus:outline-none"
+        class="
+          font-prompt-regular-400
+          border-b-2 border-gray-400
+          bg-white
+          h-10
+          w-full
+          px-1
+          pr-16
+          text-sm
+          focus:border-gray-dark focus:outline-none
+        "
         type="search"
         name="search"
         placeholder="Search"
@@ -46,7 +98,7 @@
           x="0px"
           y="0px"
           viewBox="0 0 56.966 56.966"
-          style="enable-background:new 0 0 56.966 56.966;"
+          style="enable-background: new 0 0 56.966 56.966"
           xml:space="preserve"
           width="512px"
           height="512px"
@@ -63,19 +115,37 @@
           <div class="w-full lg:w-5/6">
             <base-button
               @click="isOpen = !isOpen"
-              class="font-prompt-regular-400 focus:outline-none py-1 px-7 rounded-sm hover:bg-red-dark"
+              class="
+                font-prompt-regular-400
+                focus:outline-none
+                py-1
+                px-7
+                rounded-sm
+                hover:bg-red-dark
+              "
               bgcolor="bg-red-light"
               txtcolor="text-white"
               txtbutt="Add Brand"
             ></base-button>
             <div
               v-if="isOpen"
-              class="overflow-scroll overflow-x-auto overflow-y-auto bg-white rounded my-6"
+              class="
+                overflow-scroll overflow-x-auto overflow-y-auto
+                bg-white
+                rounded
+                my-6
+              "
             >
               <table class="min-w-max w-full table-auto">
                 <thead>
                   <tr
-                    class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                    class="
+                      bg-gray-200
+                      text-gray-600
+                      uppercase
+                      text-sm
+                      leading-normal
+                    "
                   >
                     <th class="py-3 px-6 text-left">BRAND ID</th>
                     <th class="py-3 px-6 text-left">BRAND NAME</th>
@@ -86,27 +156,43 @@
                   <tr class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="py-3 px-6 text-left whitespace-normal">
                       <div class="flex items-center">
-                        <input
-                          class="bg-white border p-2 rounded-sm"
-                          type="text"
-                          placeholder="Brand ID"
-                        />
+                        Auto generate after adding
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <input
                           class="bg-white border p-2 rounded-sm"
+                          :class="{ 'bg-red-50': brandInput }"
+                          id="brandName"
                           type="text"
                           placeholder="Brand Name"
+                          v-model.trim="enterBrandName"
                         />
                       </div>
+                      <p
+                        v-if="brandInput"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Enter Brand Name!
+                      </p>
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
                         <div class="w-4 mr-2">
-                          <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                          <button @click="addBrand(this.enterBrandName)">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24px"
+                              viewBox="0 0 24 24"
+                              width="24px"
+                              fill="#000000"
+                            >
+                              <path d="M0 0h24v24H0V0z" fill="none" />
+                              <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                              />
+                            </svg>
                           </button>
                         </div>
                       </div>
@@ -124,13 +210,24 @@
       <div class="overflow-x-auto">
         <div class="flex items-center justify-center font-sans overflow-hidden">
           <div
-            class="overflow-scroll overflow-x-auto overflow-y-auto w-full h-96 lg:w-5/6"
+            class="
+              overflow-scroll overflow-x-auto overflow-y-auto
+              w-full
+              h-96
+              lg:w-5/6
+            "
           >
             <div class="bg-white rounded my-6">
               <table class="min-w-max w-full table-auto">
                 <thead>
                   <tr
-                    class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                    class="
+                      bg-gray-200
+                      text-gray-600
+                      uppercase
+                      text-sm
+                      leading-normal
+                    "
                   >
                     <th class="border-r p-2 w-4">
                       <input type="checkbox" />
@@ -141,7 +238,7 @@
                   </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
-                  <tr class="border-b border-gray-200 hover:bg-gray-100">
+                  <tr  v-for = "b in brandCreated" :key="b.idBrand" class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="flex items-center">
                         <input type="checkbox" />
@@ -149,18 +246,60 @@
                     </td>
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="flex items-center">
-                        <span class="font-medium">1</span>
+                        <span class="font-medium">{{ b.idBrand }}</span>
                       </div>
                     </td>
-                    <td class="py-3 px-6 text-left">
+                    <td v-if="b.idBrand == this.brandIdForCheck" class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span>BRAND NAME</span>
+                        <input
+                          class="bg-white border p-2 rounded-sm"
+                          :class="{ 'bg-red-50': b.brandName === '' }"
+                          id="brandName"
+                          type="text"
+                          placeholder="Brand Name"
+                          v-model.trim="b.brandName"
+                        />
+                      </div>
+                      <p
+                        v-if="b.brandName === '' "
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Enter Brand Name!
+                      </p>                      
+                    </td>
+                    <td v-else class="py-3 px-6 text-left">
+                      <div class="flex items-center">
+                        <span>{{ b.brandName }}</span>
                       </div>
                     </td>
+                    <!-- <td v-show="ifNotEdit" class="py-3 px-6 text-left">
+                      <div class="flex items-center">
+                        <span>{{ b.brandName }}</span>
+                      </div>
+                    </td>
+                    <td v-show="showSave" class="py-3 px-6 text-left">
+                      <div class="flex items-center">
+                        <input
+                          class="bg-white border p-2 rounded-sm"
+                          :class="{ 'bg-red-50': b.brandName === '' }"
+                          id="brandName"
+                          type="text"
+                          placeholder="Brand Name"
+                          v-model.trim="b.brandName"
+                        />
+                      </div>
+                      <p
+                        v-if="b.brandName === '' "
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        Enter Brand Name!
+                      </p>
+                    </td> -->
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
+                        <div v-show="showSave">
                         <div class="w-4 mr-2">
-                          <button>
+                          <button @click="saveEdit(b)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -175,8 +314,9 @@
                             </svg>
                           </button>
                         </div>
-                        <div class="w-4 mr-2">
-                          <button>
+                        </div>
+                        <div v-if="showEdit" class="w-4 mr-2">
+                          <button @click="showSaveEdit(b)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -192,7 +332,7 @@
                           </button>
                         </div>
                         <div class="w-4 mr-2">
-                          <button>
+                          <button @click="delBrand(b)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               height="24px"
@@ -225,7 +365,91 @@ export default {
   data() {
     return {
       isOpen: false,
+      enterBrandName: '',
+      brandInput: false,
+      brandCreated: [],
+      showSave: false,
+      ifNotEdit: true,
+      showEdit: true,
+      brandIdForCheck: '',
     };
   },
+  methods: {
+    async fetch(url) {
+      const res = await fetch(url);
+      const data = await res.json(url);
+      return data;
+    },
+    clearForm(){
+      this.enterBrandName = "";
+    },
+    check() {
+      console.log(this.enterBrandName)
+      this.brandInput = this.enterBrandName === "";
+    },
+    async addBrand(brandName) {
+      this.check();
+      try {
+        await fetch(
+          `http://localhost:3000/addbrand?BrandName=${brandName}`,
+          // `${process.env.VUE_APP_ROOT_API}addbrand?BrandName=${brandName}`,
+          {
+            method: "POST",
+          }
+        );
+        this.brandCreated = await this.fetch("http://localhost:3000/brand");
+        this.clearForm()
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
+    },
+    async delBrand(brandId) {
+      this.check();
+      try {
+        await fetch(
+          `http://localhost:3000/deletebrand?IdBrand=${brandId.idBrand}`,
+          // `${process.env.VUE_APP_ROOT_API}addbrand?BrandName=${brandName}`,
+          {
+            method: "DELETE",
+          }
+        );
+        this.brandCreated = await this.fetch("http://localhost:3000/brand");
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
+    },
+    showSaveEdit(idBrand){
+      this.check();
+      this.showEdit = false,
+      this.showSave = true;
+      this.ifNotEdit = false;
+      this.brandIdForCheck = idBrand.idBrand;
+    },
+    async saveEdit(brand) {
+      this.check();
+      this.showEdit = true,
+      this.showSave = false;
+      this.ifNotEdit = true;
+      this.brandIdForCheck = '';
+      try {
+        await fetch(
+          `http://localhost:3000/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
+          // `${process.env.VUE_APP_ROOT_API}editbrand?IdBrand=${brand.idBrand}&BrandName=${brand.brandName}`,
+          {
+            method: "PUT",
+          }
+        );
+        this.brandCreated = await this.fetch("http://localhost:3000/brand");
+      } catch (error) {
+        console.log(`Could not save! ${error}`);
+      }
+    },
+  },
+  computed(){
+    
+  },
+  async created(){
+    this.brandCreated = await this.fetch("http://localhost:3000/brand");
+  }
 };
 </script>
