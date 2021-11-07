@@ -8,7 +8,7 @@ import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import Profile from '../views/Profile.vue'
 import Receipt from '../views/Receipt.vue'
-import Role from '../views/Role.vue'
+import Account from '../views/Account.vue'
 import Brand from '../views/Brand.vue'
 import store from '@/store'
 
@@ -86,9 +86,9 @@ const routes = [
     // }
   },
   {
-    path: '/role',
-    name: 'Role',
-    component: Role,
+    path: '/account',
+    name: 'Account',
+    component: Account,
   },
   {
     path: '/addbrand',

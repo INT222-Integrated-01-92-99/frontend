@@ -59,9 +59,9 @@
             </li>
             <li>
               <router-link
-                @click="changePath('/role')"
-                to="/role"
-                :class="{ 'text-red-light': routes == '/role' }"
+                @click="changePath('/account')"
+                to="/account"
+                :class="{ 'text-red-light': routes == '/account' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Manage</router-link
               >

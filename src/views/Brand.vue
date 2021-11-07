@@ -12,7 +12,7 @@
       "
     >
       <base-button
-        @click="this.$router.push('/role')"
+        @click="this.$router.push('/account')"
         txtcolor="text-black"
         txtbutt="Manage Role"
         class="
@@ -274,7 +274,7 @@
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
-                        <div v-show="showSave">
+                        <div v-if="b.idBrand == this.brandIdForCheck" v-show="showSave">
                         <div class="w-4 mr-2">
                           <button @click="saveEdit(b)">
                             <svg
@@ -292,7 +292,7 @@
                           </button>
                         </div>
                         </div>
-                        <div v-if="showEdit" class="w-4 mr-2">
+                        <div v-if="showEdit && !(b.idBrand == this.brandIdForCheck)" class="w-4 mr-2">
                           <button @click="showSaveEdit(b)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -396,7 +396,7 @@ export default {
     },
     showSaveEdit(idBrand){
       this.check();
-      this.showEdit = false,
+      this.showEdit = true,
       this.showSave = true;
       this.brandIdForCheck = idBrand.idBrand;
     },
