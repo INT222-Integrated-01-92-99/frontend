@@ -1,6 +1,6 @@
 <template>
   <div class="detailProduct">
-    <div class="grid place-items-center h-screen">
+    <div class="grid place-items-center h-screen pt-36">
       <section
         class="flex 2xl:flex-row lg:flex-row flex-col gap-11 px-5 w-11/12 md:max-w-max"
       >

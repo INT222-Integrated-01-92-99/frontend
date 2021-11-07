@@ -1,29 +1,7 @@
 <template>
   <div class="detail h-screen">
-    <div class="bg-gray-extra-light pt-20">
-      <button
-        @click="this.$router.push('/product/views')"
-        :class="{ 'text-red-light underline': routes == '/product/views' }"
-        class="
-          2xl:w-20 2xl:h-9
-          w-10
-          h-7
-          mt-3
-          ml-24
-          flex
-          transition
-          ease-in
-          duration-300
-          transform
-          hover:-translate-x-6
-          active:translate-y-0
-        "
-      >
-        <img class="h-2/3" src="../assets/icon/arrow-back.svg" />
-        <span class="font-prompt-regular-400">Back</span>
-      </button>
-    </div>
-    <div class="2xl:pt-6 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <base-back></base-back>
+    <div class="2xl:pt-36 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
       <h1
         class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
       >
@@ -36,7 +14,12 @@
         v-for="r in receipt"
         :key="r.idReceipt"
       >
-        <div class="ml-40 font-prompt-regular-400">
+        <div
+          class="mx-auto
+          w-full
+          md:w-4/5
+          lg:w-4/5 font-prompt-regular-400"
+        >
           #{{ r.idReceipt }}<br />
           Purchase Date: {{ r.datePurchase }}
         </div>
@@ -124,7 +107,8 @@
                         r.totalPrice
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                      }} THB
+                      }}
+                      THB
                     </div>
                   </div>
                 </div>
@@ -137,8 +121,9 @@
   </div>
 </template>
 <script>
+import BaseBack from "../components/BaseBack.vue";
 export default {
-  components: {},
+  components: { BaseBack },
   data() {
     return {
       receipt: [],

@@ -1,14 +1,4 @@
 <template>
-  <div class="bg-gray-extra-light pt-20">
-    <button
-      @click="this.$router.push('/product/views')"
-      :class="{ 'text-red-light underline': routes == '/product/views' }"
-      class="2xl:w-20 2xl:h-9 w-10 h-7 mt-3 ml-24 flex transition ease-in duration-300 transform hover:-translate-x-6 active:translate-y-0"
-    >
-      <img class="h-2/3" src="../assets/icon/arrow-back.svg" />
-      <span class="font-prompt-regular-400">Back</span>
-    </button>
-  </div>
   <div class="2xl:pt-6 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
     <h1
       class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
