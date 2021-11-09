@@ -279,9 +279,9 @@
                             <option
                               v-for="r in roles"
                               :key="r.idRole"
-                              :value="r"
+                              :value="role"
                             >
-                              {{ r }}
+                              {{ r.role }}
                             </option>
                           </select>
                         </div>
@@ -295,7 +295,7 @@
                       <td class="py-3 px-6 text-center">
                         <div class="flex item-center justify-center">
                           <div class="w-4 mr-2">
-                            <button @click="addAccount()">
+                            <button @click.prevent="addAccount()">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 height="24px"
@@ -570,7 +570,7 @@
                     </td>
                     <td v-else class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span class="">{{ r.accRole }} </span>
+                        <span class="">{{ r.idRole.role }} </span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
@@ -688,7 +688,7 @@ export default {
     },
     async addAccount() {
       this.check();
-      console.log();
+      console.log(this.person);
       try {
         const jsonPro = await JSON.stringify(this.person);
         const blob = await new Blob([jsonPro], {
@@ -701,7 +701,7 @@ export default {
           method: "POST",
           body: formData,
         });
-        this.people = await this.fetch("http://localhost:3000/account");
+        // this.people = await this.fetch("http://localhost:3000/account");
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -716,6 +716,7 @@ export default {
         const blob = await new Blob([jsonPro], {
           type: "application/json",
         });
+        console.log(this.person)
         let formData = new FormData();
         await formData.append("editAccount", blob);
         await fetch("http://localhost:3000/editaccount", {
@@ -747,6 +748,8 @@ export default {
       this.check();
       (this.showEdit = true), (this.showSave = true);
       this.roleIdForCheck = roleId.idAccount;
+      this.person.role = roleId.idRole.role;
+      console.log(this.person.role)
     },
     async fetch(url) {
       try {
@@ -760,6 +763,7 @@ export default {
   },
   async created() {
     this.people = await this.fetch("http://localhost:3000/account");
+    this.roles = await this.fetch("http://localhost:3000/role");
   },
 };
 </script>
