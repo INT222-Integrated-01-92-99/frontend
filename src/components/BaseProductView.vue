@@ -9,7 +9,7 @@
         <img src="../assets/icon/arrow-up.svg" />
       </button>
     </div>
-    <div class="2xl:pt-6 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div class="2xl:pt-36 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
       <h1
         class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
       >

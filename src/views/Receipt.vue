@@ -40,8 +40,8 @@
             <table class="w-full text-sm lg:text-base" cellspacing="0">
               <thead class="border-b-2">
                 <tr class="h-12 uppercase">
-                  <th class="pl-4 text-left">Product</th>
-                  <th class="lg:text-center text-left pl-5 lg:pl-0">
+                  <th class="text-left pl-4">Product</th>
+                  <th class="lg:text-center">
                     <span class="lg:hidden" title="Quantity">Qtd</span>
                     <span class="hidden lg:inline">Quantity</span>
                   </th>

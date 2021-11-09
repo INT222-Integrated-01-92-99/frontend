@@ -9,7 +9,7 @@
             2xl:text-5xl
             text-4xl
             font-bold
-            lg:pt-10
+            lg:pt-36
             pt-6
             lg:pb-10
             pb-5

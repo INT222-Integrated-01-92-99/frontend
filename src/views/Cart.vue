@@ -17,8 +17,8 @@
             <thead class="border-b-2">
               <tr class="h-12 uppercase">
                 <th class="hidden md:table-cell"></th>
-                <th class="text-left">Product</th>
-                <th class="lg:text-center text-left pl-5 lg:pl-0">
+                <th class="text-left pl-4">Product</th>
+                <th class="lg:text-center">
                   <span class="lg:hidden" title="Quantity">Qtd</span>
                   <span class="hidden lg:inline">Quantity</span>
                 </th>
@@ -65,8 +65,8 @@
                   </div>
                 </td>
                 <td class="justify-center md:justify-end md:flex mt-6">
-                  <div class="mt-14">
-                    <div class="relative flex flex-row w-1/2 h-8">
+                  <div class="mx-auto mt-14">
+                    <div class="relative mx-auto flex flex-row w-1/2 h-8 -z-10">
                       <input
                         type="number"
                         min="0"

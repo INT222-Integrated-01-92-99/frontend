@@ -2,13 +2,7 @@
   <div class="role">
     <div
       class="
-        bg-gray-extra-light
-        pt-20
-        lg:pr-20
-        pr-16
-        flex
-        justify-end
-        space-x-2
+        z-10 bg-gray-extra-light w-full fixed pt-20 shadow-md lg:pr-20 pr-16 flex justify-end space-x-2
       "
     >
       <base-button
@@ -20,7 +14,6 @@
           focus:outline-none
           py-2
           px-2
-          pt-4
           text-base text-black
           hover:text-red-light
           transition
@@ -33,7 +26,7 @@
         "
       >
       </base-button>
-      <p class="text-center text-black text-lg pt-3">|</p>
+      <p class="text-center text-black text-lg">|</p>
       <base-button
         @click="this.$router.push('/addbrand')"
         txtcolor="text-black"
@@ -43,7 +36,6 @@
           focus:outline-none
           py-2
           px-2
-          pt-4
           text-base text-black
           hover:text-red-light
           transition
@@ -57,7 +49,7 @@
       >
       </base-button>
     </div>
-    <div class="2xl:pt-6 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div class="2xl:pt-36 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
       <h1
         class="
           font-prompt-regular-400
@@ -539,7 +531,10 @@
                         <span class="">{{ r.accAddress }} </span>
                       </div>
                     </td>
-                    <td  v-if="r.idAccount == this.roleIdForCheck" class="py-3 px-6 text-left">
+                    <td
+                      v-if="r.idAccount == this.roleIdForCheck"
+                      class="py-3 px-6 text-left"
+                    >
                       <div class="flex items-center">
                         <select
                           id="roles"

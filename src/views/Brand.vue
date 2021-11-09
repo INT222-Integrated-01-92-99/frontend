@@ -2,25 +2,18 @@
   <div class="brand">
     <div
       class="
-        bg-gray-extra-light
-        pt-20
-        lg:pr-20
-        pr-16
-        flex
-        justify-end
-        space-x-2
+        z-10 bg-gray-extra-light w-full fixed pt-20 shadow-md lg:pr-20 pr-16 flex justify-end space-x-2
       "
     >
       <base-button
         @click="this.$router.push('/account')"
         txtcolor="text-black"
-        txtbutt="Manage Role"
+        txtbutt="Manage Account"
         class="
           font-prompt-regular-400
           focus:outline-none
           py-2
           px-2
-          pt-4
           text-base text-black
           hover:text-red-light
           transition
@@ -33,7 +26,7 @@
         "
       >
       </base-button>
-      <p class="text-center text-black text-lg pt-3">|</p>
+      <p class="text-center text-black text-lg">|</p>
       <base-button
         @click="this.$router.push('/addbrand')"
         txtcolor="text-black"
@@ -43,7 +36,6 @@
           focus:outline-none
           py-2
           px-2
-          pt-4
           text-base text-black
           hover:text-red-light
           transition
@@ -57,7 +49,7 @@
       >
       </base-button>
     </div>
-    <div class="2xl:pt-6 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div class="2xl:pt-36 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
       <h1
         class="
           font-prompt-regular-400
@@ -238,7 +230,11 @@
                   </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
-                  <tr  v-for = "b in brandCreated" :key="b.idBrand" class="border-b border-gray-200 hover:bg-gray-100">
+                  <tr
+                    v-for="b in brandCreated"
+                    :key="b.idBrand"
+                    class="border-b border-gray-200 hover:bg-gray-100"
+                  >
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="flex items-center">
                         <input type="checkbox" />
@@ -249,7 +245,10 @@
                         <span class="font-medium">{{ b.idBrand }}</span>
                       </div>
                     </td>
-                    <td v-if="b.idBrand == this.brandIdForCheck" class="py-3 px-6 text-left">
+                    <td
+                      v-if="b.idBrand == this.brandIdForCheck"
+                      class="py-3 px-6 text-left"
+                    >
                       <div class="flex items-center">
                         <input
                           class="bg-white border p-2 rounded-sm"
@@ -261,11 +260,11 @@
                         />
                       </div>
                       <p
-                        v-if="b.brandName === '' "
+                        v-if="b.brandName === ''"
                         class="font-prompt-regular-400 text-red-600"
                       >
                         Enter Brand Name!
-                      </p>                      
+                      </p>
                     </td>
                     <td v-else class="py-3 px-6 text-left">
                       <div class="flex items-center">
@@ -274,25 +273,33 @@
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
-                        <div v-if="b.idBrand == this.brandIdForCheck" v-show="showSave">
-                        <div class="w-4 mr-2">
-                          <button @click="saveEdit(b)">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              height="24px"
-                              viewBox="0 0 24 24"
-                              width="24px"
-                              fill="#000000"
-                            >
-                              <path d="M0 0h24v24H0z" fill="none" />
-                              <path
-                                d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
-                              />
-                            </svg>
-                          </button>
+                        <div
+                          v-if="b.idBrand == this.brandIdForCheck"
+                          v-show="showSave"
+                        >
+                          <div class="w-4 mr-2">
+                            <button @click="saveEdit(b)">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 0 24 24"
+                                width="24px"
+                                fill="#000000"
+                              >
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                  d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
-                        </div>
-                        <div v-if="showEdit && !(b.idBrand == this.brandIdForCheck)" class="w-4 mr-2">
+                        <div
+                          v-if="
+                            showEdit && !(b.idBrand == this.brandIdForCheck)
+                          "
+                          class="w-4 mr-2"
+                        >
                           <button @click="showSaveEdit(b)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -342,12 +349,12 @@ export default {
   data() {
     return {
       isOpen: false,
-      enterBrandName: '',
+      enterBrandName: "",
       brandInput: false,
       brandCreated: [],
       showSave: false,
       showEdit: true,
-      brandIdForCheck: '',
+      brandIdForCheck: "",
     };
   },
   methods: {
@@ -356,11 +363,11 @@ export default {
       const data = await res.json(url);
       return data;
     },
-    clearForm(){
+    clearForm() {
       this.enterBrandName = "";
     },
     check() {
-      console.log(this.enterBrandName)
+      console.log(this.enterBrandName);
       this.brandInput = this.enterBrandName === "";
     },
     async addBrand(brandName) {
@@ -374,7 +381,7 @@ export default {
           }
         );
         this.brandCreated = await this.fetch("http://localhost:3000/brand");
-        this.clearForm()
+        this.clearForm();
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -394,20 +401,20 @@ export default {
         console.log(`Could not save! ${error}`);
       }
     },
-    showSaveEdit(idBrand){
+    showSaveEdit(idBrand) {
       this.check();
-      this.showEdit = true,
-      this.showSave = true;
+      (this.showEdit = true), (this.showSave = true);
       this.brandIdForCheck = idBrand.idBrand;
     },
     async saveEdit(brand) {
       this.check();
-      this.showEdit = true,
-      this.showSave = false;
-      this.brandIdForCheck = '';
+      (this.showEdit = true), (this.showSave = false);
+      this.brandIdForCheck = "";
       try {
         await fetch(
-          `http://localhost:3000/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
+          `http://localhost:3000/editbrand?IdBrand=${
+            brand.idBrand
+          }&BrandName=${encodeURIComponent(brand.brandName)}`,
           // `${process.env.VUE_APP_ROOT_API}editbrand?IdBrand=${brand.idBrand}&BrandName=${brand.brandName}`,
           {
             method: "PUT",
@@ -419,11 +426,9 @@ export default {
       }
     },
   },
-  computed(){
-    
-  },
-  async created(){
+  computed() {},
+  async created() {
     this.brandCreated = await this.fetch("http://localhost:3000/brand");
-  }
+  },
 };
 </script>

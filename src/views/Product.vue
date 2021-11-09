@@ -1,23 +1,23 @@
 <template>
   <div class="product mb-5">
     <div
-      class="bg-gray-extra-light pt-20 lg:pr-20 pr-16 flex justify-end space-x-2"
+      class="z-10 bg-gray-extra-light w-full fixed pt-20 shadow-md lg:pr-20 pr-16 flex justify-end space-x-2"
     >
       <base-button
         @click="(viewAddChange = true), this.$router.push('/product/views')"
         txtcolor="text-black"
         txtbutt="View Products"
-        class="font-prompt-regular-400 focus:outline-none py-2 px-2 pt-4 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
+        class="font-prompt-regular-400 focus:outline-none py-2 px-2 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
       >
       </base-button>
-      <p class="text-center text-black text-lg pt-3">
+      <p class="text-center text-black text-lg">
         |
       </p>
       <base-button
         @click="(viewAddChange = false), this.$router.push('/product/add')"
         txtcolor="text-black"
         txtbutt="Add Product"
-        class="font-prompt-regular-400 focus:outline-none py-2 px-2 pt-4 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
+        class="font-prompt-regular-400 focus:outline-none py-2 px-2 text-base text-black hover:text-red-light transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0 focus:text-red-light"
       >
       </base-button>
     </div>

@@ -247,7 +247,7 @@ export default {
 }
 
 nav {
-  z-index: 10;
+  z-index: 20;
 }
 
 nav.scrolled {
