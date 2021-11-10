@@ -235,8 +235,8 @@ export default {
     },
   },
   async created() {
-    // this.cart = await this.fetch("http://localhost:3000/cart/1");
-    this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+    this.cart = await this.fetch("http://localhost:3000/cart/1");
+    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
   },
 };
 </script>

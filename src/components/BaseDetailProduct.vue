@@ -127,12 +127,12 @@ export default {
   data() {
     return {
       product: { brand: { brandName: "" } },
-      // urlProduct: "http://localhost:3000/product",
-      urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
+      urlProduct: "http://localhost:3000/product",
+      // urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
       sendToDelete: false,
       sendId: 0,
-      // urlImage: "http://localhost:3000/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}image`,
+      urlImage: "http://localhost:3000/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
       image: { url: "" },
       initialAmount: 1,
       colorArray: [],
@@ -250,8 +250,8 @@ export default {
 
       try {
         await fetch(
-          // `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          `http://localhost:3000/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
           }
@@ -265,14 +265,14 @@ export default {
       console.log(proInCart);
       try {
         await fetch(
-          // `http://localhost:3000/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          `http://localhost:3000/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
           {
             method: "POST",
           }
         );
-        // this.cart = await this.fetch("http://localhost:3000/cart/1");
-        this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+        this.cart = await this.fetch("http://localhost:3000/cart/1");
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
         alert("Add to cart")
         this.numCart++
         this.memLocal(parseInt(this.numCart));
@@ -309,10 +309,10 @@ export default {
     const id = urlParams.get("id");
     this.product = await this.fetch(this.urlProduct + `/${id}`);
     this.image = await fetch(this.urlImage + "/" + this.product.proPathImg);
-    // this.cart = await this.fetch("http://localhost:3000/cart/1");
-    this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-    // this.account = await this.fetch("http://localhost:3000/account/1");
-    this.account = await this.fetch(`${process.env.VUE_APP_ROOT_API}account/1`);
+    this.cart = await this.fetch("http://localhost:3000/cart/1");
+    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+    this.account = await this.fetch("http://localhost:3000/account/1");
+    // this.account = await this.fetch(`${process.env.VUE_APP_ROOT_API}account/1`);
   },
 };
 </script>

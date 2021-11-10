@@ -696,13 +696,13 @@ export default {
         });
         let formData = new FormData();
         await formData.append("newAccount", blob);
-        // await fetch("http://localhost:3000/registaccount", {
-          await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
+        await fetch("http://localhost:3000/registaccount", {
+          // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
           method: "POST",
           body: formData,
         });
-        // this.people = await this.fetch("http://localhost:3000/account");
-        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        this.people = await this.fetch("http://localhost:3000/account");
+        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -720,13 +720,13 @@ export default {
         console.log(this.person)
         let formData = new FormData();
         await formData.append("editAccount", blob);
-        // await fetch("http://localhost:3000/editaccount", {
-          await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
+        await fetch("http://localhost:3000/editaccount", {
+          // await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
           method: "PUT",
           body: formData,
         });
-        // this.people = await this.fetch("http://localhost:3000/account");
-        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        this.people = await this.fetch("http://localhost:3000/account");
+        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -735,14 +735,14 @@ export default {
       this.check();
       try {
         await fetch(
-          // `http://localhost:3000/deleteaccount?idAccount=${roleId.idAccount}`,
-          `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
+          `http://localhost:3000/deleteaccount?idAccount=${roleId.idAccount}`,
+          // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
           {
             method: "DELETE",
           }
         );
-        // this.people = await this.fetch("http://localhost:3000/account");
-        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        this.people = await this.fetch("http://localhost:3000/account");
+        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -765,10 +765,10 @@ export default {
     },
   },
   async created() {
-    // this.people = await this.fetch("http://localhost:3000/account");
-    this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
-    // this.roles = await this.fetch("http://localhost:3000/role");
-    this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);
+    this.people = await this.fetch("http://localhost:3000/account");
+    // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+    this.roles = await this.fetch("http://localhost:3000/role");
+    // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);
   },
 };
 </script>
