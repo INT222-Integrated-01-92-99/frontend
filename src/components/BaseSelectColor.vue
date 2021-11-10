@@ -43,10 +43,10 @@ export default {
   },
 
   async created() {
-    this.colorArray = await this.fetch("http://localhost:3000/color");
-    // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}color`);
-    this.productArray = await this.fetch("http://localhost:3000/product/");
-    // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
+    // this.colorArray = await this.fetch("http://localhost:3000/color");
+    this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}color`);
+    // this.productArray = await this.fetch("http://localhost:3000/product/");
+    this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
   },
 };
 </script>

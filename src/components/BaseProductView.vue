@@ -141,7 +141,8 @@ export default {
       // await axios.get(`http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`).then((response)=>{
       await axios
         .get(
-          `http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`
+          // `http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`
+          `${process.env.VUE_APP_ROOT_API}search?proname=${this.query}&idbrand=${this.keepId}`
         )
         .then((response) => {
           this.searchPro = response.data;
@@ -154,7 +155,8 @@ export default {
   },
   async created() {
     window.addEventListener("scroll", this.backToTop);
-    this.brand = await this.fetch("http://localhost:3000/brand");
+    // this.brand = await this.fetch("http://localhost:3000/brand");
+    this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
   },
   // watch: {
   //   brandId: async function check() {

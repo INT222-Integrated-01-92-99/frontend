@@ -66,8 +66,8 @@ export default {
         let formData = new FormData();
         formData.append("image", addNewPro.imgFile, addNewPro.proPathImg);
         await formData.append("newproduct", blob);
-        await fetch("http://localhost:3000/add/image", {
-        // await fetch(`${process.env.VUE_APP_ROOT_API}add/image`, {
+        // await fetch("http://localhost:3000/add/image", {
+        await fetch(`${process.env.VUE_APP_ROOT_API}add/image`, {
           method: "POST",
           body: formData,
         });
