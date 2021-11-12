@@ -38,7 +38,7 @@
                           </div>
                           <input
                             type="text"
-                            v-model.trim="person.firstname"
+                            v-model.trim="person.accFname"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': firstnameInput }"
                             placeholder="First name"
@@ -65,7 +65,7 @@
                           </div>
                           <input
                             type="text"
-                            v-model.trim="person.lastname"
+                            v-model.trim="person.accLname"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': lastnameInput }"
                             placeholder="Last name"
@@ -93,7 +93,7 @@
                           </div>
                           <input
                             type="text"
-                            v-model.trim="person.username"
+                            v-model.trim="person.accUsername"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': usernameInput }"
                             placeholder="Username"
@@ -119,7 +119,7 @@
                           </div>
                           <input
                             :type="type"
-                            v-model.trim="person.password"
+                            v-model.trim="person.accPass"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': passwordInput }"
                             placeholder="Password"
@@ -156,7 +156,7 @@
                           </div>
                           <input
                             type="text"
-                            v-model.trim="person.phone"
+                            v-model.trim="person.accPhone"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': phoneInput }"
                             placeholder="Phone"
@@ -187,7 +187,7 @@
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': addressInput }"
                             placeholder="Address"
-                            v-model.trim="person.address"
+                            v-model.trim="person.accAddress"
                           />
                         </div>
                       </div>
@@ -229,12 +229,13 @@ export default {
       type: "password",
       eye: require("../assets/icon/hide.png"),
       person: {
-        username: "",
-        password: "",
-        firstname: "",
-        lastname: "",
-        phone: "",
-        address: ""
+        accUsername: "",
+        accPass: "",
+        accFname: "",
+        accLname: "",
+        accPhone: "",
+        accAddress: "",
+        idRole: {idRole: 3,role:'ROLE_MEMBER'},
       },
         usernameInput: false,
         passwordInput: false,
@@ -246,12 +247,12 @@ export default {
   },
   methods: {
     check() {
-      this.usernameInput = this.person.username != "";
-      this.passwordInput = this.person.password != "";
-      this.firstnameInput = this.person.firstname != "";
-      this.lastnameInput = this.person.lastname != "";
-      this.phoneInput = this.person.phone != "" && this.person.phone.length == 10;
-      this.addressInput = this.person.address != "";
+      this.usernameInput = this.person.accUsername != "";
+      this.passwordInput = this.person.accPass != "";
+      this.firstnameInput = this.person.accFname != "";
+      this.lastnameInput = this.person.accLname != "";
+      this.phoneInput = this.person.accPhone != "" && this.person.accPhone.length == 10;
+      this.addressInput = this.person.accAddress != "";
     },
     showPassword() {
       if (this.type === "password") {
@@ -262,26 +263,30 @@ export default {
         this.eye = require("../assets/icon/hide.png");
       }
     },
-    async signUp() {
+async signUp() {
       this.check();
-      console.log(this.person);
+     if(!this.usernameInput &&
+        !this.passwordInput &&
+        !this.firstnameInput &&
+        !this.lastnameInput &&
+        !this.phoneInput &&
+        !this.addressInput) {
       try {
         const jsonPro = await JSON.stringify(this.person);
-        const blob = await new Blob([jsonPro], {
-          type: "application/json",
-        });
-        let formData = new FormData();
-        await formData.append("newAccount", blob);
         await fetch("http://localhost:3000/registaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
           method: "POST",
-          body: formData,
+          body: jsonPro,
+          headers: {
+            "Content-Type": "application/json",
+          },          
         });
         this.people = await this.fetch("http://localhost:3000/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
+        }
     },
   },
 };
