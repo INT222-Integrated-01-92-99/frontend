@@ -2,7 +2,17 @@
   <div class="role">
     <div
       class="
-        z-10 bg-gray-extra-light w-full fixed pt-20 shadow-md lg:pr-20 pr-16 flex justify-end space-x-2
+        z-10
+        bg-gray-extra-light
+        w-full
+        fixed
+        pt-20
+        shadow-md
+        lg:pr-20
+        pr-16
+        flex
+        justify-end
+        space-x-2
       "
     >
       <base-button
@@ -167,7 +177,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Username"
-                            v-model.trim="person.username"
+                            v-model.trim="person.accUsername"
                           />
                         </div>
                         <p
@@ -185,7 +195,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Password"
-                            v-model.trim="person.password"
+                            v-model.trim="person.accPass"
                           />
                         </div>
                         <p
@@ -203,7 +213,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Firstname"
-                            v-model.trim="person.firstname"
+                            v-model.trim="person.accFname"
                           />
                         </div>
                         <p
@@ -221,7 +231,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Lastname"
-                            v-model.trim="person.lastname"
+                            v-model.trim="person.accLname"
                           />
                         </div>
                         <p
@@ -239,7 +249,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Phone"
-                            v-model="person.phone"
+                            v-model="person.accPhone"
                           />
                         </div>
                         <p
@@ -257,7 +267,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="textarea"
                             placeholder="Address"
-                            v-model.trim="person.address"
+                            v-model.trim="person.accAddress"
                           />
                         </div>
                         <p
@@ -273,15 +283,15 @@
                             class="bg-white border p-2 rounded-sm"
                             id="roles"
                             name="roleslist"
-                            v-model="person.role"
+                            v-model="person.idRole"
                             :class="{ 'bg-red-50': validate.selectRole }"
                           >
                             <option
-                              v-for="r in roles"
+                              v-for="r in roles.filter((i) => i.idRole !== 1)"
                               :key="r.idRole"
-                              :value="role"
+                              :value="r"
                             >
-                              {{ r.role }}
+                              {{ Role[r.role] }}
                             </option>
                           </select>
                         </div>
@@ -386,7 +396,7 @@
                           id="userName"
                           type="text"
                           placeholder="Username"
-                          v-model.trim="r.accUsername"
+                          v-model.trim="person.accUsername"
                         />
                       </div>
                       <p
@@ -412,7 +422,7 @@
                           id="passWord"
                           type="text"
                           placeholder="Password"
-                          v-model.trim="r.accPass"
+                          v-model.trim="person.accPass"
                         />
                       </div>
                       <p
@@ -438,7 +448,7 @@
                           id="firstName"
                           type="text"
                           placeholder="Firstname"
-                          v-model.trim="r.accFname"
+                          v-model.trim="person.accFname"
                         />
                       </div>
                       <p
@@ -464,7 +474,7 @@
                           id="lastName"
                           type="text"
                           placeholder="Lastname"
-                          v-model.trim="r.accLname"
+                          v-model.trim="person.accLname"
                         />
                       </div>
                       <p
@@ -490,7 +500,7 @@
                           id="phoneNum"
                           type="text"
                           placeholder="Phone"
-                          v-model.trim="r.accPhone"
+                          v-model.trim="person.accPhone"
                         />
                       </div>
                       <p
@@ -516,7 +526,7 @@
                           id="address"
                           type="text"
                           placeholder="Address"
-                          v-model.trim="r.accAddress"
+                          v-model.trim="person.accAddress"
                         />
                       </div>
                       <p
@@ -540,7 +550,7 @@
                           id="roles"
                           name="rolelist"
                           form="roleform"
-                          v-model="person.role"
+                          v-model="person.idRole"
                           :class="{ 'bg-red-50': validate.selectRole }"
                           class="
                             input
@@ -562,15 +572,18 @@
                             v-for="role in roles"
                             :key="role.idRole"
                             :value="role"
+                            :disabled="
+                              role.idRole == 1 || person.idRole.idRole == 1
+                            "
                           >
-                            {{ role.role }}
+                            {{ Role[role.role] }}
                           </option>
                         </select>
                       </div>
                     </td>
                     <td v-else class="py-3 px-6 text-left">
                       <div class="flex items-center">
-                        <span class="">{{ r.idRole.role }} </span>
+                        <span class="">{{ Role[r.idRole.role] }} </span>
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
@@ -646,9 +659,15 @@
   </div>
 </template>
 <script>
+const Role = Object.freeze({
+  ROLE_ADMIN: "Admin",
+  ROLE_STAFF: "Staff",
+  ROLE_MEMBER: "Member",
+});
 export default {
   data() {
     return {
+      Role,
       isOpen: false,
       showSave: false,
       showEdit: true,
@@ -656,13 +675,13 @@ export default {
       roles: [],
       roleIdForCheck: "",
       person: {
-        username: "",
-        password: "",
-        firstname: "",
-        lastname: "",
-        phone: "",
-        address: "",
-        role: "",
+        accUsername: "",
+        accPass: "",
+        accFname: "",
+        accLname: "",
+        accPhone: "",
+        accAddress: "",
+        idRole: {},
       },
       validate: {
         usernameInput: false,
@@ -677,29 +696,28 @@ export default {
   },
   methods: {
     check() {
-      this.validate.usernameInput = this.person.username != "";
-      this.validate.passwordInput = this.person.password != "";
-      this.validate.firstnameInput = this.person.firstname != "";
-      this.validate.lastnameInput = this.person.lastname != "";
+      this.validate.usernameInput = this.person.accUsername != "";
+      this.validate.passwordInput = this.person.accPass != "";
+      this.validate.firstnameInput = this.person.accFname != "";
+      this.validate.lastnameInput = this.person.accLname != "";
       this.validate.phoneInput =
-        this.person.phone != "" && this.person.phone.length == 10;
-      this.validate.addressInput = this.person.address != "";
-      this.validate.selectRole = this.person.role != "";
+        this.person.phone != "" && this.person.accPhone.length == 10;
+      this.validate.addressInput = this.person.accAddress != "";
+      this.validate.selectRole = this.person.idRole != "";
     },
     async addAccount() {
       this.check();
       console.log(this.person);
+      console.log(this.person.idRole);
       try {
         const jsonPro = await JSON.stringify(this.person);
-        const blob = await new Blob([jsonPro], {
-          type: "application/json",
-        });
-        let formData = new FormData();
-        await formData.append("newAccount", blob);
         await fetch("http://localhost:3000/registaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
           method: "POST",
-          body: formData,
+          body: jsonPro,
+          headers: {
+            "Content-Type": "application/json",
+          },          
         });
         this.people = await this.fetch("http://localhost:3000/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
@@ -709,21 +727,20 @@ export default {
     },
     async editAccount() {
       this.check();
+      console.log(this.person);
       this.showEdit = true;
       this.showSave = false;
       this.roleIdForCheck = "";
       try {
-        const jsonPro = await JSON.stringify(this.person);
-        const blob = await new Blob([jsonPro], {
-          type: "application/json",
-        });
-        console.log(this.person)
-        let formData = new FormData();
-        await formData.append("editAccount", blob);
+        const jsonPro = JSON.stringify(this.person);
+
         await fetch("http://localhost:3000/editaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
           method: "PUT",
-          body: formData,
+          body: jsonPro,
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
         this.people = await this.fetch("http://localhost:3000/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
@@ -751,8 +768,9 @@ export default {
       this.check();
       (this.showEdit = true), (this.showSave = true);
       this.roleIdForCheck = roleId.idAccount;
-      this.person.role = roleId.idRole.role;
-      console.log(this.person.role)
+      this.person = roleId;
+      console.log(roleId);
+      console.log(this.person.idRole);
     },
     async fetch(url) {
       try {
