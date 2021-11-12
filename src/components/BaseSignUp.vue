@@ -44,10 +44,13 @@
                             placeholder="First name"
                           />
                         </div>
+                        <p
+                          v-if="firstnameInput"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          Please enter your firstname
+                        </p>
                       </div>
-            <p v-if="firstnameInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your firstname
-            </p>                      
 
                       <div class="w-1/2 px-3 mb-5">
                         <label
@@ -71,10 +74,13 @@
                             placeholder="Last name"
                           />
                         </div>
+                        <p
+                          v-if="lastnameInput"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          Please enter your lastname
+                        </p>
                       </div>
-                      <p v-if="lastnameInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your lastname
-            </p>
                     </div>
                     <div class="flex -mx-3">
                       <div class="w-1/2 px-3 mb-5">
@@ -99,10 +105,14 @@
                             placeholder="Username"
                           />
                         </div>
+                        <p
+                          v-if="usernameInput"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          Please enter your username
+                        </p>
                       </div>
-                      <p v-if="usernameInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your username
-            </p>
+
                       <div class="w-1/2 px-3 mb-5">
                         <label
                           for=""
@@ -133,13 +143,15 @@
                             </button>
                           </div>
                         </div>
+                        <p
+                          v-if="passwordInput"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          Please enter your password
+                        </p>
                       </div>
-                      <p v-if="passwordInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your password
-            </p>
                     </div>
                     <div class="flex -mx-3">
-
                       <div class="w-1/2 px-3 mb-5">
                         <label
                           for=""
@@ -155,17 +167,22 @@
                             ></i>
                           </div>
                           <input
-                            type="text"
+                            type="tel"
+                            maxlength="10"
                             v-model.trim="person.accPhone"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': phoneInput }"
-                            placeholder="Phone"
+                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                            placeholder="0123456789"
                           />
                         </div>
+                        <p
+                          v-if="phoneInput"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          Please enter your phone number
+                        </p>
                       </div>
-                      <p v-if="phoneInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your phone number
-            </p>
                     </div>
                     <div class="flex -mx-3">
                       <div class="w-full px-3 mb-5">
@@ -190,15 +207,19 @@
                             v-model.trim="person.accAddress"
                           />
                         </div>
+                        <p
+                          v-if="addressInput"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          Please enter your address
+                        </p>
                       </div>
-                       <p v-if="addressInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your address
-            </p>
                     </div>
                   </div>
 
                   <div class="flex flex-col mt-8">
-                    <button @click.prevent="signUp()"
+                    <button
+                      @click.prevent="signUp()"
                       type="submit"
                       class="font-prompt-regular-400 bg-red-light hover:bg-red-dark text-white text-base font-medium py-2 px-4 rounded"
                     >
@@ -235,24 +256,29 @@ export default {
         accLname: "",
         accPhone: "",
         accAddress: "",
-        idRole: {idRole: 3,role:'ROLE_MEMBER'},
+        idRole: { idRole: 3, role: "ROLE_MEMBER" },
       },
-        usernameInput: false,
-        passwordInput: false,
-        firstnameInput: false,
-        lastnameInput: false,
-        phoneInput: false,
-        addressInput: false,
+      usernameInput: false,
+      passwordInput: false,
+      firstnameInput: false,
+      lastnameInput: false,
+      phoneInput: false,
+      addressInput: false,
+      x: "",
     };
   },
   methods: {
     check() {
-      this.usernameInput = this.person.accUsername != "";
-      this.passwordInput = this.person.accPass != "";
-      this.firstnameInput = this.person.accFname != "";
-      this.lastnameInput = this.person.accLname != "";
-      this.phoneInput = this.person.accPhone != "" && this.person.accPhone.length == 10;
-      this.addressInput = this.person.accAddress != "";
+      this.usernameInput = this.person.accUsername === "" ? true : false;
+      this.passwordInput = this.person.accPass === "" ? true : false;
+      this.firstnameInput = this.person.accFname === "" ? true : false;
+      this.lastnameInput = this.person.accLname === "" ? true : false;
+      this.phoneInput =
+        (this.person.accPhone === "" || this.person.accPhone !== "") &&
+        this.person.accPhone.length !== 10
+          ? true
+          : false;
+      this.addressInput = this.person.accAddress === "" ? true : false;
     },
     showPassword() {
       if (this.type === "password") {
@@ -263,30 +289,33 @@ export default {
         this.eye = require("../assets/icon/hide.png");
       }
     },
-async signUp() {
+    async signUp() {
+      console.log("จำนวนเลข ทรศ.= " + this.person.accPhone.length);
       this.check();
-     if(!this.usernameInput &&
+      if (
+        !this.usernameInput &&
         !this.passwordInput &&
         !this.firstnameInput &&
         !this.lastnameInput &&
         !this.phoneInput &&
-        !this.addressInput) {
-      try {
-        const jsonPro = await JSON.stringify(this.person);
-        await fetch("http://localhost:3000/registaccount", {
-          // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
-          method: "POST",
-          body: jsonPro,
-          headers: {
-            "Content-Type": "application/json",
-          },          
-        });
-        this.people = await this.fetch("http://localhost:3000/account");
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
-      }
+        !this.addressInput
+      ) {
+        try {
+          const jsonPro = await JSON.stringify(this.person);
+          await fetch("http://localhost:3000/registaccount", {
+            // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
+            method: "POST",
+            body: jsonPro,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          this.people = await this.fetch("http://localhost:3000/account");
+          // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
         }
+      }
     },
   },
 };
