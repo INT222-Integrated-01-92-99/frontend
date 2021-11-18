@@ -76,14 +76,14 @@ const routes = [
     path: '/receipt',
     name: 'Receipt',
     component: Receipt,
-    // beforeEnter: (to, from, next) => {
-    //   if(!store.getters['auth/authenticated']){
-    //     return next({
-    //       name: 'SignIn'
-    //     })
-    //   }
-    //   next()
-    // }
+    beforeEnter: (to, from, next) => {
+      if(!store.getters['auth/authenticated']){
+        return next({
+          name: 'SignIn'
+        })
+      }
+      next()
+    }
   },
   {
     path: '/account',

@@ -128,7 +128,7 @@
                     >Purchase History</router-link
                   >
                   <router-link
-                    @click.prevent="signOut"
+                    @click.prevent="signOut()"
                     class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
                     >Sign Out</router-link
                   >
@@ -235,7 +235,7 @@ export default {
     },
   },
   async created() {
-    this.cart = await this.fetch("http://localhost:3000/cart/1");
+    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
   },
 };

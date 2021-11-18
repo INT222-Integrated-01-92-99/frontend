@@ -137,7 +137,7 @@ export default {
     },
   },
   async created() {
-    this.receipt = await this.fetch("http://localhost:3000/receipt");
+    this.receipt = await this.fetch("http://localhost:3000/member/receipt/" + this.state.user.idAccount)
     // this.receipt = await this.fetch(`${process.env.VUE_APP_ROOT_API}receipt`);
     console.log(this.receipt);
   },

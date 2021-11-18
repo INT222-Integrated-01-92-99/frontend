@@ -24,7 +24,7 @@ export default ({
     },
     actions: {
         async signIn({ dispatch }, credentials) {
-              let response = await axios.post('http://localhost:8081/signin', credentials) //รอลิงค์จากฟลุ๊ค
+              let response = await axios.post('http://localhost:3000/main/login', credentials)
               console.log(response.data)
               return dispatch('attempt', response.data.token)
     },
@@ -39,13 +39,14 @@ export default ({
             }
 
             try {
-                let response = await axios.get('pathraimairoo khaochai auth/me')
+                let response = await axios.get('http://localhost:3000/main/me')
                 // let response = await axios.get('pathraimairoo khaochai auth/me',{
                 //     headers: {
                 //         'Authorization': 'Bearer' + token
                 //     }
                 // }) เขาลบโค้ดนี้ทิ้งแล้วไปสร้างsubscriber.js
                 commit('SET_USER', response.data)
+                console.log(state.user)
             } catch(e){
                commit('SET_TOKEN', null)
                commit('SET_USER', null)

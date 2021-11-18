@@ -9,11 +9,11 @@ import BaseProductView from './components/BaseProductView.vue'
 import BaseDelete from './components/BaseDelete.vue'
 import BaseSelectColor from './components/BaseSelectColor.vue'
 // import Vue from 'vue'
-// import store from './store'
+import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-// require('@/store/subscriber')
+import './store/subscriber'
 
 
 // Vue.config.productionTip = false
@@ -26,7 +26,7 @@ import VueAxios from 'vue-axios'
 //     }).$mount('#app')
 // })
 
-const app = createApp(App).use(router).use(VueAxios, axios)
+const app = createApp(App).use(router).use(VueAxios, axios).use(store)
 app.component('base-card', BaseCard)
 app.component('base-button', BaseButton)
 app.component('base-form', BaseForm)

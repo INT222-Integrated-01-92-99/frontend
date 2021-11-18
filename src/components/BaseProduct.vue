@@ -90,9 +90,9 @@ export default {
       // urlProduct: `${process.env.VUE_APP_ROOT_API}product`,
       // urlBrand: `${process.env.VUE_APP_ROOT_API}brand`,
       // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
-      urlProduct: "http://localhost:3000/product",
-      urlBrand: "http://localhost:3000/brand",
-      urlImage: "http://localhost:3000/image",
+      urlProduct: "http://localhost:3000/main/product",
+      urlBrand: "http://localhost:3000/main/brand",
+      urlImage: "http://localhost:3000/main/image",
       sendToDelete: false,
       sendId: 0,
     };

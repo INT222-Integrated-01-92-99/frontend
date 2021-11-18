@@ -383,7 +383,7 @@ export default {
         item: [],
       },
       productArray: [],
-      urlImage: "http://localhost:3000/image",
+      urlImage: "http://localhost:3000/main/image",
       // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
       ifSelectCol: false,
       sendColor: null,
@@ -433,7 +433,7 @@ export default {
         !this.DescriptInput &&
         !this.ChooseColor) {
         this.idProduct =
-          (await this.fetch("http://localhost:3000/getmaxidPro")) + 1;
+          (await this.fetch("http://localhost:3000/main/getmaxidPro")) + 1;
           // (await this.fetch(`${process.env.VUE_APP_ROOT_API}getmaxidPro`)) + 1;
         const addPro = {
           idProduct: this.idProduct,
@@ -501,7 +501,7 @@ export default {
       let formData = new FormData();
       await formData.append("editProduct", blob);
       if (this.imgFile == null) {
-        const res = await fetch("http://localhost:3000/edit", {
+        const res = await fetch("http://localhost:3000/staff/edit", {
         // const res = await fetch(`${process.env.VUE_APP_ROOT_API}edit`, {
           method: "PUT",
           body: formData,
@@ -511,7 +511,7 @@ export default {
         alert("Edited");
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
-        await fetch("http://localhost:3000/edit/image", {
+        await fetch("http://localhost:3000/staff/edit/image", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}/edit/image`, {
           method: "PUT",
           body: formData,
@@ -577,16 +577,16 @@ export default {
 
   async created() {
     console.log(this.proId);
-    this.brandArray = await this.fetch("http://localhost:3000/brand");
+    this.brandArray = await this.fetch("http://localhost:3000/main/brand");
     // this.brandArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
-    this.colorArray = await this.fetch("http://localhost:3000/color");
+    this.colorArray = await this.fetch("http://localhost:3000/main/color");
     // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}color`);
-    this.productArray = await this.fetch("http://localhost:3000/product/");
+    this.productArray = await this.fetch("http://localhost:3000/main/product/");
     // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
     console.log(this.productArray)
     if (!isNaN(this.proId)) {
       const product = await this.fetch(
-        "http://localhost:3000/product/" + this.proId
+        "http://localhost:3000/main/product/" + this.proId
         // `${process.env.VUE_APP_ROOT_API}product/` + this.proId
       );
       this.idProduct = product.idPro;

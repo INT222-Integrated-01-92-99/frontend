@@ -43,7 +43,7 @@
                           type="text"
                           name="email"
                           id="email"
-                          v-model="form.enterEmail"
+                          v-model="form.username"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Username"
                         />
@@ -70,7 +70,7 @@
                           :type="type"
                           name="password"
                           id="password"
-                          v-model="form.enterPassword"
+                          v-model="form.password"
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Password"
                         />
@@ -122,8 +122,8 @@ export default {
   data() {
     return {
       form: {
-        enterEmail: "",
-        enterPassword: "",
+        username: "",
+        password: "",
       },
       type: "password",
       eye: require("../assets/icon/hide.png"),
@@ -140,14 +140,14 @@ export default {
       }
     },
     ...mapActions({
-      signIn: "http://localhost:8081/signin",
+      signIn: 'auth/signIn'
     }),
     submit() {
       this.signIn(this.form).then(() => {
         this.$router
-          .replace({
-            name: "Product", //page ที่อยากให้เห็นหลังจากloginเข้ามา
-          })
+          .replace(
+            '/product/views', //page ที่อยากให้เห็นหลังจากloginเข้ามา
+          )
           .catch(() => {
             console.log("Failed to login");
           });

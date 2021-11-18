@@ -3,7 +3,7 @@ export default {
   props: ["send-to-delete", "send-id"],
   data() {
     return {
-      urlProduct: "http://localhost:3000/delete",
+      urlProduct: "http://localhost:3000/staff/delete",
       // urlProduct: `${process.env.VUE_APP_ROOT_API}delete`
     };
   },

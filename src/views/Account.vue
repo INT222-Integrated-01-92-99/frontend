@@ -116,7 +116,7 @@
         <div class="flex items-center justify-center font-sans overflow-hidden">
           <div class="w-full lg:w-5/6">
             <base-button
-              @click="isOpen = !isOpen"
+              @click="openAddUser()"
               class="
                 font-prompt-regular-400
                 focus:outline-none
@@ -696,22 +696,48 @@ export default {
   },
   methods: {
     check() {
-      this.validate.usernameInput = this.person.accUsername != "";
-      this.validate.passwordInput = this.person.accPass != "";
-      this.validate.firstnameInput = this.person.accFname != "";
-      this.validate.lastnameInput = this.person.accLname != "";
-      this.validate.phoneInput =
-        this.person.phone != "" && this.person.accPhone.length == 10;
-      this.validate.addressInput = this.person.accAddress != "";
-      this.validate.selectRole = this.person.idRole != "";
+      this.validate.usernameInput = this.person.accUsername === "";
+      this.validate.passwordInput = this.person.accPass === "";
+      this.validate.firstnameInput = this.person.accFname === "";
+      this.validate.lastnameInput = this.person.accLname === "";
+      this.validate.phoneInput = (this.person.accPhone === "" || this.person.accPhone !== "") &&
+        this.person.accPhone.length !== 10
+      this.validate.addressInput = this.person.accAddress === "";
+      this.validate.selectRole = !this.person.idRole.idRole;
+    },
+    clear(){
+        this.person = {
+        accUsername: "",
+        accPass: "",
+        accFname: "",
+        accLname: "",
+        accPhone: "",
+        accAddress: "",
+        idRole: {},
+      }
+    },
+    openAddUser(){
+      this.roleIdForCheck = ''
+      this.showEdit = true
+      this.isOpen = !this.isOpen
+      this.clear()
     },
     async addAccount() {
       this.check();
       console.log(this.person);
       console.log(this.person.idRole);
+       if (
+        !this.validate.usernameInput &&
+        !this.validate.passwordInput &&
+        !this.validate.firstnameInput &&
+        !this.validate.lastnameInput &&
+        !this.validate.phoneInput &&
+        !this.validate.addressInput &&
+        !this.validate.selectRole
+      ){
       try {
         const jsonPro = await JSON.stringify(this.person);
-        await fetch("http://localhost:3000/registaccount", {
+        await fetch("http://localhost:3000/admem/registaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
           method: "POST",
           body: jsonPro,
@@ -719,22 +745,31 @@ export default {
             "Content-Type": "application/json",
           },          
         });
-        this.people = await this.fetch("http://localhost:3000/account");
+        this.people = await this.fetch("http://localhost:3000/admem/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
+    }
     },
     async editAccount() {
-      this.check();
-      console.log(this.person);
       this.showEdit = true;
       this.showSave = false;
       this.roleIdForCheck = "";
+      this.check();
+       if (
+        !this.validate.usernameInput &&
+        !this.validate.passwordInput &&
+        !this.validate.firstnameInput &&
+        !this.validate.lastnameInput &&
+        !this.validate.phoneInput &&
+        !this.validate.addressInput &&
+        !this.validate.selectRole
+      ){
       try {
         const jsonPro = JSON.stringify(this.person);
 
-        await fetch("http://localhost:3000/editaccount", {
+        await fetch("http://localhost:3000/admem/editaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
           method: "PUT",
           body: jsonPro,
@@ -742,23 +777,25 @@ export default {
             "Content-Type": "application/json",
           },
         });
-        this.people = await this.fetch("http://localhost:3000/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        this.clear()
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
+      }
+      this.people = await this.fetch("http://localhost:3000/admem/account");
     },
     async delRole(roleId) {
       this.check();
       try {
         await fetch(
-          `http://localhost:3000/deleteaccount?idAccount=${roleId.idAccount}`,
+          `http://localhost:3000/admem/deleteaccount?idAccount=${roleId.idAccount}`,
           // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
           {
             method: "DELETE",
           }
         );
-        this.people = await this.fetch("http://localhost:3000/account");
+        this.people = await this.fetch("http://localhost:3000/admem/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
@@ -769,6 +806,7 @@ export default {
       (this.showEdit = true), (this.showSave = true);
       this.roleIdForCheck = roleId.idAccount;
       this.person = roleId;
+      this.isOpen = false;
       console.log(roleId);
       console.log(this.person.idRole);
     },
@@ -783,9 +821,9 @@ export default {
     },
   },
   async created() {
-    this.people = await this.fetch("http://localhost:3000/account");
+    this.people = await this.fetch("http://localhost:3000/admem/account");
     // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
-    this.roles = await this.fetch("http://localhost:3000/role");
+    this.roles = await this.fetch("http://localhost:3000/admin/role");
     // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);
   },
 };

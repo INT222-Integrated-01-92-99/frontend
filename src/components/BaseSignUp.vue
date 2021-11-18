@@ -302,7 +302,7 @@ export default {
       ) {
         try {
           const jsonPro = await JSON.stringify(this.person);
-          await fetch("http://localhost:3000/registaccount", {
+          await fetch("http://localhost:3000/admem/registaccount", {
             // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
             method: "POST",
             body: jsonPro,
@@ -310,8 +310,8 @@ export default {
               "Content-Type": "application/json",
             },
           });
-          this.people = await this.fetch("http://localhost:3000/account");
-          // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+          // this.people = await this.fetch("http://localhost:3000/account");
+          // // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
         } catch (error) {
           console.log(`Could not save! ${error}`);
         }
