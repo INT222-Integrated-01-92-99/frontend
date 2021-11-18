@@ -33,7 +33,7 @@
             </p>
           </div>
         </router-link>
-        <div class="flex justify-center mt-3 inset-x-0 bottom-0 space-x-5 pb-4">
+        <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 : false" class="flex justify-center mt-3 inset-x-0 bottom-0 space-x-5 pb-4">
           <router-link :to="'/product/' + pro.idPro">
             <base-button
               class="

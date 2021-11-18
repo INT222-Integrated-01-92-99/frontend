@@ -2,7 +2,16 @@
   <div class="detailProduct">
     <div class="grid place-items-center h-screen pt-36">
       <section
-        class="flex 2xl:flex-row lg:flex-row flex-col gap-11 px-5 w-11/12 md:max-w-max"
+        class="
+          flex
+          2xl:flex-row
+          lg:flex-row
+          flex-col
+          gap-11
+          px-5
+          w-11/12
+          md:max-w-max
+        "
       >
         <div class="flex flex-col 2xl:justify-between mx-auto w-1/2">
           <img class="" :src="image.url" />
@@ -27,26 +36,22 @@
           <span>Color</span>
           <div class="flex flex-row">
             <div
-              @click="selectColor(color)"
+              @click="$store.state.auth.user ? selectColor(color) : ''"
               v-for="color in product.prowithcolor"
               :key="color.color.idColor"
-              class="
-                  w-6
-                  h-6
-                  rounded-sm
-                  border
-                  hover:border-black
-                  transition ease-in duration-300 transform hover:-translate-y-1 active:translate-y-0 p-2
-                  hover:opacity-75
-                  m-2
-                  cursor-pointer
-                "
+              class="w-6 h-6 rounded-sm m-2"
               v-bind:style="{ backgroundColor: color.color.colorCode }"
-              :class="{
-                'w-7 h-7 border-8 border-red-500':
-                  products.item.color?.idColor === color.color.idColor,
-                // 'border-8 border-red-500': product.prowithcolor
-              }"
+              :class="[
+                {
+                  'border hover:border-black transition ease-in duration-300 transform hover:-translate-y-1 active:translate-y-0 p-2 hover:opacity-75 cursor-pointer':
+                    $store.state.auth.user,
+                },
+                {
+                  'w-7 h-7 border-8 border-red-500':
+                    products.item.color?.idColor === color.color.idColor,
+                  // 'border-8 border-red-500': product.prowithcolor
+                },
+              ]"
             ></div>
             <div
               class="font-prompt-regular-400 text-center text-red-600 mt-2"
@@ -59,58 +64,104 @@
             <div class="inStocks flex flex-row">
               <p>In stocks : {{ product.proAmount }}</p>
             </div>
-            <div class="mt-3 space-x-3 inline-flex">
-              <span>Quantity : </span>
-              <span class="relative flex flex-row w-20">
-                <input
-                  type="number"
-                  min="0"
-                  v-model="this.initialAmount"
-                  @change="boxQuan(this.initialAmount, product)"
-                  class="w-full font-medium text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
-                />
-              </span>
+
+            <div v-if="$store.state.auth.user">
+              <div>
+                <div class="mt-3 space-x-3 inline-flex">
+                  <span>Quantity : </span>
+                  <span class="relative flex flex-row w-20">
+                    <input
+                      type="number"
+                      min="0"
+                      v-model="this.initialAmount"
+                      @change="boxQuan(this.initialAmount, product)"
+                      class="
+                        w-full
+                        font-medium
+                        text-center text-gray-700
+                        bg-gray-200
+                        outline-none
+                        focus:outline-none
+                        hover:text-black
+                        focus:text-black
+                      "
+                    />
+                  </span>
+                </div>
+                <span
+                  class="font-prompt-regular-400 text-center text-red-600 mt-2"
+                  v-if="SelectAmount"
+                >
+                  Please select amount and amount cannot be negative number!
+                </span>
+              </div>
+
+              <div
+                class="
+                  flex
+                  2xl:justify-start
+                  lg:justify-start
+                  justify-center
+                  lg:pb-5
+                  pb-3
+                  lg:pt-5
+                  pt-3
+                  space-x-5
+                "
+              >
+              <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 : false">
+                <router-link :to="'/product/' + product.idPro">
+                  <base-button
+                    class="
+                      font-prompt-regular-400
+                      focus:outline-none
+                      py-1
+                      px-7
+                      rounded-sm
+                      hover:bg-red-dark
+                    "
+                    bgcolor="bg-red-light"
+                    txtcolor="text-white"
+                    txtbutt="Edit"
+                  ></base-button>
+                </router-link>
+
+                <base-button
+                  @click.prevent="
+                    (sendToDelete = true), (sendId = product.idPro)
+                  "
+                  class="
+                    font-prompt-regular-400
+                    focus:outline-none
+                    px-6
+                    rounded-sm
+                    hover:bg-gray-dark
+                  "
+                  bgcolor="bg-gray-light"
+                  txtcolor="text-white"
+                  txtbutt="Delete"
+                ></base-button>
+                <base-delete
+                  :send-to-delete="sendToDelete"
+                  :send-id="sendId"
+                ></base-delete>
+              </div>
               
+                <base-button v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
+                  @click="addToCart()"
+                  class="
+                    font-prompt-regular-400
+                    focus:outline-none
+                    px-6
+                    rounded-sm
+                    hover:bg-red-dark
+                  "
+                  bgcolor="bg-red-light"
+                  txtcolor="text-white"
+                  txtbutt="Add to cart"
+                ></base-button>
+              </div>
             </div>
-            <span
-              class="font-prompt-regular-400 text-center text-red-600 mt-2"
-              v-if="SelectAmount"
-            >
-              Please select amount and amount cannot be negative number!
-            </span>
-          </div>
-
-          <div
-            class="flex 2xl:justify-start lg:justify-start justify-center lg:pb-5 pb-3 lg:pt-5 pt-3 space-x-5"
-          >
-            <router-link :to="'/product/' + product.idPro">
-              <base-button
-                class="font-prompt-regular-400 focus:outline-none py-1 px-7 rounded-sm hover:bg-red-dark"
-                bgcolor="bg-red-light"
-                txtcolor="text-white"
-                txtbutt="Edit"
-              ></base-button>
-            </router-link>
-
-            <base-button
-              @click.prevent="(sendToDelete = true), (sendId = product.idPro)"
-              class="font-prompt-regular-400 focus:outline-none px-6 rounded-sm hover:bg-gray-dark"
-              bgcolor="bg-gray-light"
-              txtcolor="text-white"
-              txtbutt="Delete"
-            ></base-button>
-            <base-delete
-              :send-to-delete="sendToDelete"
-              :send-id="sendId"
-            ></base-delete>
-
-            <base-button
-              @click="addToCart()"
-              class="font-prompt-regular-400 focus:outline-none px-6 rounded-sm hover:bg-red-dark"
-              bgcolor="bg-red-light"
-              txtcolor="text-white"
-              txtbutt="Add to cart"
-            ></base-button>
           </div>
         </div>
       </section>
@@ -150,17 +201,23 @@ export default {
   },
   methods: {
     async fetch(url) {
-      const res = await fetch(url);
+      let res;
+      if (this.$store.state.auth.user) {
+        res = await fetch(url, {
+          headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+        });
+      } else {
+        res = await fetch(url);
+      }
       const data = await res.json(url);
       return data;
     },
-    memLocal(num){
+    memLocal(num) {
       // localStorage.amount =
-            //   parseInt(localStorage.amount) + this.initialAmount;
-            // // window.location.reload();
-            // this.initialAmount = 0;
-      localStorage.amount = num
-      
+      //   parseInt(localStorage.amount) + this.initialAmount;
+      // // window.location.reload();
+      // this.initialAmount = 0;
+      localStorage.amount = num;
     },
     // sendNumPro(recNumCart){
     //   console.log("sendNumPro() worked!")
@@ -170,7 +227,7 @@ export default {
 
     //     this.$parent.showNumToParent(num);
     // },
-  
+
     selectColor(color) {
       this.products.item = color;
       console.log(this.products.item);
@@ -213,7 +270,6 @@ export default {
                 sendIdColor: this.products.item.color.idColor,
               };
               this.editDetailPro(editProDetail);
-            
             } else {
               //      if (
               //   this.cart.cartDetails
@@ -224,7 +280,7 @@ export default {
               const proForCar = {
                 idProduct: this.product.idPro,
                 amount: this.initialAmount,
-                idCart: this.account.idAccount,
+                idCart: this.$store.state.auth.user.idAccount,
                 sendIdColor: this.products.item.color.idColor,
               };
               this.addToCartDetail(proForCar);
@@ -235,7 +291,7 @@ export default {
             const proForCart = {
               idProduct: this.product.idPro,
               amount: this.initialAmount,
-              idCart: this.account.idAccount,
+              idCart: this.$store.state.auth.user.idAccount,
               sendIdColor: this.products.item.color.idColor,
             };
             this.addToCartDetail(proForCart);
@@ -254,9 +310,12 @@ export default {
           // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           }
         );
-        alert("Edit your cart already")
+        alert("Edit your cart already");
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -269,12 +328,18 @@ export default {
           // `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
           {
             method: "POST",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           }
         );
-        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+        this.cart = await this.fetch(
+          "http://localhost:3000/member/cart/" +
+            this.$store.state.auth.user.idAccount
+        );
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-        alert("Add to cart")
-        this.numCart++
+        alert("Add to cart");
+        this.numCart++;
         this.memLocal(parseInt(this.numCart));
         this.$forceUpdate();
         // this.sendNumPro(this.numCart)
@@ -287,13 +352,13 @@ export default {
       this.SelectAmount = this.initialAmount === 0 ? true : false;
     },
     boxQuan(initial, product) {
-      if(initial < 0){
+      if (initial < 0) {
         this.SelectAmount = true;
-        this.initialAmount
+        this.initialAmount;
       } else {
-        if(initial > product.proAmount){
-        alert("Sorry, Product is not enough.");
-        this.initialAmount
+        if (initial > product.proAmount) {
+          alert("Sorry, Product is not enough.");
+          this.initialAmount;
         }
       }
     },
@@ -309,10 +374,14 @@ export default {
     const id = urlParams.get("id");
     this.product = await this.fetch(this.urlProduct + `/${id}`);
     this.image = await fetch(this.urlImage + "/" + this.product.proPathImg);
-    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
-    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-    this.account = await this.fetch("http://localhost:3000/admem/account/" + this.state.user.idAccount);
-    // this.account = await this.fetch(`${process.env.VUE_APP_ROOT_API}account/1`);
+    if (this.$store.state.auth.user) {
+      this.cart = await this.fetch(
+        "http://localhost:3000/member/cart/" +
+          this.$store.state.auth.user.idAccount
+      );
+      // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+      console.log(this.cart);
+    }
   },
 };
 </script>

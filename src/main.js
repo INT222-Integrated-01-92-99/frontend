@@ -18,14 +18,7 @@ import './store/subscriber'
 
 // Vue.config.productionTip = false
 
-// store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
-//     new Vue({
-//         router,
-//         store,
-//         render: h => h(App)
-//     }).$mount('#app')
-// })
-
+store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
 const app = createApp(App).use(router).use(VueAxios, axios).use(store)
 app.component('base-card', BaseCard)
 app.component('base-button', BaseButton)
@@ -34,3 +27,4 @@ app.component('base-product-view', BaseProductView)
 app.component('base-delete', BaseDelete)
 app.component('base-select-color', BaseSelectColor)
 app.mount('#app')
+})

@@ -359,7 +359,14 @@ export default {
   },
   methods: {
     async fetch(url) {
-      const res = await fetch(url);
+      let res;
+      if (this.$store.state.auth.user) {
+        res = await fetch(url, {
+          headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+        });
+      } else {
+        res = await fetch(url);
+      }
       const data = await res.json(url);
       return data;
     },
@@ -378,6 +385,9 @@ export default {
           // `${process.env.VUE_APP_ROOT_API}addbrand?BrandName=${brandName}`,
           {
             method: "POST",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           }
         );
         this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
@@ -395,6 +405,9 @@ export default {
           // `${process.env.VUE_APP_ROOT_API}deletebrand?IdBrand=${brandId.idBrand}`,
           {
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           }
         );
         this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
@@ -412,14 +425,16 @@ export default {
       this.check();
       (this.showEdit = true), (this.showSave = false);
       this.brandIdForCheck = "";
-       if (
-        !this.brandInput){
+       if (this.brandInput){
       try {
         await fetch(
           `http://localhost:3000/admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
           // `${process.env.VUE_APP_ROOT_API}editbrand?IdBrand=${brand.idBrand}&BrandName=${brand.brandName}`,
           {
             method: "PUT",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           }
         );
         // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
@@ -430,7 +445,6 @@ export default {
         this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
     },
   },
-  computed() {},
   async created() {
     this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
     // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);

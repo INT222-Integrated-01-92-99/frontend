@@ -504,6 +504,9 @@ export default {
         const res = await fetch("http://localhost:3000/staff/edit", {
         // const res = await fetch(`${process.env.VUE_APP_ROOT_API}edit`, {
           method: "PUT",
+          headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           body: formData,
         });
         const data = await res.json();
@@ -514,6 +517,9 @@ export default {
         await fetch("http://localhost:3000/staff/edit/image", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}/edit/image`, {
           method: "PUT",
+          headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           body: formData,
         });
         alert("Edited");
@@ -585,6 +591,7 @@ export default {
     // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}product/`);
     console.log(this.productArray)
     if (!isNaN(this.proId)) {
+      if(this.$store.state.auth.user){
       const product = await this.fetch(
         "http://localhost:3000/main/product/" + this.proId
         // `${process.env.VUE_APP_ROOT_API}product/` + this.proId
@@ -600,6 +607,7 @@ export default {
       this.enterDate = product.proMfd;
       this.product.item = product.prowithcolor;
       this.checkForm();    
+    }
     }
   },
   watch: {

@@ -163,7 +163,7 @@ export default {
   },
   methods: {
     async fetch(url) {
-      const res = await fetch(url);
+      const res = await fetch(url, {headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}});
       const data = await res.json(url);
       return data;
     },
@@ -180,7 +180,7 @@ export default {
       } else if (edit.proPerPiece > edit.product.proAmount) {
         alert("Sorry, Product is not enough.");
         edit.proPerPiece = 1;
-        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
       } else {
         const delProWhenZero = {
@@ -200,9 +200,10 @@ export default {
           // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
+            headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
           }
         );
-        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
@@ -215,9 +216,10 @@ export default {
           // `${process.env.VUE_APP_ROOT_API}deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
           {
             method: "DELETE",
+            headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
           }
         );
-        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
       } catch (error) {
         console.log(`Could not delete! ${error}`);
@@ -249,12 +251,13 @@ export default {
             // `${process.env.VUE_APP_ROOT_API}deletemultipleitemincart?idcartdetail=${proForDel}`,
             {
               method: "DELETE",
+              headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
             }
           );
         } catch (error) {
           console.log(`Could not delete all product! ${error}`);
         }
-        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
       }
       // window.location.reload();
@@ -277,20 +280,21 @@ export default {
               // `${process.env.VUE_APP_ROOT_API}purchase?idcart=${idPro.idCart}`,
               {
                 method: "POST",
+                headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
               }
             );
             localStorage.amount = 0;
           } catch (error) {
             console.log(`Could not purchase! ${error}`);
           }
-          this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+          this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
           // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
         }
       }
     },
   },
   async created() {
-    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
     // this.image = await fetch(this.urlImage + "/" + this.cart.cartDetails.product.proPathImg);
     if (this.quantity) {

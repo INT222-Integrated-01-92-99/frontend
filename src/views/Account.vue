@@ -737,15 +737,17 @@ export default {
       ){
       try {
         const jsonPro = await JSON.stringify(this.person);
-        await fetch("http://localhost:3000/admem/registaccount", {
+        await fetch("http://localhost:3000/main/registaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
           method: "POST",
           body: jsonPro,
           headers: {
             "Content-Type": "application/json",
-          },          
+            Authorization: `Bearer ${this.$store.state.auth.token}`
+          },
+
         });
-        this.people = await this.fetch("http://localhost:3000/admem/account");
+        this.people = await this.fetch("http://localhost:3000/admin/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
@@ -769,12 +771,13 @@ export default {
       try {
         const jsonPro = JSON.stringify(this.person);
 
-        await fetch("http://localhost:3000/admem/editaccount", {
+        await fetch("http://localhost:3000/allroles/editaccount", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
           method: "PUT",
           body: jsonPro,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.auth.token}`
           },
         });
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
@@ -783,19 +786,22 @@ export default {
         console.log(`Could not save! ${error}`);
       }
       }
-      this.people = await this.fetch("http://localhost:3000/admem/account");
+      this.people = await this.fetch("http://localhost:3000/admin/account");
     },
     async delRole(roleId) {
       this.check();
       try {
         await fetch(
-          `http://localhost:3000/admem/deleteaccount?idAccount=${roleId.idAccount}`,
+          `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
           // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
           {
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           }
         );
-        this.people = await this.fetch("http://localhost:3000/admem/account");
+        this.people = await this.fetch("http://localhost:3000/admin/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
@@ -811,17 +817,20 @@ export default {
       console.log(this.person.idRole);
     },
     async fetch(url) {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        return data;
-      } catch (error) {
-        console.log(error);
+      let res;
+      if (this.$store.state.auth.user) {
+        res = await fetch(url, {
+          headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+        });
+      } else {
+        res = await fetch(url);
       }
+      const data = await res.json(url);
+      return data;
     },
   },
   async created() {
-    this.people = await this.fetch("http://localhost:3000/admem/account");
+    this.people = await this.fetch("http://localhost:3000/admin/account");
     // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
     this.roles = await this.fetch("http://localhost:3000/admin/role");
     // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);

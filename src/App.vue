@@ -49,7 +49,7 @@
               >
             </li>
             <li>
-              <router-link
+              <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 || $store.state.auth.user.idRole.idRole == 3 : false"
                 @click="changePath('/product/views')"
                 to="/product/views"
                 :class="{ 'text-red-light': routes == '/product/views' }"
@@ -58,7 +58,7 @@
               >
             </li>
             <li>
-              <router-link
+              <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 1 : false"
                 @click="changePath('/account')"
                 to="/account"
                 :class="{ 'text-red-light': routes == '/account' }"
@@ -67,7 +67,7 @@
               >
             </li>
             <li>
-              <router-link
+              <router-link v-if="!$store.state.auth.user"
                 @click="changePath('/signup')"
                 to="/signup"
                 :class="{ 'text-red-light': routes == '/signup' }"
@@ -77,7 +77,7 @@
             </li>
             <!-- <li class="md:visible invisible font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0">|</li> -->
             <li>
-              <router-link
+              <router-link v-if="!$store.state.auth.user"
                 @click="changePath('/signin')"
                 to="/signin"
                 :class="{ 'text-red-light': routes == '/signin' }"
@@ -88,7 +88,7 @@
             </li>
 
             <li>
-              <div class="2xl:relative lg:p-4 py-3 px-0">
+              <div v-if="$store.state.auth.user" class="2xl:relative lg:p-4 py-3 px-0">
                 <button
                   @click="isOpen = !isOpen"
                   class="mt-1 focus:outline-none "
@@ -121,22 +121,22 @@
                     class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
                     >My Profile</router-link
                   >
-                  <router-link
-                    @click="changePath('/reciept')"
-                    to="/reciept"
+                  <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
+                    @click="changePath('/receipt')"
+                    to="/receipt"
                     class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
                     >Purchase History</router-link
                   >
-                  <router-link
+                  <div
                     @click.prevent="signOut()"
-                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
-                    >Sign Out</router-link
-                  >
+                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white cursor-pointer"
+                    >Sign Out</div>
+                  
                 </div>
               </div>
             </li>
             <li>
-              <router-link
+              <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
                 @click="changePath('/cart')"
                 to="/cart"
                 :class="{
@@ -162,8 +162,8 @@
                 </button>
                 <span class="font-prompt-regular-400 total-quantity">
                   {{ totalQuantity }}
-                </span></router-link
-              >
+                </span>
+                </router-link>
             </li>
           </ul>
         </nav>
@@ -206,16 +206,17 @@ export default {
     //   this.amountOnCart = recieveNum;
     // },
     async fetch(url) {
-      const res = await fetch(url);
+      const res = await fetch(url, {headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}});
       const data = await res.json(url);
       return data;
     },
     ...mapActions({
-      signOutAction: "auth/signOut",
+      signOutAction: 'auth/signOut',
+      attempt: 'auth/attempt'
     }),
 
     signOut() {
-      this.this.signOutAction().then(() => {
+      this.signOutAction().then(() => {
         this.$router.replace({
           name: "Home",
         });
@@ -235,8 +236,12 @@ export default {
     },
   },
   async created() {
-    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.state.user.idAccount);
+    if(this.$store.state.auth.user && this.$store.state.auth.user.idRole.idRole == 3){
+      this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount)
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+
+    }
+  
   },
 };
 </script>

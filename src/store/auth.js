@@ -26,6 +26,7 @@ export default ({
         async signIn({ dispatch }, credentials) {
               let response = await axios.post('http://localhost:3000/main/login', credentials)
               console.log(response.data)
+
               return dispatch('attempt', response.data.token)
     },
 
@@ -39,12 +40,7 @@ export default ({
             }
 
             try {
-                let response = await axios.get('http://localhost:3000/main/me')
-                // let response = await axios.get('pathraimairoo khaochai auth/me',{
-                //     headers: {
-                //         'Authorization': 'Bearer' + token
-                //     }
-                // }) เขาลบโค้ดนี้ทิ้งแล้วไปสร้างsubscriber.js
+                let response = await axios.get('http://localhost:3000/allroles/me')
                 commit('SET_USER', response.data)
                 console.log(state.user)
             } catch(e){
@@ -53,10 +49,12 @@ export default ({
             }
         },
         signOut({ commit }){
-            return axios.post('path sign out (khongkhao= auth/signout)').then(() =>{
+            // return axios.post('path sign out (khongkhao= auth/signout)').then(() =>{
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
-            })
+
+            // })
+           
         }
 }
 })

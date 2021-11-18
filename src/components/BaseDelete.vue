@@ -20,6 +20,9 @@ export default {
         try {
           await fetch(`${this.urlProduct}/${deleteProduct}`, {
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           });
         } catch (error) {
           console.log(`This product could not delete because ${error}`);

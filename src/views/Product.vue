@@ -1,6 +1,6 @@
 <template>
-  <div class="product mb-5">
-    <div
+  <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 || $store.state.auth.user.idRole.idRole == 3 : false" class="product mb-5">
+    <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 : false"
       class="z-10 bg-gray-extra-light w-full fixed pt-20 shadow-md lg:pr-20 pr-16 flex justify-end space-x-2"
     >
       <base-button
@@ -69,6 +69,9 @@ export default {
         await fetch("http://localhost:3000/staff/add/image", {
         // await fetch(`${process.env.VUE_APP_ROOT_API}add/image`, {
           method: "POST",
+          headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           body: formData,
         });
         alert("Added.");

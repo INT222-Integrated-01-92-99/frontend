@@ -131,13 +131,14 @@ export default {
   },
   methods: {
     async fetch(url) {
-      const res = await fetch(url);
+      const res = await fetch(url, {headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}});
       const data = await res.json(url);
       return data;
     },
   },
   async created() {
-    this.receipt = await this.fetch("http://localhost:3000/member/receipt/" + this.state.user.idAccount)
+    console.log(this.$store.state.auth.user)
+    this.receipt = await this.fetch("http://localhost:3000/member/receipt/" + this.$store.state.auth.user.idAccount)
     // this.receipt = await this.fetch(`${process.env.VUE_APP_ROOT_API}receipt`);
     console.log(this.receipt);
   },

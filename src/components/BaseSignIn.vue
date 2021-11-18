@@ -146,13 +146,11 @@ export default {
       this.signIn(this.form).then(() => {
         this.$router
           .replace(
-            '/product/views', //page ที่อยากให้เห็นหลังจากloginเข้ามา
+            this.$store.state.auth.user && (this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole ==3) ? '/product/views' : '/account'
           )
-          .catch(() => {
-            console.log("Failed to login");
-          });
       });
     },
+
     // async submit() {
     //   let response = await axios.post('http://localhost:8081/signin', this.form) //รอลิงค์จากฟลุ๊ค
     //   console.log(response.data)
