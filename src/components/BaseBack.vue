@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-extra-light w-full fixed pt-20 shadow-md">
+  <div class="bg-gray-extra-light w-full fixed pt-20 shadow-md z-10">
     <button
       @click="this.$router.push('/product/views')"
       :class="{ 'text-red-light underline': routes == '/product/views' }"

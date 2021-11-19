@@ -264,7 +264,6 @@ export default {
       lastnameInput: false,
       phoneInput: false,
       addressInput: false,
-      x: "",
     };
   },
   methods: {
@@ -310,11 +309,24 @@ export default {
               "Content-Type": "application/json",
             },
           });
+          this.clear()
+          this.$router.push('/signin');
           // this.people = await this.fetch("http://localhost:3000/account");
           // // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
         } catch (error) {
           console.log(`Could not save! ${error}`);
         }
+      }
+    },
+    clear(){
+      this.person = {
+        accUsername: "",
+        accPass: "",
+        accFname: "",
+        accLname: "",
+        accPhone: "",
+        accAddress: "",
+        idRole: { idRole: 3, role: "ROLE_MEMBER" },
       }
     },
   },

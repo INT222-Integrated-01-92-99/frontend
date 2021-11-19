@@ -1,11 +1,11 @@
 <template>
   <body class="antialiased">
     <nav
-      class="navbar mx-auto fixed w-full md:pr-16 top-0 text-black bg-white border-b-2 border-black flex flex-wrap items-center"
+      class="navbar mx-auto fixed w-full md:pr-16 top-0 text-black bg-white border-b-2 border-black flex flex-wrap items-center z-20"
     >
       <div class="pl-10 flex-1 flex justify-between items-center">
         <router-link
-          @click="changePath('/')"
+          
           to="/"
           class="font-rozha text-2xl font-medium p-2"
           >PUSH & PULL
@@ -32,45 +32,45 @@
           >
             <li>
               <router-link
-                @click="changePath('/')"
+                
                 to="/"
-                :class="{ 'text-red-light': routes == '/' }"
+                :class="{ 'text-red-light': routes == 'Home' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Home</router-link
               >
             </li>
             <li>
               <router-link
-                @click="changePath('/team')"
+                
                 to="/team"
-                :class="{ 'text-red-light': routes == '/team' }"
+                :class="{ 'text-red-light': routes == 'Team' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Team</router-link
               >
             </li>
             <li>
               <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 || $store.state.auth.user.idRole.idRole == 3 : false"
-                @click="changePath('/product/views')"
+               
                 to="/product/views"
-                :class="{ 'text-red-light': routes == '/product/views' }"
+                :class="{ 'text-red-light': routes == 'Product' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Product</router-link
               >
             </li>
             <li>
               <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 1 : false"
-                @click="changePath('/account')"
+                
                 to="/account"
-                :class="{ 'text-red-light': routes == '/account' }"
+                :class="{ 'text-red-light': routes == '/Account' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Manage</router-link
               >
             </li>
             <li>
               <router-link v-if="!$store.state.auth.user"
-                @click="changePath('/signup')"
+               
                 to="/signup"
-                :class="{ 'text-red-light': routes == '/signup' }"
+                :class="{ 'text-red-light': routes == 'SignUp' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Sign Up</router-link
               >
@@ -78,9 +78,9 @@
             <!-- <li class="md:visible invisible font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0">|</li> -->
             <li>
               <router-link v-if="!$store.state.auth.user"
-                @click="changePath('/signin')"
+                
                 to="/signin"
-                :class="{ 'text-red-light': routes == '/signin' }"
+                :class="{ 'text-red-light': routes == 'SignIn' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
               >
                 Sign In
@@ -116,13 +116,13 @@
                   class="2xl:absolute bg-white 2xl:border 2xl:border-black 2xl:rounded-sm w-max"
                 >
                   <router-link
-                    @click="changePath('/profile')"
+                   
                     to="/profile"
                     class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
                     >My Profile</router-link
                   >
                   <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
-                    @click="changePath('/receipt')"
+                   
                     to="/receipt"
                     class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
                     >Purchase History</router-link
@@ -137,7 +137,7 @@
             </li>
             <li>
               <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
-                @click="changePath('/cart')"
+              
                 to="/cart"
                 :class="{
                   'border-red-light': routes == '/cart',
@@ -180,7 +180,6 @@ export default {
   components: {},
   data() {
     return {
-      routes: "/",
       isOpen: false,
       initialAmount: 0,
       amountOnCart: 0,
@@ -188,9 +187,6 @@ export default {
     };
   },
   methods: {
-    changePath(path) {
-      this.routes = path;
-    },
     toggleMenu() {
       const navToggle = document.getElementsByClassName("toggle");
       for (let i = 0; i < navToggle.length; i++) {
@@ -234,8 +230,12 @@ export default {
       // return this.amountOnCart + this.initialAmount;
       return localStorage.getItem("amount");
     },
+    routes() {
+    return this.$route.name;
+    }
   },
   async created() {
+    console.log(this.$route.name)
     if(this.$store.state.auth.user && this.$store.state.auth.user.idRole.idRole == 3){
       this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount)
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
