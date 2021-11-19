@@ -48,6 +48,16 @@ export default ({
                commit('SET_USER', null)
             }
         },
+        async user ({ commit, state }){
+            try {
+                let response = await axios.get('http://localhost:3000/allroles/me')
+                commit('SET_USER', response.data)
+                console.log(state.user)
+            } catch(e){
+               commit('SET_TOKEN', null)
+               commit('SET_USER', null)
+            }
+        },
         signOut({ commit }){
             // return axios.post('path sign out (khongkhao= auth/signout)').then(() =>{
                 commit('SET_TOKEN', null)
