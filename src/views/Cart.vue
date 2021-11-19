@@ -66,10 +66,11 @@
                 </td>
                 <td class="justify-center md:justify-end md:flex mt-6">
                   <div class="mx-auto mt-14">
-                    <div class="relative mx-auto flex flex-row w-1/2 h-8 -z-10">
+                    <div class="relative mx-auto flex flex-row w-1/2 h-8">
                       <input
                         type="number"
                         min="0"
+                        step="1"
                         v-model="pc.proPerPiece"
                         @change="persist(pc)"
                         class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
@@ -169,6 +170,7 @@ export default {
     },
 
     async persist(edit) {
+      console.log(edit)
       if (edit.proPerPiece <= edit.product.proAmount && edit.proPerPiece >= 1) {
         const editQuan = {
           idProduct: edit.product.idPro,
