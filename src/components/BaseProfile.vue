@@ -39,21 +39,6 @@
                     </div>
 
                     <div class="w-1/2 px-3 mb-5">
-                      <div class="font-prompt-regular-400 text-base font-medium px-1">Password</div>
-                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
-                        Password
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex -mx-3">
-                    <div class="w-1/2 px-3 mb-5">
-                      <div class="font-prompt-regular-400 text-base font-medium px-1">Email</div>
-                      <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
-                        Email
-                      </div>
-                    </div>
-
-                    <div class="w-1/2 px-3 mb-5">
                       <div class="font-prompt-regular-400 text-base font-medium px-1">Phone</div>
                       <div class="text-gray-dark font-prompt-regular-400 text-base font-medium px-1 pt-4">
                         Phone
@@ -75,6 +60,20 @@
                       class="font-prompt-regular-400 border border-red-light text-red-light hover:bg-red-light hover:text-white text-sm font-medium py-2 px-4 rounded"
                     >
                       Edit Profile
+                    </button>
+                  </div>
+                  <div class="flex flex-row justify-between space-x-5 mt-8">
+                    <button
+                      type="submit"
+                      class="w-full font-prompt-regular-400 border border-red-light bg-red-light text-white hover:bg-red-dark text-sm font-medium py-2 px-4 rounded"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="submit"
+                      class="w-full font-prompt-regular-400 border border-gray-light bg-gray-light text-white hover:bg-gray-dark text-sm font-medium py-2 px-4 rounded"
+                    >
+                      Cancel
                     </button>
                   </div>
                 </div>

@@ -228,12 +228,12 @@
                   </div>
                 </form>
                 <div class="text-center mt-4">
-                  <a
-                    class="no-underline hover:underline font-prompt-regular-400 text-sm"
-                    href="{{ route('password.request') }}"
+                  <div
+                    @click="this.$router.push('/signin')"
+                    class="cursor-pointer no-underline hover:underline font-prompt-regular-400 text-sm"
                   >
-                    Already have an account? Sign In
-                  </a>
+                      Already have an account? Sign In
+                  </div>
                 </div>
               </div>
             </div>

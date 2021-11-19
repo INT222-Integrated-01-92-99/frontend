@@ -85,11 +85,6 @@
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="font-prompt-regular-400 cursor-pointer text-right text-red-light hover:text-red-dark underline"
-                  >
-                    Forgot Your Password?
-                  </div>
                   <div class="flex flex-col mt-8">
                     <button
                       type="submit"
@@ -100,12 +95,12 @@
                   </div>
                 </form>
                 <div class="text-center mt-4">
-                  <a
-                    class="no-underline hover:underline font-prompt-regular-400 text-sm"
-                    href="{{ route('password.request') }}"
-                  >
-                    Don't have an account? Sign Up
-                  </a>
+                  <div
+                    @click="this.$router.push('/signup')"
+                    class="cursor-pointer no-underline hover:underline font-prompt-regular-400 text-sm"
+                  > 
+                      Don't have an account? Sign Up
+                  </div>
                 </div>
               </div>
             </div>
