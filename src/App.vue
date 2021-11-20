@@ -55,7 +55,13 @@
                 :class="{ 'text-red-light': routes == 'Product' }"
                 class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
                 >Product</router-link
-              >
+              ><div v-else>
+                <router-link
+                to="/product/views"
+                :class="{ 'text-red-light': routes == 'Product' }"
+                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                >Product</router-link>
+              </div>
             </li>
             <li>
               <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 1 : false"

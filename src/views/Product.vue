@@ -31,6 +31,9 @@
       ></component>
     </div>
   </div>
+  <div v-else>
+    <base-product-view></base-product-view>
+  </div>
 </template>
 
 <script>
