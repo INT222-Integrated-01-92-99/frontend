@@ -135,10 +135,12 @@
                         <div class="flex items-center">
                           <input
                             id="username"
-                            :class="{ 'bg-red-50': validate.usernameInput }"
+                            :class="{ 'bg-red-50': validate.usernameInput ,'bg-red-50': wrongUsername }"
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Username"
+                            @keyup="checkUsername()"
+                            @keydown="setFalse()"
                             v-model.trim="person.accUsername"
                           />
                         </div>
@@ -147,6 +149,12 @@
                           class="font-prompt-regular-400 text-red-600"
                         >
                           Please enter your username!
+                        </p>
+                        <p
+                          v-if="wrongUsername"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          {{message}}
                         </p>
                       </td>
                       <td class="py-3 px-6 text-left">
@@ -346,11 +354,14 @@
                       <div class="flex items-center">
                         <input
                           class="bg-white border p-2 rounded-sm"
-                          :class="{ 'bg-red-50': r.accUsername === '' }"
+                          :class="{ 'bg-red-50': r.accUsername === '','bg-red-50': wrongUsername }"
                           id="userName"
                           type="text"
                           placeholder="Username"
+                          
+                          
                           v-model.trim="person.accUsername"
+                          @keyup="checkUsername()"
                         />
                       </div>
                       <p
@@ -359,6 +370,12 @@
                       >
                         Enter Username!
                       </p>
+                      <p
+                          v-if="wrongUsername"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          {{message}}
+                        </p>
                     </td>
                     <td v-else class="py-3 px-6 text-left">
                       <div class="flex items-center">
@@ -646,11 +663,27 @@ export default {
         addressInput: false,
         selectRole: false,
       },
+      wrongUsername: false,
+      message:''
     };
   },
   methods: {
+    setFalse(){
+      this.wrongUsername = false
+    },
+    checkUsername() {
+      console.log('ตัวที่พิมพ์เข้ามา ' + this.person.accUsername)
+      for (let i = 0; i < this.people.length; i++){
+        console.log('ตัวที่อยู่ในลูปอยู่นอกเงื่อนไข if ' + this.people[i].accUsername)
+        if(this.person.accUsername === this.people[i].accUsername){
+        this.message ='This username is already taken.'
+        this.wrongUsername = true
+        console.log('ตัวที่อยู่ในลูปละเข้าเงื่อนไข if ' + this.people[i].accUsername)
+        }
+      }
+    },
     check() {
-      this.validate.usernameInput = this.person.accUsername === "";
+      this.validate.usernameInput = this.person.accUsername === "" || this.person.accUsername.length>5;
       this.validate.passwordInput = this.person.accPass === "";
       this.validate.firstnameInput = this.person.accFname === "";
       this.validate.lastnameInput = this.person.accLname === "";
@@ -671,6 +704,7 @@ export default {
       }
     },
     openAddUser(){
+      this.wrongUsername = false;
       this.roleIdForCheck = ''
       this.showEdit = true
       this.isOpen = !this.isOpen
@@ -678,6 +712,9 @@ export default {
     },
     async addAccount() {
       this.check();
+      // if(this.validate.usernameInput ==true && this.person.accUsername === this.people.accUsername){
+      //   this.wrongUsername = true;
+      // }
       console.log(this.person);
       console.log(this.person.idRole);
        if (
@@ -687,7 +724,8 @@ export default {
         !this.validate.lastnameInput &&
         !this.validate.phoneInput &&
         !this.validate.addressInput &&
-        !this.validate.selectRole
+        !this.validate.selectRole &&
+        !this.wrongUsername
       ){
       try {
         const jsonPro = await JSON.stringify(this.person);
@@ -720,7 +758,8 @@ export default {
         !this.validate.lastnameInput &&
         !this.validate.phoneInput &&
         !this.validate.addressInput &&
-        !this.validate.selectRole
+        !this.validate.selectRole &&
+        !this.wrongUsername
       ){
       try {
         const jsonPro = JSON.stringify(this.person);
@@ -762,13 +801,12 @@ export default {
       }
     },
     showSaveEdit(roleId) {
+      this.wrongUsername = false;
       this.check();
       (this.showEdit = true), (this.showSave = true);
       this.roleIdForCheck = roleId.idAccount;
       this.person = roleId;
       this.isOpen = false;
-      console.log(roleId);
-      console.log(this.person.idRole);
     },
     async fetch(url) {
       let res;

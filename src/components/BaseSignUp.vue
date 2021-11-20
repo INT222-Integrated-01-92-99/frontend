@@ -264,6 +264,7 @@ export default {
       lastnameInput: false,
       phoneInput: false,
       addressInput: false,
+      account: '',
     };
   },
   methods: {
@@ -289,6 +290,7 @@ export default {
       }
     },
     async signUp() {
+      console.log(this.person)
       console.log("จำนวนเลข ทรศ.= " + this.person.accPhone.length);
       this.check();
       if (
@@ -329,6 +331,18 @@ export default {
         idRole: { idRole: 3, role: "ROLE_MEMBER" },
       }
     },
+    async fetch(url) {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    }, 
   },
+  async created(){
+    this.account = await this.fetch("http://localhost:3000/admin/account")
+  }
 };
 </script>
