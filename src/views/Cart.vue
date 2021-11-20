@@ -153,6 +153,7 @@ export default {
   components: { BaseBack },
   data() {
     return {
+      product: { brand: { brandName: "" } },
       cart: [],
       quantity: localStorage.amount,
       image: { url: "" },
@@ -267,9 +268,18 @@ export default {
       // return localStorage.amount;
     },
     async purchase(idPro) {
+      // for (let i = 0; i < this.product.length; i++){
       if (idPro.cartDetails.length == 0) {
         alert("Your cart is empty");
-      } else {
+      }
+      // else if( idPro.cartDetails
+      //         .map((c) => c.product.idPro)
+      //         .includes(this.product.idPro)){
+      //         if(idPro.cartDetails.proPerPiece > this.product[i].proAmount)
+      //   console.log('สินค้าในตระกร้ามากกว่าจำนวนสินค้าในคลัง')
+      //     }
+       else {
+         console.log(this.product.proAmount)
         if (
           confirm(
             "Please check your cart carefully before buying, Do you want to buy this order?"
@@ -293,9 +303,11 @@ export default {
           // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
         }
       }
+    // }
     },
   },
   async created() {
+    this.product = await this.fetch('http://localhost:3000/main/product');
     this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
     // this.image = await fetch(this.urlImage + "/" + this.cart.cartDetails.product.proPathImg);
@@ -303,7 +315,7 @@ export default {
       this.quantity = localStorage.amount;
     }
     // console.log(this.urlImage + "/" + this.cart.cartDetails.product.proPathImg)
-    console.log(this.cart.cartDetails[0].product.proName);
+    // console.log(this.cart.cartDetails[0].product.proName);
   },
 };
 </script>
