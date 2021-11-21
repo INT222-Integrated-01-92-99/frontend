@@ -1,6 +1,11 @@
 <template>
   <div class="oneProduct">
-  <div v-if="productArray.length == 0" class="font-prompt-regular-400 text-lg text-center text-gray-dark"> Product not found. </div>
+    <div
+      v-if="productArray.length == 0"
+      class="font-prompt-regular-400 text-lg text-center text-gray-dark"
+    >
+      Product not found.
+    </div>
     <div class="flex flex-wrap justify-center gap-x-20 gap-y-10">
       <base-card
         v-for="pro in productArray"
@@ -9,7 +14,8 @@
           shadow-md
           2xl:w-1/4
           lg:w-1/3
-          w-1/2
+          md:w-2/3
+          w-3/4
           transform
           hover:scale-110
           motion-reduce:transform-none
@@ -19,27 +25,46 @@
         <router-link :to="'/detail?id=' + pro.idPro">
           <img class="mb-6" :src="urlImage + '/' + pro.proPathImg" />
           <div class="mt-3 px-6 text-left">
-            <p class="font-prompt-regular-400 text-lg">
+            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
               <span class="font-medium">Brand :</span> {{ pro.brand.brandName }}
             </p>
-            <p class="font-prompt-regular-400 text-lg">
+            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
               <span class="font-medium">Product Name :</span> {{ pro.proName }}
             </p>
-            <p class="font-prompt-regular-400 text-lg">
-              <span class="font-medium">In stocks :</span> {{ pro.proAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}
+            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
+              <span class="font-medium">In stocks :</span>
+              {{
+                pro.proAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }}
             </p>
-            <p class="font-prompt-regular-400 text-lg">
-              <span class="font-medium">Price : </span><span class="text-red-light font-medium"> {{ pro.proPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} THB</span>
+            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
+              <span class="font-medium">Price : </span
+              ><span class="text-red-light font-medium">
+                {{
+                  pro.proPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }}
+                THB</span
+              >
             </p>
           </div>
         </router-link>
-        <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 : false" class="flex justify-center mt-3 inset-x-0 bottom-0 space-x-5 pb-4">
+        <div
+          v-if="
+            $store.state.auth.user
+              ? $store.state.auth.user.idRole.idRole == 2
+              : false
+          "
+          class="flex justify-center mt-3 inset-x-0 bottom-0 space-x-5 pb-4"
+        >
           <router-link :to="'/product/' + pro.idPro">
             <base-button
               class="
                 focus:outline-none
                 font-prompt-regular-400
-                text-base
+                2xl:text-base
+                lg:text-base
+                md:text-base
+                text-sm
                 py-1
                 lg:px-8
                 px-6
@@ -56,7 +81,10 @@
             class="
               focus:outline-none
               font-prompt-regular-400
-              text-base
+              2xl:text-base
+              lg:text-base
+              md:text-base
+              text-sm
               lg:px-6
               px-4
               rounded-sm
@@ -80,7 +108,7 @@
 
 <script>
 export default {
-  props: ['search-pro','brand-id','show-all'],
+  props: ["search-pro", "brand-id", "show-all"],
   emits: [],
 
   data() {
@@ -113,17 +141,19 @@ export default {
     this.brandArray = await this.fetch(this.urlBrand);
     this.productArray = await this.fetch(this.urlProduct);
   },
-   watch: {
+  watch: {
     searchPro: async function check() {
-        this.productArray = this.searchPro
-      },
+      this.productArray = this.searchPro;
+    },
     brandId: async function checkIdBrand() {
       this.productArray = await this.fetch(this.urlProduct);
-      this.productArray = this.productArray.filter(f => f.brand.idBrand == this.brandId)
-      },
-    showAll: async function all(){
+      this.productArray = this.productArray.filter(
+        (f) => f.brand.idBrand == this.brandId
+      );
+    },
+    showAll: async function all() {
       this.productArray = await this.fetch(this.urlProduct);
-    }
-      }
+    },
+  },
 };
 </script>

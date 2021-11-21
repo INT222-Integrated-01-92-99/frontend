@@ -4,12 +4,12 @@
       <button
         @click="topFunction()"
         id="myBtn"
-        class="hidden fixed z-auto p-4 bottom-5 right-8 bg-red-light rounded-full focus:outline-none hover:bg-red-dark"
+        class="hidden fixed z-10 2xl:p-4 lg:p-4 md:p-4 p-2 bottom-5 right-8 bg-red-light rounded-full shadow-xl focus:outline-none hover:bg-red-dark"
       >
         <img src="../assets/icon/arrow-up.svg" />
       </button>
     </div>
-    <div class="2xl:pt-36 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div class="2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8 space-y-4">
       <h1
         class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
       >
@@ -17,7 +17,7 @@
       </h1>
     </div>
     <div
-      class="pt-2 2xl:w-1/3 lg:w-1/3 w-1/2 relative mx-auto text-gray-600 flex-col mb-10"
+      class="pt-2 2xl:w-1/3 lg:w-1/3 md:w-2/3 w-3/4 relative mx-auto text-gray-600 flex-col mb-10"
     >
       <form @submit.prevent="getData">
         <input
@@ -48,15 +48,15 @@
           </svg>
         </button>
       </form>
-      <div class="space-x-6 w-full">
-        <span @click="showAll = this.i++" class="font-prompt-regular-400 uppercase cursor-pointer hover:underline"
+      <div class="2xl:space-x-6 space-x-3 w-full">
+        <span @click="showAll = this.i++" class="font-prompt-regular-400 2xl:text-base lg:text-base md:text-base text-xs uppercase cursor-pointer hover:underline"
           >all</span
         >
         <span
           @click="sendBrand(b)"
           v-for="b in brand"
           :key="b.idBrand"
-          class="font-prompt-regular-400 cursor-pointer hover:underline"
+          class="font-prompt-regular-400 2xl:text-base lg:text-base md:text-base text-xs cursor-pointer hover:underline"
           >{{ b.brandName }}</span
         >
       </div>

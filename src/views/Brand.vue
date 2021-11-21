@@ -2,7 +2,22 @@
   <div class="brand">
     <div
       class="
-        z-10 bg-gray-extra-light w-full fixed pt-20 shadow-md lg:pr-20 pr-16 flex justify-end space-x-2
+        z-10
+        bg-gray-extra-light
+        w-full
+        fixed
+        2xl:pt-20
+        lg:pt-20
+        pt-14
+        shadow-md
+        lg:pr-20
+        md:pr-16
+        2xl:flex 2xl:justify-end
+        lg:flex lg:justify-end
+        md:flex md:justify-end
+        flex
+        justify-center
+        space-x-2
       "
     >
       <base-button
@@ -49,7 +64,7 @@
       >
       </base-button>
     </div>
-    <div class="2xl:pt-36 2xl:pb-8 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div class="2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8 space-y-4">
       <h1
         class="
           font-prompt-regular-400
@@ -90,7 +105,7 @@
                 my-6
               "
             >
-              <table class="min-w-max w-full table-auto">
+              <table class="min-w-max w-full table-auto font-prompt-regular-400">
                 <thead>
                   <tr
                     class="
@@ -172,7 +187,7 @@
             "
           >
             <div class="bg-white rounded my-6">
-              <table class="min-w-max w-full table-auto">
+              <table class="min-w-max w-full table-auto font-prompt-regular-400">
                 <thead>
                   <tr
                     class="

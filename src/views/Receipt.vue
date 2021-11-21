@@ -1,46 +1,55 @@
 <template>
   <div class="detail h-screen">
     <base-back></base-back>
-    <div class="2xl:pt-36 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div
+      class="
+        2xl:pt-36 2xl:pb-8
+        lg:pt-36 lg:pb-8
+        md:pt-32 md:pb-8
+        pt-32
+        pb-8
+        space-y-4
+      "
+    >
       <h1
-        class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
+        class="
+          font-prompt-regular-400
+          text-center text-cream-dark
+          2xl:text-5xl
+          text-4xl
+          font-bold
+        "
       >
         Purchase History
       </h1>
     </div>
-    <div class="justify-center">
+    <div class="justify-center pb-4">
       <div
         class="flex-row justify-center my-6"
         v-for="r in receipt"
         :key="r.idReceipt"
       >
-        <div
-          class="mx-auto
-          w-full
-          md:w-4/5
-          lg:w-4/5 font-prompt-regular-400"
-        >
+        <div class="mx-auto w-4/5 font-prompt-regular-400">
           #{{ r.idReceipt }}<br />
           Purchase Date: {{ r.datePurchase }}
         </div>
         <div
           class="
-        mx-auto
-          flex flex-col
-          w-full
-          p-8
-          text-gray-800
-          border-2 border-gray-500
-          pin-r pin-y
-          md:w-4/5
-          lg:w-4/5
-        "
+            mx-auto
+            flex flex-col
+            w-4/5
+            p-8
+            text-gray-800
+            border-2 border-gray-500
+            pin-r pin-y
+            font-prompt-regular-400
+          "
         >
           <div class="flex-1">
             <table class="w-full text-sm lg:text-base" cellspacing="0">
               <thead class="border-b-2">
                 <tr class="h-12 uppercase">
-                  <th class="text-left pl-4">Product</th>
+                  <th class="text-left">Product</th>
                   <th class="lg:text-center">
                     <span class="lg:hidden" title="Quantity">Qtd</span>
                     <span class="hidden lg:inline">Quantity</span>
@@ -60,7 +69,7 @@
                     <p class="mb-2 md:ml-4">{{ rd.brandName }}</p>
                     <p class="mb-2 md:ml-4">Color: {{ rd.color.colorName }}</p>
                   </td>
-                  <td class="hidden text-center md:table-cell">
+                  <td class="text-center md:table-cell">
                     <p class="text-sm lg:text-base font-medium">
                       {{ rd.proPerPiece }}
                     </p>
@@ -90,18 +99,31 @@
             </table>
             <div class="w-full my-4 mt-6 -mx-2 lg:flex">
               <div class="lg:px-2 lg:w-full">
-                <div class=" p-4 bg-gray-100 rounded-full">
+                <div class="p-4 bg-gray-100 rounded-full">
                   <h1 class="ml-2 font-bold uppercase">Order Details</h1>
                 </div>
                 <div class="p-4">
                   <div class="flex justify-between pt-4 border-b">
                     <div
-                      class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
+                      class="
+                        lg:px-4 lg:py-2
+                        m-2
+                        text-lg
+                        lg:text-xl
+                        font-bold
+                        text-center text-gray-800
+                      "
                     >
                       Total
                     </div>
                     <div
-                      class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
+                      class="
+                        lg:px-4 lg:py-2
+                        m-2
+                        lg:text-lg
+                        font-bold
+                        text-center text-gray-900
+                      "
                     >
                       {{
                         r.totalPrice
@@ -131,14 +153,19 @@ export default {
   },
   methods: {
     async fetch(url) {
-      const res = await fetch(url, {headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}});
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+      });
       const data = await res.json(url);
       return data;
     },
   },
   async created() {
-    console.log(this.$store.state.auth.user)
-    this.receipt = await this.fetch("http://localhost:3000/member/receipt/" + this.$store.state.auth.user.idAccount)
+    console.log(this.$store.state.auth.user);
+    this.receipt = await this.fetch(
+      "http://localhost:3000/member/receipt/" +
+        this.$store.state.auth.user.idAccount
+    );
     // this.receipt = await this.fetch(`${process.env.VUE_APP_ROOT_API}receipt`);
     console.log(this.receipt);
   },

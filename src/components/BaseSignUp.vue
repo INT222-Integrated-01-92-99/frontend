@@ -1,8 +1,8 @@
 <template>
   <div class="SignUp">
-    <div class="bg-white h-screen w-screen">
+    <div class="bg-gray-extra-light h-screen w-screen">
       <div
-        class="flex flex-col items-center flex-1 h-full justify-center mt-10 px-4 sm:px-0"
+        class="2xl:pt-0 lg:pt-4 md:pt-0 pt-36 flex flex-col items-center flex-1 h-full justify-center mt-10 px-4 sm:px-0"
       >
         <div
           class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-full lg:h-full bg-white sm:mx-0"

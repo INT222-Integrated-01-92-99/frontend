@@ -36,15 +36,21 @@
           <span>Color</span>
           <div class="flex flex-row">
             <div
-              @click="$store.state.auth.user ? selectColor(color) : ''"
+              @click="
+                $store.state.auth.user &&
+                $store.state.auth.user.idRole.idRole == 3
+                  ? selectColor(color)
+                  : ''
+              "
               v-for="color in product.prowithcolor"
               :key="color.color.idColor"
-              class="w-6 h-6 rounded-sm m-2"
+              class="w-6 h-6 rounded-sm m-2 border"
               v-bind:style="{ backgroundColor: color.color.colorCode }"
               :class="[
                 {
                   'border hover:border-black transition ease-in duration-300 transform hover:-translate-y-1 active:translate-y-0 p-2 hover:opacity-75 cursor-pointer':
-                    $store.state.auth.user,
+                    $store.state.auth.user &&
+                    $store.state.auth.user.idRole.idRole == 3,
                 },
                 {
                   'w-7 h-7 border-8 border-red-500':
@@ -66,7 +72,7 @@
             </div>
 
             <div v-if="$store.state.auth.user">
-              <div>
+              <div v-if="$store.state.auth.user.idRole.idRole == 3">
                 <div class="mt-3 space-x-3 inline-flex">
                   <span>Quantity : </span>
                   <span class="relative flex flex-row w-20">
@@ -109,49 +115,64 @@
                   space-x-5
                 "
               >
-              <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 : false">
-                <router-link :to="'/product/' + product.idPro">
+                <div
+                  v-if="
+                    $store.state.auth.user
+                      ? $store.state.auth.user.idRole.idRole == 2
+                      : false
+                  "
+                  class="space-x-5"
+                >
+                  <router-link :to="'/product/' + product.idPro">
+                    <base-button
+                      class="
+                        font-prompt-regular-400
+                        focus:outline-none
+                        py-1
+                        px-7
+                        rounded-sm
+                        hover:bg-red-dark
+                      "
+                      bgcolor="bg-red-light"
+                      txtcolor="text-white"
+                      txtbutt="Edit"
+                    ></base-button>
+                  </router-link>
+
                   <base-button
+                    @click.prevent="
+                      (sendToDelete = true), (sendId = product.idPro)
+                    "
                     class="
                       font-prompt-regular-400
                       focus:outline-none
                       py-1
-                      px-7
+                      px-6
                       rounded-sm
-                      hover:bg-red-dark
+                      hover:bg-gray-dark
                     "
-                    bgcolor="bg-red-light"
+                    bgcolor="bg-gray-light"
                     txtcolor="text-white"
-                    txtbutt="Edit"
+                    txtbutt="Delete"
                   ></base-button>
-                </router-link>
+                  <base-delete
+                    :send-to-delete="sendToDelete"
+                    :send-id="sendId"
+                  ></base-delete>
+                </div>
 
                 <base-button
-                  @click.prevent="
-                    (sendToDelete = true), (sendId = product.idPro)
+                  v-if="
+                    $store.state.auth.user
+                      ? $store.state.auth.user.idRole.idRole == 3
+                      : false
                   "
-                  class="
-                    font-prompt-regular-400
-                    focus:outline-none
-                    px-6
-                    rounded-sm
-                    hover:bg-gray-dark
-                  "
-                  bgcolor="bg-gray-light"
-                  txtcolor="text-white"
-                  txtbutt="Delete"
-                ></base-button>
-                <base-delete
-                  :send-to-delete="sendToDelete"
-                  :send-id="sendId"
-                ></base-delete>
-              </div>
-              
-                <base-button v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
                   @click="addToCart()"
                   class="
                     font-prompt-regular-400
                     focus:outline-none
+                    mt-3
+                    py-1
                     px-6
                     rounded-sm
                     hover:bg-red-dark

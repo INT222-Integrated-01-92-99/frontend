@@ -1,6 +1,6 @@
 <template>
   <base-back></base-back>
-    <div class="2xl:pt-36 2xl:pb-3 lg:pt-6 lg:pb-8 pt-6 pb-8 space-y-4">
+    <div class="2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8 space-y-4">
       <h1
         class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
       >
@@ -8,15 +8,15 @@
       </h1>
     </div>
 
-    <div class="flex justify-center my-6">
+    <div class="flex justify-center my-6 overflow-x-auto overflow-hidden">
       <div
         class="flex flex-col w-full p-8 text-gray-800 border-2 border-gray-500 pin-r pin-y md:w-4/5 lg:w-4/5"
       >
-        <div class="flex-1">
+        <div class="overflow-x-auto overflow-hidden w-full flex-1">
           <table class="w-full text-sm lg:text-base" cellspacing="0">
             <thead class="border-b-2">
               <tr class="h-12 uppercase">
-                <th class="hidden md:table-cell"></th>
+                <th class="md:table-cell"></th>
                 <th class="text-left pl-4">Product</th>
                 <th class="lg:text-center">
                   <span class="lg:hidden" title="Quantity">Qtd</span>
@@ -35,14 +35,14 @@
                 <td class="pb-4 md:table-cell">
                   <img
                     :src="urlImage + '/' + pc.product.proPathImg"
-                    class="w-20"
+                    class="2xl:w-20 lg:w-20 md:w-20 w-32"
                   />
                 </td>
                 <td class="w-1/4">
-                  <p class="mt-5 mb-2 md:ml-4">{{ pc.product.proName }}</p>
-                  <p class="mb-2 md:ml-4">{{ pc.product.brand.brandName }}</p>
+                  <p class="mt-5 mb-2 md:ml-4 ml-4">{{ pc.product.proName }}</p>
+                  <p class="mb-2 md:ml-4 ml-4">{{ pc.product.brand.brandName }}</p>
                   <div
-                    class="mb-2 md:ml-4 inline-flex font-prompt-regular-400 font-medium"
+                    class="mb-2 md:ml-4 ml-4 inline-flex font-prompt-regular-400 font-medium"
                   >
                     Color: &nbsp;
                     <div
@@ -127,15 +127,15 @@
                 <div class="flex justify-between">
                   <button
                     @click="loopCartForDelAll()"
-                    class="w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow  hover:bg-gray-dark focus:shadow-outline focus:outline-none"
+                    class="w-full py-3 mt-6 font-medium text-white uppercase bg-gray-light shadow  hover:bg-gray-dark focus:shadow-outline focus:outline-none"
                   >
-                    <span class="ml-2 mt-5px">Clear cart</span>
+                    <span class="ml-2 mt-5">Clear cart</span>
                   </button>
                   <button
                     @click="purchase(this.cart)"
-                    class="w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-red-light shadow  hover:bg-red-dark focus:shadow-outline focus:outline-none"
+                    class="w-full py-3 mt-6 font-medium text-white uppercase bg-red-light shadow  hover:bg-red-dark focus:shadow-outline focus:outline-none"
                   >
-                    <span class="ml-2 mt-5px">Purchase</span>
+                    <span class="ml-2 mt-5">Purchase</span>
                   </button>
                 </div>
               </div>

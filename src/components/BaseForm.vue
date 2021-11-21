@@ -9,20 +9,17 @@
             2xl:text-5xl
             text-4xl
             font-bold
-            lg:pt-36
-            pt-6
-            lg:pb-10
-            pb-5
+            2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8
           "
         >
           {{ proId == "add" ? "Add Product" : "Edit Product" }}
         </p>
         <div class="flex flex-col 2xl:space-x-14 lg:space-x-16">
           <div class="space-y-5 flex flex-col">
-            <img :src="image" class="w-80 mx-auto" />
+            <img :src="image" class="2xl:w-2/5 lg:w-2/5 md:w-2/5 w-5/6 mx-auto" />
             <input
               type="file"
-              class="font-prompt-regular-400 focus:outline-none w-1/4 mx-auto"
+              class="font-prompt-regular-400 focus:outline-none 2xl:w-1/4 lg:w-1/4 md:w-1/3 w-1/2 mx-auto"
               @change="uploadImg"
             />
             <div
@@ -31,7 +28,7 @@
             >
               Please upload your Product Images!
             </div>
-            <div class="flex flex-row justify-center flex-wrap w-1/2 mx-auto">
+            <div class="flex flex-row justify-center flex-wrap 2xl:w-1/2 lg:w-1/2 md:w-2/3 w-full mx-auto">
               <div
                 @click="selectColor(color)"
                 v-for="color in colorArray"

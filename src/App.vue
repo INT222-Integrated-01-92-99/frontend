@@ -1,18 +1,50 @@
 <template>
   <body class="antialiased">
     <nav
-      class="navbar mx-auto fixed w-full md:pr-16 top-0 text-black bg-white border-b-2 border-black flex flex-wrap items-center z-20"
+      class="
+        navbar
+        mx-auto
+        fixed
+        w-full
+        md:pr-16
+        top-0
+        text-black
+        bg-white
+        border-b-2 border-black
+        flex flex-wrap
+        items-center
+        z-20
+      "
     >
-      <div class="pl-10 flex-1 flex justify-between items-center">
+      <div
+        class="
+          2xl:ml-10
+          lg:ml-10
+          md:ml-8
+          ml-8
+          flex-1 flex
+          justify-between
+          items-center
+        "
+      >
         <router-link
-          
           to="/"
-          class="font-rozha text-2xl font-medium p-2"
+          class="
+            font-rozha
+            2xl:text-2xl
+            lg:text-2xl
+            md:text-xl
+            text-xl
+            font-medium
+            p-2
+          "
           >PUSH & PULL
         </router-link>
       </div>
 
-      <label for="menu-toggle" class="pointer-cursor lg:hidden block"
+      <label
+        for="menu-toggle"
+        class="pointer-cursor lg:hidden block 2xl:mr-0 lg:mr-0 md:mr-0 mr-8"
         ><svg
           class="fill-current text-gray-900"
           xmlns="http://www.w3.org/2000/svg"
@@ -28,77 +60,181 @@
       <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
         <nav>
           <ul
-            class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0 pl-10"
+            class="
+              lg:flex
+              items-center
+              justify-between
+              text-base text-gray-700
+              pt-4
+              lg:pt-0
+              pl-10
+            "
           >
             <li>
               <router-link
-                
                 to="/"
                 :class="{ 'text-red-light': routes == 'Home' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  lg:hover:border-red-light
+                "
                 >Home</router-link
               >
             </li>
             <li>
               <router-link
-                
                 to="/team"
                 :class="{ 'text-red-light': routes == 'Team' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  lg:hover:border-red-light
+                "
                 >Team</router-link
               >
             </li>
             <li>
-              <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 || $store.state.auth.user.idRole.idRole == 3 : false"
-               
+              <router-link
+                v-if="
+                  $store.state.auth.user
+                    ? $store.state.auth.user.idRole.idRole == 2 ||
+                      $store.state.auth.user.idRole.idRole == 3
+                    : false
+                "
                 to="/product/views"
                 :class="{ 'text-red-light': routes == 'Product' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  lg:hover:border-red-light
+                "
                 >Product</router-link
               >
               <div v-if="!$store.state.auth.user">
                 <router-link
-                to="/product/views"
-                :class="{ 'text-red-light': routes == 'Product' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
-                >Product</router-link>
+                  to="/product/views"
+                  :class="{ 'text-red-light': routes == 'Product' }"
+                  class="
+                    font-prompt-regular-400
+                    text-base
+                    font-medium
+                    lg:p-4
+                    md:py-2
+                    py-3
+                    px-0
+                    block
+                    border-b-2 border-transparent
+                    2xl:hover:border-red-light
+                    lg:hover:border-red-light
+                    
+                  "
+                  >Product</router-link
+                >
               </div>
             </li>
             <li>
-              <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 1 : false"
-                
+              <router-link
+                v-if="
+                  $store.state.auth.user
+                    ? $store.state.auth.user.idRole.idRole == 1
+                    : false
+                "
                 to="/account"
-                :class="{ 'text-red-light': routes == '/Account' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                :class="{ 'text-red-light': routes == 'Account' }"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  lg:hover:border-red-light
+                  
+                "
                 >Manage</router-link
               >
             </li>
             <li>
-              <router-link v-if="!$store.state.auth.user"
-               
+              <router-link
+                v-if="!$store.state.auth.user"
                 to="/signup"
                 :class="{ 'text-red-light': routes == 'SignUp' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  lg:hover:border-red-light
+                "
                 >Sign Up</router-link
               >
             </li>
-            <!-- <li class="md:visible invisible font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0">|</li> -->
             <li>
-              <router-link v-if="!$store.state.auth.user"
-                
+              <router-link
+                v-if="!$store.state.auth.user"
                 to="/signin"
                 :class="{ 'text-red-light': routes == 'SignIn' }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  lg:hover:border-red-light
+                "
               >
                 Sign In
               </router-link>
             </li>
 
-            <li>
-              <div v-if="$store.state.auth.user" class="2xl:relative lg:p-4 py-3 px-0">
+            <li class="2xl:block lg:block md:hidden hidden">
+              <div
+                v-if="$store.state.auth.user"
+                class="2xl:relative lg:p-4 py-3 px-0"
+              >
                 <button
                   @click="isOpen = !isOpen"
-                  class="mt-1 focus:outline-none "
+                  class="mt-1 focus:outline-none"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -116,40 +252,174 @@
                 <div
                   v-if="isOpen"
                   @click="isOpen = false"
-                  class="2xl:fixed top-0 right-0 bottom-0 left-0 h-full w-full"
+                  class="
+                    2xl:fixed
+                    lg:fixed
+                    top-0
+                    right-0
+                    bottom-0
+                    left-0
+                    h-full
+                    w-full
+                  "
                 ></div>
                 <div
                   v-if="isOpen"
-                  class="2xl:absolute bg-white 2xl:border 2xl:border-black 2xl:rounded-sm w-max"
+                  class="
+                    2xl:absolute
+                    lg:absolute
+                    bg-white
+                    2xl:border 2xl:border-black 2xl:rounded-sm
+                    lg:border lg:border-black lg:rounded-sm
+                    w-max
+                  "
                 >
                   <router-link
-                   
                     to="/profile"
-                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
+                    class="
+                      font-prompt-regular-400
+                      text-sm
+                      font-medium
+                      lg:p-4
+                      md:py-2
+                      py-3
+                      px-0
+                      block
+                      hover:bg-red-light hover:text-white
+                    "
                     >My Profile</router-link
                   >
-                  <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
-                   
+                  <router-link
+                    v-if="
+                      $store.state.auth.user
+                        ? $store.state.auth.user.idRole.idRole == 3
+                        : false
+                    "
                     to="/receipt"
-                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white"
+                    class="
+                      font-prompt-regular-400
+                      text-sm
+                      font-medium
+                      lg:p-4
+                      md:py-2
+                      py-3
+                      px-0
+                      block
+                      hover:bg-red-light hover:text-white
+                    "
                     >Purchase History</router-link
                   >
                   <div
                     @click.prevent="signOut()"
-                    class="font-prompt-regular-400 text-sm font-medium lg:p-4 py-3 px-0 block hover:bg-red-light hover:text-white cursor-pointer"
-                    >Sign Out</div>
-                  
+                    class="
+                      font-prompt-regular-400
+                      text-sm
+                      font-medium
+                      lg:p-4
+                      md:py-2
+                      py-3
+                      px-0
+                      block
+                      hover:bg-red-light hover:text-white
+                      cursor-pointer
+                    "
+                  >
+                    Sign Out
+                  </div>
                 </div>
               </div>
             </li>
+            <!-- เขียนใหม่ -->
+            <li class="2xl:hidden lg:hidden md:block block">
+              <router-link
+                v-if="$store.state.auth.user"
+                to="/profile"
+                :class="{ 'text-red-light': routes == 'Profile' }"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  
+                "
+                >My Profile</router-link
+              >
+            </li>
+            <li class="2xl:hidden lg:hidden md:block block">
+              <router-link
+                v-if="
+                  $store.state.auth.user
+                    ? $store.state.auth.user.idRole.idRole == 3
+                    : false
+                "
+                to="/receipt"
+                :class="{ 'text-red-light': routes == 'Receipt' }"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                "
+                >Purchase History</router-link
+              >
+            </li>
+            <li class="2xl:hidden lg:hidden md:block block">
+              <div
+                v-if="$store.state.auth.user"
+                @click.prevent="signOut()"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                  cursor-pointer
+                "
+              >
+                Sign Out
+              </div>
+            </li>
+
             <li>
-              <router-link v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 3 : false"
-              
+              <router-link
+                v-if="
+                  $store.state.auth.user
+                    ? $store.state.auth.user.idRole.idRole == 3
+                    : false
+                "
                 to="/cart"
                 :class="{
                   'border-red-light': routes == '/cart',
                 }"
-                class="font-prompt-regular-400 text-base font-medium lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-light"
+                class="
+                  font-prompt-regular-400
+                  text-base
+                  font-medium
+                  lg:p-4
+                  md:py-2
+                  py-3
+                  px-0
+                  block
+                  border-b-2 border-transparent
+                  2xl:hover:border-red-light
+                "
                 ><button class="mt-1 focus:outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +440,7 @@
                 <span class="font-prompt-regular-400 total-quantity">
                   {{ totalQuantity }}
                 </span>
-                </router-link>
+              </router-link>
             </li>
           </ul>
         </nav>
@@ -209,13 +479,15 @@ export default {
     //   this.amountOnCart = recieveNum;
     // },
     async fetch(url) {
-      const res = await fetch(url, {headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}});
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+      });
       const data = await res.json(url);
       return data;
     },
     ...mapActions({
-      signOutAction: 'auth/signOut',
-      attempt: 'auth/attempt'
+      signOutAction: "auth/signOut",
+      attempt: "auth/attempt",
     }),
 
     signOut() {
@@ -238,17 +510,21 @@ export default {
       return localStorage.getItem("amount");
     },
     routes() {
-    return this.$route.name;
-    }
+      return this.$route.name;
+    },
   },
   async created() {
-    console.log(this.$route.name)
-    if(this.$store.state.auth.user && this.$store.state.auth.user.idRole.idRole == 3){
-      this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount)
-    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-
+    console.log(this.$route.name);
+    if (
+      this.$store.state.auth.user &&
+      this.$store.state.auth.user.idRole.idRole == 3
+    ) {
+      this.cart = await this.fetch(
+        "http://localhost:3000/member/cart/" +
+          this.$store.state.auth.user.idAccount
+      );
+      // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
     }
-  
   },
 };
 </script>

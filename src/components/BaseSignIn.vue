@@ -1,7 +1,7 @@
 <template>
   <div class="SignIn">
     <!-- component -->
-    <div class="bg-white h-screen w-screen">
+    <div class="bg-gray-extra-light h-screen w-screen">
       <div
         class="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0"
       >
