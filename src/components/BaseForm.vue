@@ -164,7 +164,7 @@
                   focus:border-indigo-500
                   focus:outline-none
                 "
-                :class="{ 'bg-red-50': ProInput }"
+                :class="{ 'bg-red-50': ProInput}"
                 id="proName"
                 type="text"
                 size="32"
@@ -235,8 +235,6 @@
                 :class="{ 'bg-red-50': PriceInput }"
                 id="price"
                 min="1"
-                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                maxlength="8"
                 type="number"
                 placeholder="Price"
                 v-model.trim="enterPrice"
@@ -404,7 +402,8 @@ export default {
       this.PriceInput =
         this.enterPrice === "" ||
         this.enterPrice % 1 != 0 ||
-        this.enterPrice < 0;
+        this.enterPrice < 0 ||
+        this.enterPrice >= 100_000_000
       this.DescriptInput = this.enterDescript === "" ? true : false;
       this.ChooseColor = this.product.item.length === 0 ? true : false;
     },
@@ -421,6 +420,8 @@ export default {
       };
     },
     async submitForm() {
+      console.log(this.enterPrice)
+      console.log(this.enterPrice.toString().length)
       this.checkForm();
       if (this.proId == "add"){
         if(!this.UpPic &&
@@ -446,7 +447,6 @@ export default {
           proMFDDATE: this.enterDate,
           proCol: this.product.item,
         };
-
         this.$parent.regist(addPro);
         this.clearForm();
       }
