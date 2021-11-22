@@ -4,6 +4,7 @@ export default ({
     state: {
         token: null,
         user: null, //จะเก็บข้อมูลอะไรก็ใส่ไป
+        cart: 0,
     },
     getters:{ //ถ้าอยากนำข้อมูลuserมาshowดูคลิปนี้ https://www.youtube.com/watch?v=H9oODcFslyA&list=PLfdtiltiRHWF1jqLcNO_2jWJXj9RuSDvY&index=7 ตอนนาทีที่ 1:31 ดูให้จบคลิปนะน้อน
         authenticated(state){
@@ -12,6 +13,10 @@ export default ({
         user(state){
             return state.user
         },
+        cart(state){
+            console.log(state.cart)
+            return state.cart
+        }
     },
 
     mutations: {
@@ -20,6 +25,9 @@ export default ({
         },
         SET_USER(state, data){
             state.user = data
+        },
+        SET_CART(state, data){
+            state.cart = data
         }
     },
     actions: {
@@ -65,6 +73,9 @@ export default ({
 
             // })
            
+        },
+        saveNumCart({commit}, data){
+            commit('SET_CART', data)
         }
 }
 })
