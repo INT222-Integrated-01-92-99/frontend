@@ -25,7 +25,7 @@
           type="search"
           name="search"
           v-model="this.query"
-          placeholder="Search"
+          placeholder="Search by product name"
         />
         <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
           <svg
