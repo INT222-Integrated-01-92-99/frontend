@@ -222,7 +222,9 @@
                             id="phone"
                             :class="{ 'bg-red-50': validate.phoneInput }"
                             class="bg-white border p-2 rounded-sm"
-                            type="text"
+                            type="tel"
+                            maxlength="10"
+                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                             placeholder="Phone"
                             v-model="person.accPhone"
                           />
@@ -367,6 +369,7 @@
                           
                           v-model.trim="person.accUsername"
                           @keyup="checkUsername()"
+                          @keydown="setFalse()"
                         />
                       </div>
                       <p
@@ -387,7 +390,7 @@
                         <span>{{ r.accUsername }}</span>
                       </div>
                     </td>
-                    <td
+                    <!-- <td
                       v-if="r.idAccount == this.roleIdForCheck"
                       class="py-3 px-6 text-left"
                     >
@@ -407,8 +410,8 @@
                       >
                         Enter Password!
                       </p>
-                    </td>
-                    <td v-else class="py-3 px-6 text-left">
+                    </td> -->
+                    <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <span>{{ r.accPass }}</span>
                       </div>
@@ -474,7 +477,9 @@
                           class="bg-white border p-2 rounded-sm"
                           :class="{ 'bg-red-50': r.accPhone === '' }"
                           id="phoneNum"
-                          type="text"
+                          type="tel"
+                            maxlength="10"
+                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                           placeholder="Phone"
                           v-model.trim="person.accPhone"
                         />
@@ -680,7 +685,7 @@ export default {
       console.log('ตัวที่พิมพ์เข้ามา ' + this.person.accUsername)
       for (let i = 0; i < this.people.length; i++){
         console.log('ตัวที่อยู่ในลูปอยู่นอกเงื่อนไข if ' + this.people[i].accUsername)
-        if(this.person.accUsername === this.people[i].accUsername){
+        if(this.person.accUsername === this.people[i].accUsername && this.person.idAccount != this.people[i].idAccount){
         this.message ='This username is already taken.'
         this.wrongUsername = true
         console.log('ตัวที่อยู่ในลูปละเข้าเงื่อนไข if ' + this.people[i].accUsername)
@@ -746,6 +751,7 @@ export default {
         });
         this.people = await this.fetch("http://localhost:3000/admin/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        this.clear()
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -807,11 +813,11 @@ export default {
     },
     showSaveEdit(roleId) {
       this.wrongUsername = false;
-      this.check();
       (this.showEdit = true), (this.showSave = true);
       this.roleIdForCheck = roleId.idAccount;
       this.person = roleId;
       this.isOpen = false;
+      this.check();
     },
     async fetch(url) {
       let res;
