@@ -8,12 +8,12 @@
       </h1>
     </div>
 
-    <div class="flex justify-center my-6 overflow-x-auto overflow-hidden">
+    <div class="w-11/12 mx-auto flex justify-center my-6">
       <div
-        class="flex flex-col w-full p-8 text-gray-800 border-2 border-gray-500 pin-r pin-y md:w-4/5 lg:w-4/5"
+        class="overflow-x-auto flex flex-col w-full p-8 text-gray-800 border-2 border-gray-500 pin-r pin-y md:w-4/5 lg:w-4/5"
       >
-        <div class="overflow-x-auto overflow-hidden w-full flex-1">
-          <table class="w-full text-sm lg:text-base" cellspacing="0">
+        <div class="overflow-hidden w-full flex-1">
+          <table class="font-prompt-regular-400 w-full text-sm lg:text-base overflow-scroll overflow-x-auto" cellspacing="0">
             <thead class="border-b-2">
               <tr class="h-12 uppercase">
                 <th class="md:table-cell"></th>
@@ -35,7 +35,7 @@
                 <td class="pb-4 md:table-cell">
                   <img
                     :src="urlImage + '/' + pc.product.proPathImg"
-                    class="2xl:w-20 lg:w-20 md:w-20 w-32"
+                    class="2xl:w-20 lg:w-20 md:w-20 w-40"
                   />
                 </td>
                 <td class="w-1/4">
@@ -64,8 +64,8 @@
                     </button>
                   </div>
                 </td>
-                <td class="justify-center md:justify-end md:flex mt-6">
-                  <div class="mx-auto mt-14">
+                <td class="justify-center md:flex 2xl:mt-3 lg:mt-3 md:mt-1">
+                  <div class="mx-auto 2xl:mt-14 lg:mt-14 md:mt-14 mt-1">
                     <div class="relative mx-auto flex flex-row w-1/2 h-8">
                       <input
                         type="number"
