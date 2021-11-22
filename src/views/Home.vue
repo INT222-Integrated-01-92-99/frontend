@@ -3,7 +3,7 @@
     class="mx-auto w-full h-screen bg-cover"
     style="background-image: url('https://theklosetedit.com/wp-content/uploads/2019/09/flaunter-com-LI_8-X9cei0-unsplash-4000x2000.jpg');"
   >
-    <div>
+    <div v-if="$store.state.auth.user ? $store.state.auth.user.idRole.idRole == 2 || $store.state.auth.user.idRole.idRole == 3 : false">
       <div class="2xl:pt-80 lg:pt-96 md:pt-44 pt-96 text-center">
         <div class="justify-center">
           <router-link
