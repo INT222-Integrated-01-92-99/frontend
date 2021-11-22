@@ -235,6 +235,8 @@
                 :class="{ 'bg-red-50': PriceInput }"
                 id="price"
                 min="1"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="9"
                 type="number"
                 placeholder="Price"
                 v-model.trim="enterPrice"
