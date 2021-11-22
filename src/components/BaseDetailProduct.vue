@@ -191,6 +191,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   components: {},
   props: [],
@@ -217,7 +218,7 @@ export default {
       idCartDetail: [],
       ChooseColor: false,
       SelectAmount: false,
-      numCart: 0,
+      error: ''
     };
   },
   methods: {
@@ -344,7 +345,7 @@ export default {
     async addToCartDetail(proInCart) {
       console.log(proInCart);
       try {
-        await fetch(
+        const response = await fetch(
           `http://localhost:3000/member/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
           // `${process.env.VUE_APP_ROOT_API}additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
           {
@@ -354,14 +355,18 @@ export default {
             },
           }
         );
+        this.error = await response.json()
+        console.log(this.error)
+        if(this.error.errorCode == 'AMOUNT_VALUE'){
+          alert("Sorry, Product is not enough. Please check amount of this product.")
+        }
         this.cart = await this.fetch(
           "http://localhost:3000/member/cart/" +
             this.$store.state.auth.user.idAccount
+            // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
         );
-        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-        alert("Add to cart");
-        this.numCart++;
-        this.memLocal(parseInt(this.numCart));
+        
+        this.setCart(this.cart.cartDetails.length)
         this.$forceUpdate();
         // this.sendNumPro(this.numCart)
       } catch (error) {
@@ -383,13 +388,12 @@ export default {
         }
       }
     },
+    ...mapActions({
+      setCart: "auth/saveNumCart"
+    }),
   },
   computed: {},
   async created() {
-    if (localStorage.amount) {
-      this.numCart = localStorage.amount;
-    }
-
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get("id");

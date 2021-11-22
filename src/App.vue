@@ -438,7 +438,7 @@
                   </svg>
                 </button>
                 <span class="font-prompt-regular-400 total-quantity">
-                  {{ totalQuantity }}
+                  {{$store.state.auth.cart}}
                 </span>
               </router-link>
             </li>
@@ -488,6 +488,7 @@ export default {
     ...mapActions({
       signOutAction: "auth/signOut",
       attempt: "auth/attempt",
+      setCart: "auth/saveNumCart"
     }),
 
     signOut() {
@@ -504,11 +505,6 @@ export default {
     },
   },
   computed: {
-    totalQuantity() {
-      //มีproductทั้งหมดกี่ชิ้นในตระกร้า (ไว้แสดงบนรูปตระกร้า)
-      // return this.amountOnCart + this.initialAmount;
-      return localStorage.getItem("amount");
-    },
     routes() {
       return this.$route.name;
     },
@@ -523,6 +519,9 @@ export default {
         "http://localhost:3000/member/cart/" +
           this.$store.state.auth.user.idAccount
       );
+      console.log(this.cart.cartDetails.length)
+      this.setCart(this.cart.cartDetails.length)
+      console.log(this.$store.state.auth.cart)
       // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
     }
   },
