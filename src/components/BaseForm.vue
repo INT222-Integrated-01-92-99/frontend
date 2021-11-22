@@ -510,6 +510,7 @@ export default {
         });
         const data = await res.json();
         console.log(data)
+        this.$router.push('/product/views')
         alert("Edited");
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
@@ -521,6 +522,7 @@ export default {
             },
           body: formData,
         });
+        this.$router.push('/product/views')
         alert("Edited");
       }
     },
