@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div v-if="!$store.state.auth.user">
       <div class="2xl:pt-80 lg:pt-96 md:pt-44 pt-96 text-center">
         <div class="justify-center">
           <router-link
