@@ -415,8 +415,16 @@ export default {
     },
   },
   async created() {
-    this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+    if(this.$store.state.auth.user){
+      if(this.$store.state.auth.user.idRole.idRole == 1){
+         this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
     // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
+      }else{
+          this.$router.push('/product/views')
+        }
+    }else{
+      this.$router.push('/product/views')
+    }
   },
 };
 </script>

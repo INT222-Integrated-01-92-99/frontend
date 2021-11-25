@@ -101,8 +101,9 @@
                             type="text"
                             v-model.trim="person.accUsername"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                            :class="{ 'bg-red-50': usernameInput }"
+                            :class="{ 'bg-red-50': usernameInput, 'bg-red-50': showError }"
                             placeholder="Username"
+                            
                           />
                         </div>
                         <p
@@ -110,6 +111,12 @@
                           class="font-prompt-regular-400 text-red-600"
                         >
                           Please enter your username
+                        </p>
+                        <p
+                          v-if="showError"
+                          class="font-prompt-regular-400 text-red-600"
+                        >
+                          {{errorMessage}}
                         </p>
                       </div>
 
@@ -264,7 +271,10 @@ export default {
       lastnameInput: false,
       phoneInput: false,
       addressInput: false,
-      account: '',
+      error: '',
+      showError: false,
+      errorMessage: ''
+
     };
   },
   methods: {
@@ -303,16 +313,21 @@ export default {
       ) {
         try {
           const jsonPro = await JSON.stringify(this.person);
-          await fetch("http://localhost:3000/main/registaccount", {
+          const response = await fetch("http://localhost:3000/main/registaccount", {
             // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
             method: "POST",
             body: jsonPro,
             headers: {
               "Content-Type": "application/json",
             },
+
           });
           this.clear()
-          this.$router.push('/signin');
+          this.error = await response.json()
+          if(this.error.errorCode == 'USERNAME_HAVE_ALREADY'){
+          this.showError = true
+          this.errorMessage = 'this username is already taken.'
+      }
           // this.people = await this.fetch("http://localhost:3000/account");
           // // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
         } catch (error) {
@@ -341,8 +356,5 @@ export default {
       }
     }, 
   },
-  async created(){
-    this.account = await this.fetch("http://localhost:3000/admin/account")
-  }
 };
 </script>

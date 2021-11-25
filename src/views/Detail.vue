@@ -13,15 +13,17 @@ export default {
   data() {
     return {
       routes: "/product/views",
-      amount: 0,
     };
   },
   methods:{
-    // showNumToParent(num){
-    //   console.log("showNumToParent() work!")
-    //   this.amount = num
-    //   // this.$parent.showNumCart(this.amount);
-    // }
+
+  },
+  async created(){
+    if(this.$store.state.auth.user){
+      if(this.$store.state.auth.user.idRole.idRole == 1 && this.$route.path === '/detail'){
+        this.$router.push('/')
+      }
+    }
   }
 };
 </script>

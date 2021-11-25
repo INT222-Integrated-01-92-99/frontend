@@ -74,6 +74,7 @@
                           class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                           placeholder="Password"
                         />
+                  
                         <div class="relative">
                           <button
                             class="absolute inset-y-0 right-0 w-8 border-2 border-gray-200 rounded-r-lg"
@@ -83,6 +84,9 @@
                           </button>
                         </div>
                       </div>
+                       <p v-if="showError" class="font-prompt-regular-400 text-red-600">
+                          Username or Password not correct!
+                        </p>
                     </div>
                   </div>
                   <div class="flex flex-col mt-8">
@@ -122,6 +126,7 @@ export default {
       },
       type: "password",
       eye: require("../assets/icon/hide.png"),
+      showError: false
     };
   },
   methods: {
@@ -143,6 +148,9 @@ export default {
           .replace(
             this.$store.state.auth.user && (this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole ==3) ? '/product/views' : '/account'
           )
+      }).catch((error)=>{
+        console.log(error);
+        this.showError = true;
       });
     },
 

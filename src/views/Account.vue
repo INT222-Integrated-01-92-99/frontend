@@ -833,10 +833,19 @@ export default {
     },
   },
   async created() {
-    this.people = await this.fetch("http://localhost:3000/admin/account");
-    // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
-    this.roles = await this.fetch("http://localhost:3000/admin/role");
-    // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);
+    if(this.$store.state.auth.user){
+      if(this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole == 3){
+        this.$router.push('/product/views')
+      }else{
+        this.people = await this.fetch("http://localhost:3000/admin/account");
+        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        this.roles = await this.fetch("http://localhost:3000/admin/role");
+        // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);
+      }
+
+    }else{
+      this.$router.push('/product/views')
+    }
   },
 };
 </script>

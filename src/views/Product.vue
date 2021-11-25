@@ -100,6 +100,8 @@ export default {
     return {
       currentTabComponent: "base-product-view",
       viewAddChange: true,
+      error:'',
+      showError: false,
     };
   },
 
@@ -124,8 +126,8 @@ export default {
         });
         let formData = new FormData();
         formData.append("image", addNewPro.imgFile, addNewPro.proPathImg);
-        await formData.append("newproduct", blob);
-        await fetch("http://localhost:3000/staff/add/image", {
+        await formData.append("newproduct", blob); 
+        const response = await fetch("http://localhost:3000/staff/add/image", {
           // await fetch(`${process.env.VUE_APP_ROOT_API}add/image`, {
           method: "POST",
           headers: {
@@ -133,14 +135,45 @@ export default {
           },
           body: formData,
         });
-        alert("Added.");
+        this.error = await response.json()
+        if(this.error.errorCode == "PRODUCT_NAME_ALREADY_EXIST"){
+          alert('Already has this name.')
+        }else{
+          alert("Added.");
+        }
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
     },
   },
   created() {
-    this.viewAddChange = false;
+    if(this.$store.state.auth.user){
+      if(this.$store.state.auth.user.idAccount == 2 || this.$store.state.auth.user.idAccount == 3){
+        
+      this.viewAddChange = false;
+      if (this.proId == "views" || this.proId == undefined) {
+      this.viewAddChange = true;
+    
+    }
+      }else{
+        if(this.$route.path === '/product/add'){
+          this.$router.push('/')
+          }else{
+            this.$router.push('/')
+          }
+      }
+    }else{
+      this.$router.push('/product/views')
+    }
+
+    if(this.$store.state.auth.user && this.$store.state.auth.user.idRole.idRole == 3){
+      if(this.$route.path === '/product/add'){
+        this.$router.push('/product/views')
+      }else{
+        this.$router.push('/product/views')
+      }
+    }
+   this.viewAddChange = false;
     if (this.proId == "views" || this.proId == undefined) {
       this.viewAddChange = true;
     }

@@ -327,7 +327,7 @@ export default {
       ) {
         try {
           const jsonPro = JSON.stringify(this.person);
-
+          console.log(this.person)
           await fetch("http://localhost:3000/allroles/editaccount", {
             // await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
             method: "PUT",
@@ -340,6 +340,8 @@ export default {
           this.user();
           this.isEdit = false;
           this.showEditButton = false;
+          alert('Your username is edited, please login again')
+          this.$router.push('/signin')
           // this.clear()
         } catch (error) {
           console.log(`Could not save! ${error}`);

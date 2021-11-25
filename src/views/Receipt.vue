@@ -20,9 +20,10 @@
           font-bold
         "
       >
-        Purchase History
+        Purchase History 
       </h1>
     </div>
+    <p v-if="noHistory" class="font-prompt-regular-400 text-xl font-extrabold text-center">No history</p>
     <div class="justify-center pb-4">
       <div
         class="flex-row justify-center my-6"
@@ -149,6 +150,7 @@ export default {
   data() {
     return {
       receipt: [],
+      noHistory: false,
     };
   },
   methods: {
@@ -161,13 +163,19 @@ export default {
     },
   },
   async created() {
-    console.log(this.$store.state.auth.user);
+    if(this.$store.state.auth.user.idRole.idRole == 3){
     this.receipt = await this.fetch(
       "http://localhost:3000/member/receipt/" +
         this.$store.state.auth.user.idAccount
     );
     // this.receipt = await this.fetch(`${process.env.VUE_APP_ROOT_API}receipt`);
     console.log(this.receipt);
+    if(this.receipt.length == 0){
+      this.noHistory = true;
+    }
+    }else{
+      this.$router.push('/')
+    }
   },
 };
 </script>

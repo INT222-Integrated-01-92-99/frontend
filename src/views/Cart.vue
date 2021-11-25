@@ -147,7 +147,7 @@
 </template>
 
 <script>
-// import BaseCart from "../components/BaseCart.vue";
+import { mapActions } from "vuex";
 import BaseBack from "../components/BaseBack.vue";
 export default {
   components: { BaseBack },
@@ -156,7 +156,6 @@ export default {
       product: { brand: { brandName: "" } },
       cart: [],
       quantity: localStorage.amount,
-      image: { url: "" },
       urlImage: "http://localhost:3000/main/image",
       // urlImage: `${process.env.VUE_APP_ROOT_API}image`,
       x: 0,
@@ -169,6 +168,9 @@ export default {
       const data = await res.json(url);
       return data;
     },
+     ...mapActions({
+      setCart: "auth/saveNumCart"
+    }),
 
     async persist(edit) {
       console.log(edit)
@@ -224,6 +226,7 @@ export default {
         );
         this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+        this.setCart(this.cart.cartDetails.length)
       } catch (error) {
         console.log(`Could not delete! ${error}`);
       }
@@ -262,6 +265,7 @@ export default {
         }
         this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+        this.setCart(this.cart.cartDetails.length)
       }
       // window.location.reload();
       // localStorage.amount = 0;
@@ -295,7 +299,9 @@ export default {
                 headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
               }
             );
-            localStorage.amount = 0;
+            this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+          // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
+          this.setCart(this.cart.cartDetails.length)
           } catch (error) {
             console.log(`Could not purchase! ${error}`);
           }
@@ -307,15 +313,15 @@ export default {
     },
   },
   async created() {
+     if(this.$store.state.auth.user.idRole.idRole == 3){
     this.product = await this.fetch('http://localhost:3000/main/product');
     this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-    // this.image = await fetch(this.urlImage + "/" + this.cart.cartDetails.product.proPathImg);
-    if (this.quantity) {
-      this.quantity = localStorage.amount;
+    }else if(this.$store.state.auth.user.idRole.idRole == 1){
+      this.$router.push('/')
+    }else{
+      this.$router.push('/product/views')
     }
-    // console.log(this.urlImage + "/" + this.cart.cartDetails.product.proPathImg)
-    // console.log(this.cart.cartDetails[0].product.proName);
   },
 };
 </script>

@@ -208,8 +208,8 @@
               v-if="InStocksInput"
               class="font-prompt-regular-400 text-red-600"
             >
-              Please enter in stocks! (Do not use decimal number, negative
-              integer.)
+              Please enter number of in stocks! (Do not use decimal number or negative
+              integer and cannot be zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -241,8 +241,8 @@
               />
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your Price! (Do not use decimal number, negative
-              integer.)
+              Please enter your Price! (Do not use decimal number or negative
+              integer and cannot be zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -398,12 +398,14 @@ export default {
       this.InStocksInput =
         this.enterInStocks === "" ||
         this.enterInStocks % 1 != 0 ||
-        this.enterInStocks < 0;
+        this.enterInStocks < 0 ||
+        this.enterInStocks == 0
       this.PriceInput =
         this.enterPrice === "" ||
         this.enterPrice % 1 != 0 ||
         this.enterPrice < 0 ||
-        this.enterPrice >= 100_000_000
+        this.enterPrice >= 100_000_000 ||
+        this.enterPrice == 0
       this.DescriptInput = this.enterDescript === "" ? true : false;
       this.ChooseColor = this.product.item.length === 0 ? true : false;
     },
@@ -555,6 +557,7 @@ export default {
         case "gif":
         case "bmp":
         case "png":
+        case "jpeg":
           return true;
       }
       return false;
