@@ -332,8 +332,8 @@ export default {
         try {
           const jsonPro = JSON.stringify(this.person);
           console.log(this.person)
-          // await fetch("http://localhost:3000/allroles/editaccount", {
-            await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
+          await fetch("http://localhost:3000/allroles/editaccount", {
+            // await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
             method: "PUT",
             body: jsonPro,
             headers: {

@@ -1,5 +1,9 @@
 <template>
-  <button @click="buttonClick" class="btn focus:outline-none" :class="[bgcolor, txtcolor]">
+  <button
+    @click="buttonClick"
+    class="btn focus:outline-none"
+    :class="[bgcolor, txtcolor]"
+  >
     {{ txtbutt }}
   </button>
 </template>

@@ -25,19 +25,51 @@
         <router-link :to="'/detail?id=' + pro.idPro">
           <img class="mb-6" :src="urlImage + '/' + pro.proPathImg" />
           <div class="mt-3 px-6 text-left">
-            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
+            <p
+              class="
+                font-prompt-regular-400
+                2xl:text-lg
+                lg:text-lg
+                md:text-lg
+                text-sm
+              "
+            >
               <span class="font-medium">Brand :</span> {{ pro.brand.brandName }}
             </p>
-            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
+            <p
+              class="
+                font-prompt-regular-400
+                2xl:text-lg
+                lg:text-lg
+                md:text-lg
+                text-sm
+              "
+            >
               <span class="font-medium">Product Name :</span> {{ pro.proName }}
             </p>
-            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
+            <p
+              class="
+                font-prompt-regular-400
+                2xl:text-lg
+                lg:text-lg
+                md:text-lg
+                text-sm
+              "
+            >
               <span class="font-medium">In stocks :</span>
               {{
                 pro.proAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               }}
             </p>
-            <p class="font-prompt-regular-400 2xl:text-lg lg:text-lg md:text-lg text-sm">
+            <p
+              class="
+                font-prompt-regular-400
+                2xl:text-lg
+                lg:text-lg
+                md:text-lg
+                text-sm
+              "
+            >
               <span class="font-medium">Price : </span
               ><span class="text-red-light font-medium">
                 {{
@@ -115,12 +147,12 @@ export default {
     return {
       brandArray: [],
       productArray: [],
-      urlProduct: `${process.env.VUE_APP_ROOT_API}main/product`,
-      urlBrand: `${process.env.VUE_APP_ROOT_API}main/brand`,
-      urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
-      // urlProduct: "http://localhost:3000/main/product",
-      // urlBrand: "http://localhost:3000/main/brand",
-      // urlImage: "http://localhost:3000/main/image",
+      // urlProduct: `${process.env.VUE_APP_ROOT_API}main/product`,
+      // urlBrand: `${process.env.VUE_APP_ROOT_API}main/brand`,
+      // urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
+      urlProduct: "http://localhost:3000/main/product",
+      urlBrand: "http://localhost:3000/main/brand",
+      urlImage: "http://localhost:3000/main/image",
       sendToDelete: false,
       sendId: 0,
     };

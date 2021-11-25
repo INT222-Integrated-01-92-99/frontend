@@ -4,24 +4,75 @@
       <button
         @click="topFunction()"
         id="myBtn"
-        class="hidden fixed z-10 2xl:p-4 lg:p-4 md:p-4 p-2 bottom-5 right-8 bg-red-light rounded-full shadow-xl focus:outline-none hover:bg-red-dark"
+        class="
+          hidden
+          fixed
+          z-10
+          2xl:p-4
+          lg:p-4
+          md:p-4
+          p-2
+          bottom-5
+          right-8
+          bg-red-light
+          rounded-full
+          shadow-xl
+          focus:outline-none
+          hover:bg-red-dark
+        "
       >
         <img src="../assets/icon/arrow-up.svg" />
       </button>
     </div>
-    <div class="2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8 space-y-4">
+    <div
+      class="
+        2xl:pt-36 2xl:pb-8
+        lg:pt-36 lg:pb-8
+        md:pt-32 md:pb-8
+        pt-32
+        pb-8
+        space-y-4
+      "
+    >
       <h1
-        class="font-prompt-regular-400 text-center text-cream-dark 2xl:text-5xl text-4xl font-bold"
+        class="
+          font-prompt-regular-400
+          text-center text-cream-dark
+          2xl:text-5xl
+          text-4xl
+          font-bold
+        "
       >
         View Products
       </h1>
     </div>
     <div
-      class="pt-2 2xl:w-1/3 lg:w-1/3 md:w-2/3 w-3/4 relative mx-auto text-gray-600 flex-col mb-10"
+      class="
+        pt-2
+        2xl:w-1/3
+        lg:w-1/3
+        md:w-2/3
+        w-3/4
+        relative
+        mx-auto
+        text-gray-600
+        flex-col
+        mb-10
+      "
     >
       <form @submit.prevent="getData">
         <input
-          class="font-prompt-regular-400 border-b-2 border-gray-400 bg-white h-10 w-full px-1 pr-16 text-sm focus:border-gray-dark focus:outline-none"
+          class="
+            font-prompt-regular-400
+            border-b-2 border-gray-400
+            bg-white
+            h-10
+            w-full
+            px-1
+            pr-16
+            text-sm
+            focus:border-gray-dark focus:outline-none
+          "
           type="search"
           name="search"
           v-model="this.query"
@@ -37,7 +88,7 @@
             x="0px"
             y="0px"
             viewBox="0 0 56.966 56.966"
-            style="enable-background:new 0 0 56.966 56.966;"
+            style="enable-background: new 0 0 56.966 56.966"
             xml:space="preserve"
             width="512px"
             height="512px"
@@ -49,19 +100,42 @@
         </button>
       </form>
       <div class="2xl:space-x-6 space-x-3 w-full">
-        <span @click="showAll = this.i++" class="font-prompt-regular-400 2xl:text-base lg:text-base md:text-base text-xs uppercase cursor-pointer hover:underline"
+        <span
+          @click="showAll = this.i++"
+          class="
+            font-prompt-regular-400
+            2xl:text-base
+            lg:text-base
+            md:text-base
+            text-xs
+            uppercase
+            cursor-pointer
+            hover:underline
+          "
           >all</span
         >
         <span
           @click="sendBrand(b)"
           v-for="b in brand"
           :key="b.idBrand"
-          class="font-prompt-regular-400 2xl:text-base lg:text-base md:text-base text-xs cursor-pointer hover:underline"
+          class="
+            font-prompt-regular-400
+            2xl:text-base
+            lg:text-base
+            md:text-base
+            text-xs
+            cursor-pointer
+            hover:underline
+          "
           >{{ b.brandName }}</span
         >
       </div>
     </div>
-    <base-product :searchPro="searchPro" :brandId="brandId" :showAll ="showAll"></base-product>
+    <base-product
+      :searchPro="searchPro"
+      :brandId="brandId"
+      :showAll="showAll"
+    ></base-product>
   </div>
 </template>
 
@@ -86,7 +160,7 @@ export default {
       searchPro: [],
       brandId: 0,
       showAll: 0,
-      i: 1
+      i: 1,
     };
   },
   methods: {
@@ -97,7 +171,7 @@ export default {
     backToTop() {
       var mybutton = document.getElementById("myBtn");
 
-      window.onscroll = function() {
+      window.onscroll = function () {
         scrollFunction();
       };
 
@@ -115,7 +189,7 @@ export default {
     sendBrand(brand) {
       this.brandId = brand.idBrand;
     },
-      async fetch(url) {
+    async fetch(url) {
       const res = await fetch(url, {
         headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
       });
@@ -123,12 +197,11 @@ export default {
       return data;
     },
 
-
     async getData() {
       await axios
         .get(
-          // `http://localhost:3000/main/search?proname=${this.query}&idbrand=${this.keepId}`
-          `${process.env.VUE_APP_ROOT_API}main/search?proname=${this.query}&idbrand=${this.keepId}`
+          `http://localhost:3000/main/search?proname=${this.query}&idbrand=${this.keepId}`
+          // `${process.env.VUE_APP_ROOT_API}main/search?proname=${this.query}&idbrand=${this.keepId}`
         )
         .then((response) => {
           this.searchPro = response.data;
@@ -138,20 +211,19 @@ export default {
           console.log(error);
         });
     },
-        ...mapActions({
-    setCart: "auth/saveNumCart"
+    ...mapActions({
+      setCart: "auth/saveNumCart",
     }),
-
   },
   async created() {
     window.addEventListener("scroll", this.backToTop);
-    // this.brand = await this.fetch("http://localhost:3000/main/brand");
-    this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
-    if(this.$store.state.auth.user.idRole.idRole == 3){
-    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-    this.setCart(this.cart.cartDetails.length)
+    this.brand = await this.fetch("http://localhost:3000/main/brand");
+    // this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+    if (this.$store.state.auth.user.idRole.idRole == 3) {
+      this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+      // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+      this.setCart(this.cart.cartDetails.length);
     }
-
   },
   // watch: {
   //   brandId: async function check() {

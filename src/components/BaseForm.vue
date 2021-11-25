@@ -9,17 +9,32 @@
             2xl:text-5xl
             text-4xl
             font-bold
-            2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8
+            2xl:pt-36 2xl:pb-8
+            lg:pt-36 lg:pb-8
+            md:pt-32 md:pb-8
+            pt-32
+            pb-8
           "
         >
           {{ proId == "add" ? "Add Product" : "Edit Product" }}
         </p>
         <div class="flex flex-col 2xl:space-x-14 lg:space-x-16">
           <div class="space-y-5 flex flex-col">
-            <img :src="image" class="2xl:w-2/5 lg:w-2/5 md:w-2/5 w-5/6 mx-auto" />
+            <img
+              :src="image"
+              class="2xl:w-2/5 lg:w-2/5 md:w-2/5 w-5/6 mx-auto"
+            />
             <input
               type="file"
-              class="font-prompt-regular-400 focus:outline-none 2xl:w-1/4 lg:w-1/4 md:w-1/3 w-1/2 mx-auto"
+              class="
+                font-prompt-regular-400
+                focus:outline-none
+                2xl:w-1/4
+                lg:w-1/4
+                md:w-1/3
+                w-1/2
+                mx-auto
+              "
               @change="uploadImg"
             />
             <div
@@ -28,7 +43,18 @@
             >
               Please upload your Product Images!
             </div>
-            <div class="flex flex-row justify-center flex-wrap 2xl:w-1/2 lg:w-1/2 md:w-2/3 w-full mx-auto">
+            <div
+              class="
+                flex flex-row
+                justify-center
+                flex-wrap
+                2xl:w-1/2
+                lg:w-1/2
+                md:w-2/3
+                w-full
+                mx-auto
+              "
+            >
               <div
                 @click="selectColor(color)"
                 v-for="color in colorArray"
@@ -40,7 +66,13 @@
                   rounded-sm
                   border
                   hover:border-black
-                  transition ease-in duration-300 transform hover:-translate-y-1 active:translate-y-0 p-2
+                  transition
+                  ease-in
+                  duration-300
+                  transform
+                  hover:-translate-y-1
+                  active:translate-y-0
+                  p-2
                   hover:opacity-75
                   m-2
                   cursor-pointer
@@ -127,8 +159,7 @@
                   border border-gray-400
                   dark:border-gray-700
                   text-gray-800
-                  focus:border-indigo-500
-                  focus:outline-none
+                  focus:border-indigo-500 focus:outline-none
                 "
               >
                 <option
@@ -161,10 +192,9 @@
                   border border-gray-400
                   dark:border-gray-700
                   text-gray-800
-                  focus:border-indigo-500
-                  focus:outline-none
+                  focus:border-indigo-500 focus:outline-none
                 "
-                :class="{ 'bg-red-50': ProInput}"
+                :class="{ 'bg-red-50': ProInput }"
                 id="proName"
                 type="text"
                 size="32"
@@ -193,8 +223,7 @@
                   border border-gray-400
                   dark:border-gray-700
                   text-gray-800
-                  focus:border-indigo-500
-                  focus:outline-none
+                  focus:border-indigo-500 focus:outline-none
                 "
                 min="0"
                 :class="{ 'bg-red-50': InStocksInput }"
@@ -208,8 +237,8 @@
               v-if="InStocksInput"
               class="font-prompt-regular-400 text-red-600"
             >
-              Please enter number of in stocks! (Do not use decimal number or negative
-              integer and cannot be zero)
+              Please enter number of in stocks! (Do not use decimal number or
+              negative integer and cannot be zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -229,8 +258,7 @@
                   border border-gray-400
                   dark:border-gray-700
                   text-gray-800
-                  focus:border-indigo-500
-                  focus:outline-none
+                  focus:border-indigo-500 focus:outline-none
                 "
                 :class="{ 'bg-red-50': PriceInput }"
                 id="price"
@@ -241,8 +269,9 @@
               />
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your Price! The number limit of price is 1,000,000 need to(Do not use decimal number or negative
-              integer and cannot be zero)
+              Please enter your Price! The number limit of price is 1,000,000
+              need to(Do not use decimal number or negative integer and cannot
+              be zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -262,8 +291,7 @@
                   border border-gray-400
                   dark:border-gray-700
                   text-gray-800
-                  focus:border-indigo-500
-                  focus:outline-none
+                  focus:border-indigo-500 focus:outline-none
                 "
                 :class="{ 'bg-red-50': MFDInput }"
                 id="date"
@@ -294,8 +322,7 @@
                   border border-gray-400
                   dark:border-gray-700
                   text-gray-800
-                  focus:border-indigo-500
-                  focus:outline-none
+                  focus:border-indigo-500 focus:outline-none
                 "
                 :class="{ 'bg-red-50': DescriptInput }"
                 id="descript"
@@ -322,8 +349,7 @@
                 py-1
                 px-11
                 rounded-sm
-                hover:bg-red-dark
-                hover:text-white
+                hover:bg-red-dark hover:text-white
               "
               bgcolor="bg-red-light"
               txtcolor="text-white"
@@ -338,8 +364,7 @@
                 py-1
                 px-9
                 rounded-sm
-                hover:bg-gray-dark
-                hover:text-white
+                hover:bg-gray-dark hover:text-white
               "
               bgcolor="bg-gray-light"
               txtcolor="text-white"
@@ -381,8 +406,8 @@ export default {
         item: [],
       },
       productArray: [],
-      // urlImage: "http://localhost:3000/main/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
+      urlImage: "http://localhost:3000/main/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
       ifSelectCol: false,
       sendColor: null,
     };
@@ -394,14 +419,16 @@ export default {
           ? true
           : false;
       this.BrandInput = this.enterBrand === "" ? true : false;
-      this.ProInput = this.enterProName === "" || this.enterProName === this.productArray.proName
+      this.ProInput =
+        this.enterProName === "" ||
+        this.enterProName === this.productArray.proName;
       this.MFDInput = this.enterDate === "" ? true : false;
       this.InStocksInput =
         this.enterInStocks === "" ||
         this.enterInStocks % 1 != 0 ||
         this.enterInStocks < 0 ||
         this.enterInStocks == 0 ||
-        this.enterInStocks > 2500
+        this.enterInStocks > 2500;
 
       this.PriceInput =
         this.enterPrice === "" ||
@@ -409,7 +436,7 @@ export default {
         this.enterPrice < 0 ||
         this.enterPrice >= 100_000_000 ||
         this.enterPrice == 0 ||
-        this.enterPrice > 1_000_000
+        this.enterPrice > 1_000_000;
       this.DescriptInput = this.enterDescript === "" ? true : false;
       this.ChooseColor = this.product.item.length === 0 ? true : false;
     },
@@ -426,60 +453,64 @@ export default {
       };
     },
     async submitForm() {
-      console.log(this.enterPrice)
-      console.log(this.enterPrice.toString().length)
+      console.log(this.enterPrice);
+      console.log(this.enterPrice.toString().length);
       this.checkForm();
-      if (this.proId == "add"){
-        if(!this.UpPic &&
-        !this.BrandInput &&
-        !this.ProInput &&
-        !this.MFDInput &&
-        !this.InStocksInput &&
-        !this.PriceInput &&
-        !this.DescriptInput &&
-        !this.ChooseColor) {
-        this.idProduct =
-          // (await this.fetch("http://localhost:3000/main/getmaxidPro")) + 1;
-          (await this.fetch(`${process.env.VUE_APP_ROOT_API}main/getmaxidPro`)) + 1;
-        const addPro = {
-          idProduct: this.idProduct,
-          imgFile: this.imgFile,
-          proPathImg: this.img,
-          brandName: this.enterBrand,
-          proName: this.enterProName,
-          proDescription: this.enterDescript,
-          proAmount: this.enterInStocks,
-          proPrice: this.enterPrice,
-          proMFDDATE: this.enterDate,
-          proCol: this.product.item,
-        };
-        this.$parent.regist(addPro);
-        this.clearForm();
-      }
+      if (this.proId == "add") {
+        if (
+          !this.UpPic &&
+          !this.BrandInput &&
+          !this.ProInput &&
+          !this.MFDInput &&
+          !this.InStocksInput &&
+          !this.PriceInput &&
+          !this.DescriptInput &&
+          !this.ChooseColor
+        ) {
+          this.idProduct =
+            (await this.fetch("http://localhost:3000/main/getmaxidPro")) + 1;
+            // (await this.fetch(`${process.env.VUE_APP_ROOT_API}main/getmaxidPro`)) + 1;
+          const addPro = {
+            idProduct: this.idProduct,
+            imgFile: this.imgFile,
+            proPathImg: this.img,
+            brandName: this.enterBrand,
+            proName: this.enterProName,
+            proDescription: this.enterDescript,
+            proAmount: this.enterInStocks,
+            proPrice: this.enterPrice,
+            proMFDDATE: this.enterDate,
+            proCol: this.product.item,
+          };
+          this.$parent.regist(addPro);
+          this.clearForm();
+        }
       } else {
         this.checkForm();
-        if(!this.UpPic &&
-        !this.BrandInput &&
-        !this.ProInput &&
-        !this.MFDInput &&
-        !this.InStocksInput &&
-        !this.PriceInput &&
-        !this.DescriptInput &&
-        !this.ChooseColor){
-        const sendEdit = {
-          idProduct: this.idProduct,
-          imgFile: this.imgFile,
-          proPathImg: this.img,
-          brandName: this.enterBrand,
-          proName: this.enterProName,
-          proDescription: this.enterDescript,
-          proAmount: this.enterInStocks,
-          proPrice: this.enterPrice,
-          proMFDDATE: this.enterDate,
-          proCol: this.product.item,
-        };
-        this.editProduct(sendEdit);
-      }
+        if (
+          !this.UpPic &&
+          !this.BrandInput &&
+          !this.ProInput &&
+          !this.MFDInput &&
+          !this.InStocksInput &&
+          !this.PriceInput &&
+          !this.DescriptInput &&
+          !this.ChooseColor
+        ) {
+          const sendEdit = {
+            idProduct: this.idProduct,
+            imgFile: this.imgFile,
+            proPathImg: this.img,
+            brandName: this.enterBrand,
+            proName: this.enterProName,
+            proDescription: this.enterDescript,
+            proAmount: this.enterInStocks,
+            proPrice: this.enterPrice,
+            proMFDDATE: this.enterDate,
+            proCol: this.product.item,
+          };
+          this.editProduct(sendEdit);
+        }
       }
     },
     async editProduct(editPro) {
@@ -506,29 +537,29 @@ export default {
       let formData = new FormData();
       await formData.append("editProduct", blob);
       if (this.imgFile == null) {
-        // const res = await fetch("http://localhost:3000/staff/edit", {
-        const res = await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit`, {
+        const res = await fetch("http://localhost:3000/staff/edit", {
+        // const res = await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit`, {
           method: "PUT",
           headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
+            Authorization: `Bearer ${this.$store.state.auth.token}`,
+          },
           body: formData,
         });
         const data = await res.json();
-        console.log(data)
-        this.$router.push('/product/views')
+        console.log(data);
+        this.$router.push("/product/views");
         alert("Edited");
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
-        // await fetch("http://localhost:3000/staff/edit/image", {
-          await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit/image`, {
+        await fetch("http://localhost:3000/staff/edit/image", {
+        // await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit/image`, {
           method: "PUT",
           headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
+            Authorization: `Bearer ${this.$store.state.auth.token}`,
+          },
           body: formData,
         });
-        this.$router.push('/product/views')
+        this.$router.push("/product/views");
         alert("Edited");
       }
     },
@@ -587,7 +618,7 @@ export default {
         console.log(error);
       }
     },
-      dateToday(){
+    dateToday() {
       const today = new Date();
       let date = today.getDate();
       let month = today.getMonth() + 1;
@@ -600,37 +631,36 @@ export default {
       }
       const todayDate = yyyy + "-" + month + "-" + date;
       return todayDate;
-    }
-
+    },
   },
 
   async created() {
     console.log(this.proId);
-    // this.brandArray = await this.fetch("http://localhost:3000/main/brand");
-    this.brandArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
-    // this.colorArray = await this.fetch("http://localhost:3000/main/color");
-    this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/color`);
-    // this.productArray = await this.fetch("http://localhost:3000/main/product/");
-    this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product/`);
-    console.log(this.productArray)
+    this.brandArray = await this.fetch("http://localhost:3000/main/brand");
+    // this.brandArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+    this.colorArray = await this.fetch("http://localhost:3000/main/color");
+    // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/color`);
+    this.productArray = await this.fetch("http://localhost:3000/main/product/");
+    // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product/`);
+    console.log(this.productArray);
     if (!isNaN(this.proId)) {
-      if(this.$store.state.auth.user){
-      const product = await this.fetch(
-        // "http://localhost:3000/main/product/" + this.proId
-        `${process.env.VUE_APP_ROOT_API}main/product/` + this.proId
-      );
-      this.idProduct = product.idPro;
-      this.image = this.urlImage + "/" + product.proPathImg;
-      this.img = product.proPathImg;
-      this.enterBrand = product.brand;
-      this.enterProName = product.proName;
-      this.enterDescript = product.proDescript;
-      this.enterInStocks = product.proAmount;
-      this.enterPrice = product.proPrice;
-      this.enterDate = product.proMfd;
-      this.product.item = product.prowithcolor;
-      this.checkForm();    
-    }
+      if (this.$store.state.auth.user) {
+        const product = await this.fetch(
+          "http://localhost:3000/main/product/" + this.proId
+          // `${process.env.VUE_APP_ROOT_API}main/product/` + this.proId
+        );
+        this.idProduct = product.idPro;
+        this.image = this.urlImage + "/" + product.proPathImg;
+        this.img = product.proPathImg;
+        this.enterBrand = product.brand;
+        this.enterProName = product.proName;
+        this.enterDescript = product.proDescript;
+        this.enterInStocks = product.proAmount;
+        this.enterPrice = product.proPrice;
+        this.enterDate = product.proMfd;
+        this.product.item = product.prowithcolor;
+        this.checkForm();
+      }
     }
   },
   watch: {

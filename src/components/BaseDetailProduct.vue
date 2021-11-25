@@ -98,7 +98,8 @@
                   class="font-prompt-regular-400 text-center text-red-600 mt-2"
                   v-if="SelectAmount"
                 >
-                  *Limit 99 pieces per product <br>Please select amount and amount cannot be negative number!
+                  *Limit 99 pieces per product <br />Please select amount and
+                  amount cannot be negative number!
                 </span>
               </div>
 
@@ -200,12 +201,12 @@ export default {
   data() {
     return {
       product: { brand: { brandName: "" } },
-      // urlProduct: "http://localhost:3000/main/product",
-      urlProduct: `${process.env.VUE_APP_ROOT_API}main/product`,
+      urlProduct: "http://localhost:3000/main/product",
+      // urlProduct: `${process.env.VUE_APP_ROOT_API}main/product`,
       sendToDelete: false,
       sendId: 0,
-      // urlImage: "http://localhost:3000/main/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
+      urlImage: "http://localhost:3000/main/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
       image: { url: "" },
       initialAmount: 1,
       colorArray: [],
@@ -218,7 +219,7 @@ export default {
       idCartDetail: [],
       ChooseColor: false,
       SelectAmount: false,
-      error: ''
+      error: "",
     };
   },
   methods: {
@@ -328,8 +329,8 @@ export default {
 
       try {
         await fetch(
-          // `http://localhost:3000/member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          `http://localhost:3000/member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.sendIdCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
             headers: {
@@ -346,8 +347,8 @@ export default {
       console.log(proInCart);
       try {
         const response = await fetch(
-          // `http://localhost:3000/member/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}member/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          `http://localhost:3000/member/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}member/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
           {
             method: "POST",
             headers: {
@@ -355,17 +356,20 @@ export default {
             },
           }
         );
-        this.error = await response.json()
-        console.log(this.error)
-        if(this.error.errorCode == 'AMOUNT_VALUE'){
-          alert("Sorry, Product is not enough. Please check amount of this product.")
+        this.error = await response.json();
+        console.log(this.error);
+        if (this.error.errorCode == "AMOUNT_VALUE") {
+          alert(
+            "Sorry, Product is not enough. Please check amount of this product."
+          );
         }
         this.cart = await this.fetch(
-          // "http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount
-          `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
+          "http://localhost:3000/member/cart/" +
+            this.$store.state.auth.user.idAccount
+          // `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
         );
-        
-        this.setCart(this.cart.cartDetails.length)
+
+        this.setCart(this.cart.cartDetails.length);
         this.$forceUpdate();
         // this.sendNumPro(this.numCart)
       } catch (error) {
@@ -374,7 +378,7 @@ export default {
     },
     checkChoosePro() {
       this.ChooseColor = this.products.item.length === 0 ? true : false;
-      this.SelectAmount = this.initialAmount === 0 || this.initialAmount > 99
+      this.SelectAmount = this.initialAmount === 0 || this.initialAmount > 99;
     },
     boxQuan(initial, product) {
       if (initial < 0) {
@@ -388,7 +392,7 @@ export default {
       }
     },
     ...mapActions({
-      setCart: "auth/saveNumCart"
+      setCart: "auth/saveNumCart",
     }),
   },
   computed: {},
@@ -400,8 +404,9 @@ export default {
     this.image = await fetch(this.urlImage + "/" + this.product.proPathImg);
     if (this.$store.state.auth.user) {
       this.cart = await this.fetch(
-        // "http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount
-        `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
+        "http://localhost:3000/member/cart/" +
+          this.$store.state.auth.user.idAccount
+        // `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
       );
       console.log(this.cart);
     }

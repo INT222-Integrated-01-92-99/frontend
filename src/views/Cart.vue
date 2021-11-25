@@ -156,8 +156,8 @@ export default {
       product: { brand: { brandName: "" } },
       cart: [],
       quantity: localStorage.amount,
-      // urlImage: "http://localhost:3000/main/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
+      urlImage: "http://localhost:3000/main/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
       x: 0,
       cartDetails: [],
     };
@@ -185,8 +185,8 @@ export default {
       } else if (edit.proPerPiece > edit.product.proAmount) {
         alert("Sorry, Product is not enough.");
         edit.proPerPiece = 1;
-        // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-        this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
       } else {
         const delProWhenZero = {
           idCartDetail: edit.idCartDetail,
@@ -201,15 +201,15 @@ export default {
 
       try {
         await fetch(
-          // `http://localhost:3000/member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
-          `${process.env.VUE_APP_ROOT_API}member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          `http://localhost:3000/member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
+          // `${process.env.VUE_APP_ROOT_API}member/edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
           {
             method: "PUT",
             headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
           }
         );
-        // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-        this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -217,15 +217,15 @@ export default {
     async deleteOne(deletePro) {
       try {
         await fetch(
-          // `http://localhost:3000/member/deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
-          `${process.env.VUE_APP_ROOT_API}member/deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
+          `http://localhost:3000/member/deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
+          // `${process.env.VUE_APP_ROOT_API}member/deleteitemincart?idcartdetail=${deletePro.idCartDetail}`,
           {
             method: "DELETE",
             headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
           }
         );
-        // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-        this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
         this.setCart(this.cart.cartDetails.length)
       } catch (error) {
         console.log(`Could not delete! ${error}`);
@@ -253,8 +253,8 @@ export default {
       if (confirm("Are you sure to clear your cart?")) {
         try {
           await fetch(
-            // `http://localhost:3000/member/deletemultipleitemincart?idcartdetail=${proForDel}`,
-            `${process.env.VUE_APP_ROOT_API}member/deletemultipleitemincart?idcartdetail=${proForDel}`,
+            `http://localhost:3000/member/deletemultipleitemincart?idcartdetail=${proForDel}`,
+            // `${process.env.VUE_APP_ROOT_API}member/deletemultipleitemincart?idcartdetail=${proForDel}`,
             {
               method: "DELETE",
               headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
@@ -263,8 +263,8 @@ export default {
         } catch (error) {
           console.log(`Could not delete all product! ${error}`);
         }
-        // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-        this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+        this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+        // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
         this.setCart(this.cart.cartDetails.length)
       }
       // window.location.reload();
@@ -292,21 +292,21 @@ export default {
           console.log("เข้าpurchase");
           try {
             await fetch(
-              // `http://localhost:3000/member/purchase?idcart=${idPro.idCart}`,
-              `${process.env.VUE_APP_ROOT_API}member/purchase?idcart=${idPro.idCart}`,
+              `http://localhost:3000/member/purchase?idcart=${idPro.idCart}`,
+              // `${process.env.VUE_APP_ROOT_API}member/purchase?idcart=${idPro.idCart}`,
               {
                 method: "POST",
                 headers: {'Authorization': `Bearer ${this.$store.state.auth.token}`}
               }
             );
-            // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-            this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+            this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+            // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
             this.setCart(this.cart.cartDetails.length)
           } catch (error) {
             console.log(`Could not purchase! ${error}`);
           }
-          // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-            this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+          this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+            // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
         }
       }
     // }
@@ -314,10 +314,10 @@ export default {
   },
   async created() {
      if(this.$store.state.auth.user.idRole.idRole == 3){
-    // this.product = await this.fetch('http://localhost:3000/main/product');
-    this.product = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product`);
-    // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-    this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
+    this.product = await this.fetch('http://localhost:3000/main/product');
+    // this.product = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product`);
+    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+    // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
     }else if(this.$store.state.auth.user.idRole.idRole == 1){
       this.$router.push('/')
     }else{

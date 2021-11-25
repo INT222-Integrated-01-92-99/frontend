@@ -313,8 +313,8 @@ export default {
       ) {
         try {
           const jsonPro = await JSON.stringify(this.person);
-          // const response = await fetch("http://localhost:3000/main/registaccount", {
-            const response = await fetch(`${process.env.VUE_APP_ROOT_API}main/registaccount`, {
+          const response = await fetch("http://localhost:3000/main/registaccount", {
+            // const response = await fetch(`${process.env.VUE_APP_ROOT_API}main/registaccount`, {
             method: "POST",
             body: jsonPro,
             headers: {
