@@ -148,7 +148,7 @@ export default {
   },
   created() {
     if(this.$store.state.auth.user){
-      if(this.$store.state.auth.user.idAccount == 2 || this.$store.state.auth.user.idAccount == 3){
+      if(this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole == 3){
         
       this.viewAddChange = false;
       if (this.proId == "views" || this.proId == undefined) {
