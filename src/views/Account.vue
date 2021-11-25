@@ -794,10 +794,11 @@ export default {
     },
     async delRole(roleId) {
       this.check();
+      if(confirm('Do you want to delete this account?')){
       try {
         await fetch(
-          // `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
-          `${process.env.VUE_APP_ROOT_API}admin/deleteaccount?idAccount=${roleId.idAccount}`,
+          `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
+          // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
           {
             method: "DELETE",
             headers: {
@@ -805,10 +806,11 @@ export default {
             },
           }
         );
-        // this.people = await this.fetch("http://localhost:3000/admin/account");
-        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
+        this.people = await this.fetch("http://localhost:3000/admin/account");
+        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
+      }
       }
     },
     showSaveEdit(roleId) {

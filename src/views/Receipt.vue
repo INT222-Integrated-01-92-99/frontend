@@ -23,7 +23,7 @@
         Purchase History 
       </h1>
     </div>
-    <p v-if="noHistory" class="font-prompt-regular-400 text-xl font-extrabold text-center">No history</p>
+    <p v-if="noHistory" class="font-prompt-regular-400 text-lg text-center text-gray-dark">No history</p>
     <div class="justify-center pb-4">
       <div
         class="flex-row justify-center my-6"

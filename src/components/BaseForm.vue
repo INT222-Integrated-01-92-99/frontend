@@ -200,7 +200,7 @@
                 :class="{ 'bg-red-50': InStocksInput }"
                 id="proAmount"
                 type="number"
-                placeholder="InStocks"
+                placeholder="In Stocks"
                 v-model.number="enterInStocks"
               />
             </div>
@@ -241,7 +241,7 @@
               />
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your Price! (Do not use decimal number or negative
+              Please enter your Price! The number limit of price is 1,000,000 need to(Do not use decimal number or negative
               integer and cannot be zero)
             </p>
             <div class="flex flex-col">
@@ -268,6 +268,7 @@
                 :class="{ 'bg-red-50': MFDInput }"
                 id="date"
                 type="date"
+                :max="dateToday()"
                 v-model.trim="enterDate"
               />
             </div>
@@ -399,13 +400,16 @@ export default {
         this.enterInStocks === "" ||
         this.enterInStocks % 1 != 0 ||
         this.enterInStocks < 0 ||
-        this.enterInStocks == 0
+        this.enterInStocks == 0 ||
+        this.enterInStocks > 2500
+
       this.PriceInput =
         this.enterPrice === "" ||
         this.enterPrice % 1 != 0 ||
         this.enterPrice < 0 ||
         this.enterPrice >= 100_000_000 ||
-        this.enterPrice == 0
+        this.enterPrice == 0 ||
+        this.enterPrice > 1_000_000
       this.DescriptInput = this.enterDescript === "" ? true : false;
       this.ChooseColor = this.product.item.length === 0 ? true : false;
     },
@@ -583,6 +587,21 @@ export default {
         console.log(error);
       }
     },
+      dateToday(){
+      const today = new Date();
+      let date = today.getDate();
+      let month = today.getMonth() + 1;
+      const yyyy = today.getFullYear();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+      const todayDate = yyyy + "-" + month + "-" + date;
+      return todayDate;
+    }
+
   },
 
   async created() {

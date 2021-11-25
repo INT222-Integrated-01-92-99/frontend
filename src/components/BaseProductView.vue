@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import axios from "axios";
 import BaseProduct from "./BaseProduct.vue";
 export default {
@@ -114,15 +115,14 @@ export default {
     sendBrand(brand) {
       this.brandId = brand.idBrand;
     },
-    async fetch(url) {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
+      async fetch(url) {
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+      });
+      const data = await res.json(url);
+      return data;
     },
+
 
     async getData() {
       await axios
@@ -138,11 +138,20 @@ export default {
           console.log(error);
         });
     },
+        ...mapActions({
+    setCart: "auth/saveNumCart"
+    }),
+
   },
   async created() {
     window.addEventListener("scroll", this.backToTop);
     // this.brand = await this.fetch("http://localhost:3000/main/brand");
     this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+    if(this.$store.state.auth.user.idRole.idRole == 3){
+    this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+    this.setCart(this.cart.cartDetails.length)
+    }
+
   },
   // watch: {
   //   brandId: async function check() {

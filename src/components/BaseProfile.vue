@@ -153,7 +153,7 @@
                           ></div>
                           <input
                             type="text"
-                            v-model.trim="person.accUsername"
+                            v-model.trim="editUsername"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': usernameInput }"
                             placeholder="Username"
@@ -284,6 +284,9 @@ export default {
       lastnameInput: false,
       phoneInput: false,
       addressInput: false,
+      username: '',
+      editUsername: ''
+
     };
   },
   methods: {
@@ -316,6 +319,7 @@ export default {
     },
     async save() {
       console.log("save");
+      this.person.accUsername = this.editUsername;
       this.check();
       if (
         !this.usernameInput &&
@@ -340,8 +344,11 @@ export default {
           this.user();
           this.isEdit = false;
           this.showEditButton = false;
-          alert('Your username is edited, please login again')
-          this.$router.push('/signin')
+          if(this.editUsername != ''){
+            console.log(this.editUsername)
+            alert('Your username is edited, please sign in again')
+            this.$router.push('/signin')
+          }
           // this.clear()
         } catch (error) {
           console.log(`Could not save! ${error}`);
@@ -349,7 +356,7 @@ export default {
       }
     },
     check() {
-      this.usernameInput = this.person.accUsername === "" ? true : false;
+      this.usernameInput = this.editUsername === "" ? true : false;
       this.passwordInput = this.person.accPass === "" ? true : false;
       this.firstnameInput = this.person.accFname === "" ? true : false;
       this.lastnameInput = this.person.accLname === "" ? true : false;

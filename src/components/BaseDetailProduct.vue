@@ -98,7 +98,7 @@
                   class="font-prompt-regular-400 text-center text-red-600 mt-2"
                   v-if="SelectAmount"
                 >
-                  Please select amount and amount cannot be negative number!
+                  *Limit 99 pieces per product <br>Please select amount and amount cannot be negative number!
                 </span>
               </div>
 
@@ -374,7 +374,7 @@ export default {
     },
     checkChoosePro() {
       this.ChooseColor = this.products.item.length === 0 ? true : false;
-      this.SelectAmount = this.initialAmount === 0 ? true : false;
+      this.SelectAmount = this.initialAmount === 0 || this.initialAmount > 99
     },
     boxQuan(initial, product) {
       if (initial < 0) {
