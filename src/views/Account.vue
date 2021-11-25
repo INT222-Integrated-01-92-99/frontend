@@ -739,8 +739,8 @@ export default {
       ){
       try {
         const jsonPro = await JSON.stringify(this.person);
-        await fetch("http://localhost:3000/main/registaccount", {
-          // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
+        // await fetch("http://localhost:3000/main/registaccount", {
+          await fetch(`${process.env.VUE_APP_ROOT_API}main/registaccount`, {
           method: "POST",
           body: jsonPro,
           headers: {
@@ -749,8 +749,8 @@ export default {
           },
 
         });
-        this.people = await this.fetch("http://localhost:3000/admin/account");
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        // this.people = await this.fetch("http://localhost:3000/admin/account");
+        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
         this.clear()
       } catch (error) {
         console.log(`Could not save! ${error}`);
@@ -775,8 +775,8 @@ export default {
       try {
         const jsonPro = JSON.stringify(this.person);
 
-        await fetch("http://localhost:3000/allroles/editaccount", {
-          // await fetch(`${process.env.VUE_APP_ROOT_API}editaccount`, {
+        // await fetch("http://localhost:3000/allroles/editaccount", {
+          await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
           method: "PUT",
           body: jsonPro,
           headers: {
@@ -784,20 +784,20 @@ export default {
             Authorization: `Bearer ${this.$store.state.auth.token}`
           },
         });
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
         this.clear()
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
       }
-      this.people = await this.fetch("http://localhost:3000/admin/account");
+      // this.people = await this.fetch("http://localhost:3000/admin/account");
+      this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
     },
     async delRole(roleId) {
       this.check();
       try {
         await fetch(
-          `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
-          // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
+          // `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
+          `${process.env.VUE_APP_ROOT_API}admin/deleteaccount?idAccount=${roleId.idAccount}`,
           {
             method: "DELETE",
             headers: {
@@ -805,8 +805,8 @@ export default {
             },
           }
         );
-        this.people = await this.fetch("http://localhost:3000/admin/account");
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        // this.people = await this.fetch("http://localhost:3000/admin/account");
+        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
@@ -837,10 +837,10 @@ export default {
       if(this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole == 3){
         this.$router.push('/product/views')
       }else{
-        this.people = await this.fetch("http://localhost:3000/admin/account");
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
-        this.roles = await this.fetch("http://localhost:3000/admin/role");
-        // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}role`);
+        // this.people = await this.fetch("http://localhost:3000/admin/account");
+        this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
+        // this.roles = await this.fetch("http://localhost:3000/admin/role");
+        this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/role`);
       }
 
     }else{

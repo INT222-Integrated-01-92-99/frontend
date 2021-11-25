@@ -313,8 +313,8 @@ export default {
       ) {
         try {
           const jsonPro = await JSON.stringify(this.person);
-          const response = await fetch("http://localhost:3000/main/registaccount", {
-            // await fetch(`${process.env.VUE_APP_ROOT_API}registaccount`, {
+          // const response = await fetch("http://localhost:3000/main/registaccount", {
+            const response = await fetch(`${process.env.VUE_APP_ROOT_API}main/registaccount`, {
             method: "POST",
             body: jsonPro,
             headers: {
@@ -328,8 +328,6 @@ export default {
           this.showError = true
           this.errorMessage = 'this username is already taken.'
       }
-          // this.people = await this.fetch("http://localhost:3000/account");
-          // // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
         } catch (error) {
           console.log(`Could not save! ${error}`);
         }

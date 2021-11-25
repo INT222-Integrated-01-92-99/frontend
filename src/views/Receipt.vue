@@ -165,10 +165,9 @@ export default {
   async created() {
     if(this.$store.state.auth.user.idRole.idRole == 3){
     this.receipt = await this.fetch(
-      "http://localhost:3000/member/receipt/" +
-        this.$store.state.auth.user.idAccount
+      // "http://localhost:3000/member/receipt/" + this.$store.state.auth.user.idAccount
+      `${process.env.VUE_APP_ROOT_API}member/receipt/` + this.$store.state.auth.user.idAccount
     );
-    // this.receipt = await this.fetch(`${process.env.VUE_APP_ROOT_API}receipt`);
     console.log(this.receipt);
     if(this.receipt.length == 0){
       this.noHistory = true;

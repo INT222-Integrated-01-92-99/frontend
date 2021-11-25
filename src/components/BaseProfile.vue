@@ -328,8 +328,8 @@ export default {
         try {
           const jsonPro = JSON.stringify(this.person);
           console.log(this.person)
-          await fetch("http://localhost:3000/allroles/editaccount", {
-            // await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
+          // await fetch("http://localhost:3000/allroles/editaccount", {
+            await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
             method: "PUT",
             body: jsonPro,
             headers: {
@@ -347,7 +347,6 @@ export default {
           console.log(`Could not save! ${error}`);
         }
       }
-      // this.people = await this.fetch("http://localhost:3000/admin/account");
     },
     check() {
       this.usernameInput = this.person.accUsername === "" ? true : false;
@@ -365,13 +364,6 @@ export default {
       user: "auth/user",
     }),
   },
-  async created() {
-    console.log(this.$store.state.auth.user);
-    // this.me = await this.fetch("http://localhost:3000/allroles/me");
-    // if (this.$store.state.auth.user) {
-    //   this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
-    //   // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}cart/1`);
-    // }
-  },
+  async created() {},
 };
 </script>

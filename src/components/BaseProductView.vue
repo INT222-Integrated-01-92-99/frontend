@@ -123,26 +123,12 @@ export default {
         console.log(error);
       }
     },
-    // async getData(){
-    //   try {
-    //     await fetch(
-    //       `http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`,
-    //       // `${process.env.VUE_APP_ROOT_API}edititemincart?idpro=${editQuan.idProduct}&amount=${editQuan.amount}&idcartdetail=${editQuan.idCartDetail}&idcolor=${editQuan.sendIdColor}`,
-    //       {
-    //         method: "GET",
-    //       }
-    //     );
-    //   } catch (error) {
-    //     console.log(`Could not save! ${error}`);
-    //   }
-    // }
 
     async getData() {
-      // await axios.get(`http://localhost:3000/search?proname=${this.query}&idbrand=${this.keepId}`).then((response)=>{
       await axios
         .get(
-          `http://localhost:3000/main/search?proname=${this.query}&idbrand=${this.keepId}`
-          // `${process.env.VUE_APP_ROOT_API}search?proname=${this.query}&idbrand=${this.keepId}`
+          // `http://localhost:3000/main/search?proname=${this.query}&idbrand=${this.keepId}`
+          `${process.env.VUE_APP_ROOT_API}main/search?proname=${this.query}&idbrand=${this.keepId}`
         )
         .then((response) => {
           this.searchPro = response.data;
@@ -155,8 +141,8 @@ export default {
   },
   async created() {
     window.addEventListener("scroll", this.backToTop);
-    this.brand = await this.fetch("http://localhost:3000/main/brand");
-    // this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
+    // this.brand = await this.fetch("http://localhost:3000/main/brand");
+    this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
   },
   // watch: {
   //   brandId: async function check() {
