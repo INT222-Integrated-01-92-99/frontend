@@ -237,8 +237,8 @@
               v-if="InStocksInput"
               class="font-prompt-regular-400 text-red-600"
             >
-              Please enter number of in stocks! (Do not use decimal number or
-              negative integer and cannot be zero)
+              Please enter number of in stocks! The number limit of in stocks is 2,500 (Do not use decimal number or negative
+              integer and cannot be zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -270,7 +270,7 @@
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
               Please enter your Price! The number limit of price is 1,000,000
-              need to(Do not use decimal number or negative integer and cannot
+              (Do not use decimal number or negative integer and cannot
               be zero)
             </p>
             <div class="flex flex-col">
