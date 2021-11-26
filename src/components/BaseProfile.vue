@@ -90,7 +90,6 @@
                     </div>
                   </div>
                   <div v-else>
-                    <!-- <div v-for="m in me" :key="m.idAccount"> -->
                     <div class="flex -mx-3">
                       <div class="w-1/2 px-3 mb-5">
                         <label
@@ -153,7 +152,7 @@
                           ></div>
                           <input
                             type="text"
-                            v-model.trim="editUsername"
+                            v-model.trim="person.accUsername"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                             :class="{ 'bg-red-50': usernameInput }"
                             placeholder="Username"
@@ -219,7 +218,6 @@
                         </p>
                       </div>
                     </div>
-                    <!-- </div> -->
                   </div>
                   <div v-if="!showEditButton" class="flex flex-col mt-8">
                     <button
@@ -285,7 +283,6 @@ export default {
       phoneInput: false,
       addressInput: false,
       username: '',
-      editUsername: ''
 
     };
   },
@@ -319,7 +316,7 @@ export default {
     },
     async save() {
       console.log("save");
-      this.person.accUsername = this.editUsername;
+      // console.log(this.person)
       this.check();
       if (
         !this.usernameInput &&
@@ -344,19 +341,18 @@ export default {
           this.user();
           this.isEdit = false;
           this.showEditButton = false;
-          if(this.editUsername != ''){
-            console.log(this.editUsername)
+          if(this.person.accUsername != this.$store.state.auth.user.accUsername){
+            console.log(this.person.accUsername)
             alert('Your username is edited, please sign in again')
             this.$router.push('/signin')
           }
-          // this.clear()
         } catch (error) {
           console.log(`Could not save! ${error}`);
         }
       }
     },
     check() {
-      this.usernameInput = this.editUsername === "" ? true : false;
+      this.usernameInput = this.person.accUsername === "" ? true : false;
       this.passwordInput = this.person.accPass === "" ? true : false;
       this.firstnameInput = this.person.accFname === "" ? true : false;
       this.lastnameInput = this.person.accLname === "" ? true : false;

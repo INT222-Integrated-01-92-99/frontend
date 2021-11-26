@@ -24,6 +24,9 @@ export default {
         this.$router.push('/')
       }
     }
+    if(!this.$route.query.id){
+      this.$router.push('/product/views')
+    }
   }
 };
 </script>

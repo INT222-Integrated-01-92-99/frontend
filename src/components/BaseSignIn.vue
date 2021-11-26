@@ -116,7 +116,6 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-// import axios from 'axios'
 export default {
   data() {
     return {
@@ -153,16 +152,6 @@ export default {
         this.showError = true;
       });
     },
-
-    // async submit() {
-    //   let response = await axios.post('http://localhost:8081/signin', this.form) //รอลิงค์จากฟลุ๊ค
-    //   console.log(response.data)
-    // } ย้ายสิ่งนี้ไปไว้ในstore/auth.js
-
-    // switchVisibility() {
-    //   this.passwordFieldType =
-    //     this.passwordFieldType === "password" ? "text" : "password";
-    // },
   },
 };
 </script>

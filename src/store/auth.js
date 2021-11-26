@@ -3,10 +3,10 @@ export default ({
     namespaced: true,
     state: {
         token: null,
-        user: null, //จะเก็บข้อมูลอะไรก็ใส่ไป
+        user: null,
         cart: 0,
     },
-    getters:{ //ถ้าอยากนำข้อมูลuserมาshowดูคลิปนี้ https://www.youtube.com/watch?v=H9oODcFslyA&list=PLfdtiltiRHWF1jqLcNO_2jWJXj9RuSDvY&index=7 ตอนนาทีที่ 1:31 ดูให้จบคลิปนะน้อน
+    getters:{
         authenticated(state){
             return state.token && state.user
         },
@@ -70,11 +70,8 @@ export default ({
             }
         },
         signOut({ commit }){
-            // return axios.post('path sign out (khongkhao= auth/signout)').then(() =>{
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
-
-            // })
            
         },
         saveNumCart({commit}, data){
@@ -82,4 +79,3 @@ export default ({
         }
 }
 })
-//https://www.youtube.com/watch?v=1YGWP-mj6nQ&list=PLfdtiltiRHWF1jqLcNO_2jWJXj9RuSDvY&index=6

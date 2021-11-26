@@ -470,14 +470,6 @@ export default {
         navToggle.item(i).classList.toggle("hidden");
       }
     },
-    // numCart() {
-    //   // console.log(this.cart.cartDetails.length)
-    //   // return this.cart.cartDetails.length
-    // },
-    // showNumCart(recieveNum){
-    //   console.log("ShowNumCart() Worked!")
-    //   this.amountOnCart = recieveNum;
-    // },
     async fetch(url) {
       const res = await fetch(url, {
         headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
@@ -497,11 +489,6 @@ export default {
           name: "Home",
         });
       });
-    },
-  },
-  watch: {
-    "localStorage.amount": function check() {
-      // console.log(this.totalQuantity())
     },
   },
   computed: {

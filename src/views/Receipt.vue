@@ -168,7 +168,7 @@ export default {
       "http://localhost:3000/member/receipt/" + this.$store.state.auth.user.idAccount
       // `${process.env.VUE_APP_ROOT_API}member/receipt/` + this.$store.state.auth.user.idAccount
     );
-    console.log(this.receipt);
+    // console.log(this.receipt);
     if(this.receipt.length == 0){
       this.noHistory = true;
     }

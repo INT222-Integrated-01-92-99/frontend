@@ -93,37 +93,6 @@
               </div>
             </div>
           </div>
-          <!--          <div class="flex flex-row justify-center flex-wrap w-1/2 mx-auto">
-              <div
-                @click="ifSelectCol=true, sendColor=color"
-                v-for="color in colorArray"
-                :key="color.idColor"
-                class="
-                  items-center
-                  w-6
-                  h-6
-                  rounded-sm
-                  border
-                  hover:border-black
-                  m-2
-                  cursor-pointer
-                "
-                v-bind:style="{ backgroundColor: color.colorCode }"
-                :class="{
-                  'border-8 border-red-500': product.item
-                    .map((c) => c.color.idColor)
-                    .includes(color.idColor),
-                }"
-              ><base-select-color :if-select-col="ifSelectCol" :send-color="sendColor"></base-select-color></div>
-
-              <div
-                class="font-prompt-regular-400 text-center text-red-600 mt-2"
-                v-if="ChooseColor"
-              >
-                Please select color!
-              </div>
-            </div>
-          </div> -->
           <div
             class="
               lg:space-y-3

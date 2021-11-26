@@ -32,9 +32,6 @@
                           <div
                             class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
                           >
-                            <!-- <i
-                              class="mdi mdi-account-outline text-gray-400 text-lg"
-                            ></i> -->
                           </div>
                           <input
                             type="text"
@@ -101,7 +98,7 @@
                             type="text"
                             v-model.trim="person.accUsername"
                             class="font-prompt-regular-400 w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                            :class="{ 'bg-red-50': usernameInput, 'bg-red-50': showError }"
+                            :class="[{ 'bg-red-50': usernameInput}, {'bg-red-50': showError }]"
                             placeholder="Username"
                             
                           />

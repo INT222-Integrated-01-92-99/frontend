@@ -235,22 +235,6 @@ export default {
       const data = await res.json(url);
       return data;
     },
-    memLocal(num) {
-      // localStorage.amount =
-      //   parseInt(localStorage.amount) + this.initialAmount;
-      // // window.location.reload();
-      // this.initialAmount = 0;
-      localStorage.amount = num;
-    },
-    // sendNumPro(recNumCart){
-    //   console.log("sendNumPro() worked!")
-    //   const num = {
-    //       numCart: recNumCart,
-    //     };
-
-    //     this.$parent.showNumToParent(num);
-    // },
-
     selectColor(color) {
       this.products.item = color;
       console.log(this.products.item);
@@ -275,17 +259,17 @@ export default {
                 this.idCartDetailArray.push(this.cart.cartDetails[i]);
                 console.log(this.idCartDetailArray);
               }
-              console.log(
-                "ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray
-              );
+              // console.log(
+              //   "ตอนนี้this.idCartDetailArray=" + this.idCartDetailArray
+              // );
               this.idCartDetail = this.idCartDetailArray.find(
                 (c) =>
                   c.product.idPro === this.product.idPro &&
                   c.color.idColor == this.products.item.color.idColor
               );
-              console.log(
-                "idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail
-              );
+              // console.log(
+              //   "idCartDetailที่จะส่งไป =" + this.idCartDetail.idCartDetail
+              // );
               const editProDetail = {
                 idProduct: this.product.idPro,
                 amount: this.initialAmount,
@@ -294,11 +278,6 @@ export default {
               };
               this.editDetailPro(editProDetail);
             } else {
-              //      if (
-              //   this.cart.cartDetails
-              //     .map((c) => !c.product.idPro)
-              //     .includes(this.product.idPro)
-              // ){
               console.log("ADD");
               const proForCar = {
                 idProduct: this.product.idPro,
@@ -307,7 +286,6 @@ export default {
                 sendIdColor: this.products.item.color.idColor,
               };
               this.addToCartDetail(proForCar);
-              // }
             }
           } else {
             console.log("Add new product in cart");
@@ -371,7 +349,6 @@ export default {
 
         this.setCart(this.cart.cartDetails.length);
         this.$forceUpdate();
-        // this.sendNumPro(this.numCart)
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }

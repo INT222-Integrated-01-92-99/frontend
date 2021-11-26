@@ -390,27 +390,6 @@
                         <span>{{ r.accUsername }}</span>
                       </div>
                     </td>
-                    <!-- <td
-                      v-if="r.idAccount == this.roleIdForCheck"
-                      class="py-3 px-6 text-left"
-                    >
-                      <div class="flex items-center">
-                        <input
-                          class="bg-white border p-2 rounded-sm"
-                          :class="{ 'bg-red-50': r.accPass === '' }"
-                          id="passWord"
-                          type="text"
-                          placeholder="Password"
-                          v-model.trim="person.accPass"
-                        />
-                      </div>
-                      <p
-                        v-if="r.accPass === ''"
-                        class="font-prompt-regular-400 text-red-600"
-                      >
-                        Enter Password!
-                      </p>
-                    </td> -->
                     <td class="py-3 px-6 text-left">
                       <div class="flex items-center">
                         <span>{{ r.accPass }}</span>
@@ -682,18 +661,15 @@ export default {
       this.wrongUsername = false
     },
     checkUsername() {
-      console.log('ตัวที่พิมพ์เข้ามา ' + this.person.accUsername)
       for (let i = 0; i < this.people.length; i++){
-        console.log('ตัวที่อยู่ในลูปอยู่นอกเงื่อนไข if ' + this.people[i].accUsername)
         if(this.person.accUsername === this.people[i].accUsername && this.person.idAccount != this.people[i].idAccount){
         this.message ='This username is already taken.'
         this.wrongUsername = true
-        console.log('ตัวที่อยู่ในลูปละเข้าเงื่อนไข if ' + this.people[i].accUsername)
         }
       }
     },
     check() {
-      this.validate.usernameInput = this.person.accUsername === "" || this.person.accUsername.length>5;
+      this.validate.usernameInput = this.person.accUsername === "" || this.person.accUsername.length<5;
       this.validate.passwordInput = this.person.accPass === "";
       this.validate.firstnameInput = this.person.accFname === "";
       this.validate.lastnameInput = this.person.accLname === "";
@@ -722,11 +698,7 @@ export default {
     },
     async addAccount() {
       this.check();
-      // if(this.validate.usernameInput ==true && this.person.accUsername === this.people.accUsername){
-      //   this.wrongUsername = true;
-      // }
-      console.log(this.person);
-      console.log(this.person.idRole);
+      // console.log(this.person);
        if (
         !this.validate.usernameInput &&
         !this.validate.passwordInput &&

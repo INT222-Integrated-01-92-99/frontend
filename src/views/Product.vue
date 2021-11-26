@@ -107,8 +107,8 @@ export default {
 
   methods: {
     async regist(addNewPro) {
-      console.log(addNewPro);
-      console.log(addNewPro.idProduct);
+      // console.log(addNewPro);
+      // console.log(addNewPro.idProduct);
       try {
         const jsonPro = await JSON.stringify({
           idPro: addNewPro.idProduct,

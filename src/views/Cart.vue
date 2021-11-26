@@ -173,7 +173,7 @@ export default {
     }),
 
     async persist(edit) {
-      console.log(edit)
+      // console.log(edit)
       if (edit.proPerPiece <= edit.product.proAmount && edit.proPerPiece >= 1) {
         const editQuan = {
           idProduct: edit.product.idPro,
@@ -193,11 +193,9 @@ export default {
         };
         this.removeOne(delProWhenZero);
       }
-      // localStorage.amount = quantity;
-      // console.log(this.quantity);
     },
     async editAmount(editQuan) {
-      console.log(editQuan);
+      // console.log(editQuan);
 
       try {
         await fetch(
@@ -267,21 +265,11 @@ export default {
         // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
         this.setCart(this.cart.cartDetails.length)
       }
-      // window.location.reload();
-      // localStorage.amount = 0;
-      // return localStorage.amount;
     },
     async purchase(idPro) {
-      // for (let i = 0; i < this.product.length; i++){
       if (idPro.cartDetails.length == 0) {
         alert("Your cart is empty");
       }
-      // else if( idPro.cartDetails
-      //         .map((c) => c.product.idPro)
-      //         .includes(this.product.idPro)){
-      //         if(idPro.cartDetails.proPerPiece > this.product[i].proAmount)
-      //   console.log('สินค้าในตระกร้ามากกว่าจำนวนสินค้าในคลัง')
-      //     }
        else {
          console.log(this.product.proAmount)
         if (
@@ -312,17 +300,13 @@ export default {
     // }
     },
   },
-  async created() {
+  async beforeCreated() {
      if(this.$store.state.auth.user.idRole.idRole == 3){
     this.product = await this.fetch('http://localhost:3000/main/product');
     // this.product = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product`);
     this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
     // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
-    }else if(this.$store.state.auth.user.idRole.idRole == 1){
-      this.$router.push('/')
-    }else{
-      this.$router.push('/product/views')
-    }
-  },
+  }
+  }
 };
 </script>

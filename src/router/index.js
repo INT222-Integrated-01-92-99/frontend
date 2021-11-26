@@ -29,14 +29,6 @@ const routes = [
     name: 'Product',
     component: Product,
     props: true,
-    // beforeEnter: (to, from, next) => {
-    //   if(store.getters['auth/authenticated'] && role =='staff'){
-    //     return next({
-    //       path: '/product/add'
-    //     })
-    //   }
-    //   next()
-    // }
   },
   {
     path: '/detail',
@@ -48,16 +40,44 @@ const routes = [
     path: '/signin',
     name: 'SignIn',
     component: SignIn,
+    beforeEnter: (to, from, next) => {
+      if(store.getters['auth/authenticated']){
+        return next({
+          name: 'Home'
+        })
+      }
+      next()
+    }
   },
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUp,
+    beforeEnter: (to, from, next) => {
+      if(store.getters['auth/authenticated']){
+        return next({
+          name: 'Home'
+        })
+      }
+      next()
+    }
   },
   {
     path: '/cart',
     name: 'Cart',
     component: Cart,
+    beforeEnter: (to, from, next) => {
+      if(!store.getters['auth/authenticated']){
+        return next({
+          name: 'SignIn'
+        })
+      }else if(store.getters['auth/user'].idRole.idRole != 3){
+        return next({
+          name: 'Home'
+        })
+      }
+      next()
+    }
   },
   {
     path: '/profile',

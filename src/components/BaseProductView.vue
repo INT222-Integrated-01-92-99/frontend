@@ -189,12 +189,24 @@ export default {
     sendBrand(brand) {
       this.brandId = brand.idBrand;
     },
-    async fetch(url) {
+    async fetch(url,brand=false) {
+      if(!brand){
       const res = await fetch(url, {
         headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
       });
       const data = await res.json(url);
       return data;
+    }else{
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log(data)
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
     },
 
     async getData() {
@@ -217,7 +229,8 @@ export default {
   },
   async created() {
     window.addEventListener("scroll", this.backToTop);
-    this.brand = await this.fetch("http://localhost:3000/main/brand");
+    this.brand = await this.fetch("http://localhost:3000/main/brand",true);
+    console.log(this.brand)
     // this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
     if (this.$store.state.auth.user.idRole.idRole == 3) {
       this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
@@ -225,18 +238,5 @@ export default {
       this.setCart(this.cart.cartDetails.length);
     }
   },
-  // watch: {
-  //   brandId: async function check() {
-  //       if(this.brandId == 1){
-  //         console.log("1")
-  //       }else if(this.brandId == 2){
-  //         console.log("2")
-  //       }else if(this.brandId == 3){
-  //         console.log("3")
-  //       }else{
-  //         console.log("4")
-  //       }
-  //     }
-  // },
 };
 </script>
