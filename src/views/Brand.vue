@@ -368,6 +368,7 @@ export default {
     },
     async delBrand(brandId) {
       this.check();
+      if(confirm('Do you want to delete this account?')){
       try {
         await fetch(
           `http://localhost:3000/admin/deletebrand?IdBrand=${brandId.idBrand}`,
@@ -383,6 +384,7 @@ export default {
         // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
       } catch (error) {
         console.log(`Could not save! ${error}`);
+      }
       }
     },
     showSaveEdit(idBrand) {
