@@ -322,12 +322,15 @@ export default {
             },
 
           });
-          this.clear()
           this.error = await response.json()
           if(this.error.errorCode == 'USERNAME_HAVE_ALREADY'){
           this.showError = true
           this.errorMessage = 'this username is already taken.'
-      }
+          }else{
+            alert('Finish Sign up')
+            this.clear()
+            this.$router.push('/signin')
+          }
         } catch (error) {
           console.log(`Could not save! ${error}`);
         }
