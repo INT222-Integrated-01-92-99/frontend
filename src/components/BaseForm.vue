@@ -172,7 +172,8 @@
               />
             </div>
             <p v-if="ProInput" class="font-prompt-regular-400 text-red-600">
-              Please enter your Product Name!
+              Please enter your Product Name! The number limit letters of
+              Product Name is 60.
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -206,8 +207,9 @@
               v-if="InStocksInput"
               class="font-prompt-regular-400 text-red-600"
             >
-              Please enter number of in stocks! The number limit of in stocks is 2,500 (Do not use decimal number or negative
-              integer and cannot be zero)
+              Please enter number of in stocks! The number limit of in stocks is
+              2,500 (Do not use decimal number or negative integer and cannot be
+              zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -239,8 +241,7 @@
             </div>
             <p v-if="PriceInput" class="font-prompt-regular-400 text-red-600">
               Please enter your Price! The number limit of price is 1,000,000
-              (Do not use decimal number or negative integer and cannot
-              be zero)
+              (Do not use decimal number or negative integer and cannot be zero)
             </p>
             <div class="flex flex-col">
               <label class="font-prompt-regular-400 lg:text-lg text-base"
@@ -390,7 +391,8 @@ export default {
       this.BrandInput = this.enterBrand === "" ? true : false;
       this.ProInput =
         this.enterProName === "" ||
-        this.enterProName === this.productArray.proName;
+        this.enterProName === this.productArray.proName ||
+        this.enterProName.length > 60;
       this.MFDInput = this.enterDate === "" ? true : false;
       this.InStocksInput =
         this.enterInStocks === "" ||
@@ -422,8 +424,8 @@ export default {
       };
     },
     async submitForm() {
-      console.log(this.enterPrice);
-      console.log(this.enterPrice.toString().length);
+      // console.log(this.enterPrice);
+      // console.log(this.enterPrice.toString().length);
       this.checkForm();
       if (this.proId == "add") {
         if (
@@ -438,7 +440,7 @@ export default {
         ) {
           this.idProduct =
             (await this.fetch("http://localhost:3000/main/getmaxidPro")) + 1;
-            // (await this.fetch(`${process.env.VUE_APP_ROOT_API}main/getmaxidPro`)) + 1;
+          // (await this.fetch(`${process.env.VUE_APP_ROOT_API}main/getmaxidPro`)) + 1;
           const addPro = {
             idProduct: this.idProduct,
             imgFile: this.imgFile,
@@ -483,7 +485,7 @@ export default {
       }
     },
     async editProduct(editPro) {
-      console.log(editPro);
+      // console.log(editPro);
       this.checkForm();
       editPro.proCol = editPro.proCol.map(
         (e) => (e = { idPro: editPro.idProduct, color: e.color })
@@ -507,7 +509,7 @@ export default {
       await formData.append("editProduct", blob);
       if (this.imgFile == null) {
         const res = await fetch("http://localhost:3000/staff/edit", {
-        // const res = await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit`, {
+          // const res = await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${this.$store.state.auth.token}`,
@@ -521,7 +523,7 @@ export default {
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
         await fetch("http://localhost:3000/staff/edit/image", {
-        // await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit/image`, {
+          // await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit/image`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${this.$store.state.auth.token}`,
@@ -604,14 +606,14 @@ export default {
   },
 
   async created() {
-    console.log(this.proId);
+    // console.log(this.proId);
     this.brandArray = await this.fetch("http://localhost:3000/main/brand");
     // this.brandArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
     this.colorArray = await this.fetch("http://localhost:3000/main/color");
     // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/color`);
     this.productArray = await this.fetch("http://localhost:3000/main/product/");
     // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product/`);
-    console.log(this.productArray);
+    // console.log(this.productArray);
     if (!isNaN(this.proId)) {
       if (this.$store.state.auth.user) {
         const product = await this.fetch(

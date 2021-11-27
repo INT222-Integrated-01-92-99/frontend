@@ -54,8 +54,7 @@
                 },
                 {
                   'w-7 h-7 border-8 border-red-500':
-                    products.item.color?.idColor === color.color.idColor,
-                  // 'border-8 border-red-500': product.prowithcolor
+                    products.item.color?.idColor === color.color.idColor
                 },
               ]"
             ></div>
@@ -237,7 +236,7 @@ export default {
     },
     selectColor(color) {
       this.products.item = color;
-      console.log(this.products.item);
+      // console.log(this.products.item);
     },
     addToCart() {
       // console.log(this.cart.cartDetails.map((c) => c.product.idPro));
@@ -303,7 +302,7 @@ export default {
       }
     },
     async editDetailPro(editQuan) {
-      console.log(editQuan);
+      // console.log(editQuan);
 
       try {
         await fetch(
@@ -322,7 +321,7 @@ export default {
       }
     },
     async addToCartDetail(proInCart) {
-      console.log(proInCart);
+      // console.log(proInCart);
       try {
         const response = await fetch(
           `http://localhost:3000/member/additemtocart?idpro=${proInCart.idProduct}&amount=${proInCart.amount}&idcart=${proInCart.idCart}&idcolor=${proInCart.sendIdColor}`,
@@ -335,7 +334,7 @@ export default {
           }
         );
         this.error = await response.json();
-        console.log(this.error);
+        // console.log(this.error);
         if (this.error.errorCode == "AMOUNT_VALUE") {
           alert(
             "Sorry, Product is not enough. Please check amount of this product."
@@ -385,7 +384,7 @@ export default {
           this.$store.state.auth.user.idAccount
         // `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
       );
-      console.log(this.cart);
+      // console.log(this.cart);
     }
   },
 };

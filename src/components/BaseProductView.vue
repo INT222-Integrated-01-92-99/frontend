@@ -189,24 +189,23 @@ export default {
     sendBrand(brand) {
       this.brandId = brand.idBrand;
     },
-    async fetch(url,brand=false) {
-      if(!brand){
-      const res = await fetch(url, {
-        headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
-      });
-      const data = await res.json(url);
-      return data;
-    }else{
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        console.log(data)
+    async fetch(url, brand = false) {
+      if (!brand) {
+        const res = await fetch(url, {
+          headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
+        });
+        const data = await res.json(url);
         return data;
-      } catch (error) {
-        console.log(error);
+      } else {
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
       }
-      
-    }
     },
 
     async getData() {
@@ -229,11 +228,14 @@ export default {
   },
   async created() {
     window.addEventListener("scroll", this.backToTop);
-    this.brand = await this.fetch("http://localhost:3000/main/brand",true);
-    console.log(this.brand)
+    this.brand = await this.fetch("http://localhost:3000/main/brand", true);
+    // console.log(this.brand)
     // this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
     if (this.$store.state.auth.user.idRole.idRole == 3) {
-      this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
+      this.cart = await this.fetch(
+        "http://localhost:3000/member/cart/" +
+          this.$store.state.auth.user.idAccount
+      );
       // this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount);
       this.setCart(this.cart.cartDetails.length);
     }

@@ -20,10 +20,15 @@
           font-bold
         "
       >
-        Purchase History 
+        Purchase History
       </h1>
     </div>
-    <p v-if="noHistory" class="font-prompt-regular-400 text-lg text-center text-gray-dark">No history</p>
+    <p
+      v-if="noHistory"
+      class="font-prompt-regular-400 text-lg text-center text-gray-dark"
+    >
+      No history
+    </p>
     <div class="justify-center pb-4">
       <div
         class="flex-row justify-center my-6"
@@ -163,17 +168,18 @@ export default {
     },
   },
   async created() {
-    if(this.$store.state.auth.user.idRole.idRole == 3){
-    this.receipt = await this.fetch(
-      "http://localhost:3000/member/receipt/" + this.$store.state.auth.user.idAccount
-      // `${process.env.VUE_APP_ROOT_API}member/receipt/` + this.$store.state.auth.user.idAccount
-    );
-    // console.log(this.receipt);
-    if(this.receipt.length == 0){
-      this.noHistory = true;
-    }
-    }else{
-      this.$router.push('/')
+    if (this.$store.state.auth.user.idRole.idRole == 3) {
+      this.receipt = await this.fetch(
+        "http://localhost:3000/member/receipt/" +
+          this.$store.state.auth.user.idAccount
+        // `${process.env.VUE_APP_ROOT_API}member/receipt/` + this.$store.state.auth.user.idAccount
+      );
+      // console.log(this.receipt);
+      if (this.receipt.length == 0) {
+        this.noHistory = true;
+      }
+    } else {
+      this.$router.push("/");
     }
   },
 };

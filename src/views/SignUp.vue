@@ -12,8 +12,5 @@ export default {
   components: {
     "base-sign-up": BaseSignUp,
   },
-  data() {
-    return {};
-  },
 };
 </script>

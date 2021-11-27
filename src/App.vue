@@ -151,7 +151,6 @@
                     border-b-2 border-transparent
                     2xl:hover:border-red-light
                     lg:hover:border-red-light
-                    
                   "
                   >Product</router-link
                 >
@@ -178,7 +177,6 @@
                   border-b-2 border-transparent
                   2xl:hover:border-red-light
                   lg:hover:border-red-light
-                  
                 "
                 >Manage</router-link
               >
@@ -346,7 +344,6 @@
                   block
                   border-b-2 border-transparent
                   2xl:hover:border-red-light
-                  
                 "
                 >My Profile</router-link
               >
@@ -438,7 +435,7 @@
                   </svg>
                 </button>
                 <span class="font-prompt-regular-400 total-quantity">
-                  {{$store.state.auth.cart}}
+                  {{ $store.state.auth.cart }}
                 </span>
               </router-link>
             </li>
@@ -480,7 +477,7 @@ export default {
     ...mapActions({
       signOutAction: "auth/signOut",
       attempt: "auth/attempt",
-      setCart: "auth/saveNumCart"
+      setCart: "auth/saveNumCart",
     }),
 
     signOut() {
@@ -497,18 +494,19 @@ export default {
     },
   },
   async created() {
-    console.log(this.$route.name);
+    // console.log(this.$route.name);
     if (
       this.$store.state.auth.user &&
       this.$store.state.auth.user.idRole.idRole == 3
     ) {
       this.cart = await this.fetch(
-        "http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount
+        "http://localhost:3000/member/cart/" +
+          this.$store.state.auth.user.idAccount
         // `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
       );
-      console.log(this.cart.cartDetails.length)
-      this.setCart(this.cart.cartDetails.length)
-      console.log(this.$store.state.auth.cart)
+      // console.log(this.cart.cartDetails.length);
+      this.setCart(this.cart.cartDetails.length);
+      // console.log(this.$store.state.auth.cart);
     }
   },
 };

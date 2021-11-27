@@ -100,7 +100,7 @@ export default {
     return {
       currentTabComponent: "base-product-view",
       viewAddChange: true,
-      error:'',
+      error: "",
       showError: false,
     };
   },
@@ -126,7 +126,7 @@ export default {
         });
         let formData = new FormData();
         formData.append("image", addNewPro.imgFile, addNewPro.proPathImg);
-        await formData.append("newproduct", blob); 
+        await formData.append("newproduct", blob);
         const response = await fetch("http://localhost:3000/staff/add/image", {
           // const response = await fetch(`${process.env.VUE_APP_ROOT_API}staff/add/image`, {
           method: "POST",
@@ -135,10 +135,10 @@ export default {
           },
           body: formData,
         });
-        this.error = await response.json()
-        if(this.error.errorCode == "PRODUCT_NAME_ALREADY_EXIST"){
-          alert('Already has this name.')
-        }else{
+        this.error = await response.json();
+        if (this.error.errorCode == "PRODUCT_NAME_ALREADY_EXIST") {
+          alert("Already has this name.");
+        } else {
           alert("Added.");
         }
       } catch (error) {
@@ -147,33 +147,37 @@ export default {
     },
   },
   created() {
-    if(this.$store.state.auth.user){
-      if(this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole == 3){
-        
-      this.viewAddChange = false;
-      if (this.proId == "views" || this.proId == undefined) {
-      this.viewAddChange = true;
-    
-    }
-      }else{
-        if(this.$route.path === '/product/add'){
-          this.$router.push('/')
-          }else{
-            this.$router.push('/')
-          }
+    if (this.$store.state.auth.user) {
+      if (
+        this.$store.state.auth.user.idRole.idRole == 2 ||
+        this.$store.state.auth.user.idRole.idRole == 3
+      ) {
+        this.viewAddChange = false;
+        if (this.proId == "views" || this.proId == undefined) {
+          this.viewAddChange = true;
+        }
+      } else {
+        if (this.$route.path === "/product/add") {
+          this.$router.push("/");
+        } else {
+          this.$router.push("/");
+        }
       }
-    }else{
-      this.$router.push('/product/views')
+    } else {
+      this.$router.push("/product/views");
     }
 
-    if(this.$store.state.auth.user && this.$store.state.auth.user.idRole.idRole == 3){
-      if(this.$route.path === '/product/add'){
-        this.$router.push('/product/views')
-      }else{
-        this.$router.push('/product/views')
+    if (
+      this.$store.state.auth.user &&
+      this.$store.state.auth.user.idRole.idRole == 3
+    ) {
+      if (this.$route.path === "/product/add") {
+        this.$router.push("/product/views");
+      } else {
+        this.$router.push("/product/views");
       }
     }
-   this.viewAddChange = false;
+    this.viewAddChange = false;
     if (this.proId == "views" || this.proId == undefined) {
       this.viewAddChange = true;
     }

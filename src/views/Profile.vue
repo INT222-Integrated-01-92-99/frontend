@@ -12,8 +12,5 @@ export default {
   components: {
     "base-profile": BaseProfile,
   },
-  data() {
-    return {};
-  },
 };
 </script>

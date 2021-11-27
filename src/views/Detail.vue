@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BaseBack from '../components/BaseBack.vue';
+import BaseBack from "../components/BaseBack.vue";
 import BaseDetailProduct from "../components/BaseDetailProduct.vue";
 export default {
   components: { BaseDetailProduct, BaseBack },
@@ -15,18 +15,19 @@ export default {
       routes: "/product/views",
     };
   },
-  methods:{
-
-  },
-  async created(){
-    if(this.$store.state.auth.user){
-      if(this.$store.state.auth.user.idRole.idRole == 1 && this.$route.path === '/detail'){
-        this.$router.push('/')
+  methods: {},
+  async created() {
+    if (this.$store.state.auth.user) {
+      if (
+        this.$store.state.auth.user.idRole.idRole == 1 &&
+        this.$route.path === "/detail"
+      ) {
+        this.$router.push("/");
       }
     }
-    if(!this.$route.query.id){
-      this.$router.push('/product/views')
+    if (!this.$route.query.id) {
+      this.$router.push("/product/views");
     }
-  }
+  },
 };
 </script>

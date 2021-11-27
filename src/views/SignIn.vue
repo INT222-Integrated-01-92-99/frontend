@@ -12,8 +12,5 @@ export default {
   components: {
     "base-sign-in": BaseSignIn,
   },
-  data() {
-    return {};
-  },
 };
 </script>

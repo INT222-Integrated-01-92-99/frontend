@@ -64,7 +64,16 @@
       >
       </base-button>
     </div>
-    <div class="2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8 space-y-4">
+    <div
+      class="
+        2xl:pt-36 2xl:pb-8
+        lg:pt-36 lg:pb-8
+        md:pt-32 md:pb-8
+        pt-32
+        pb-8
+        space-y-4
+      "
+    >
       <h1
         class="
           font-prompt-regular-400
@@ -105,7 +114,9 @@
                 my-6
               "
             >
-              <table class="min-w-max w-full table-auto font-prompt-regular-400">
+              <table
+                class="min-w-max w-full table-auto font-prompt-regular-400"
+              >
                 <thead>
                   <tr
                     class="
@@ -187,7 +198,9 @@
             "
           >
             <div class="bg-white rounded my-6">
-              <table class="min-w-max w-full table-auto font-prompt-regular-400">
+              <table
+                class="min-w-max w-full table-auto font-prompt-regular-400"
+              >
                 <thead>
                   <tr
                     class="
@@ -343,7 +356,7 @@ export default {
       this.enterBrandName = "";
     },
     check() {
-      console.log(this.enterBrandName);
+      // console.log(this.enterBrandName);
       this.brandInput = this.enterBrandName === "";
     },
     async addBrand(brandName) {
@@ -359,7 +372,9 @@ export default {
             },
           }
         );
-        this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+        this.brandCreated = await this.fetch(
+          "http://localhost:3000/main/brand"
+        );
         // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
         this.clearForm();
       } catch (error) {
@@ -368,23 +383,25 @@ export default {
     },
     async delBrand(brandId) {
       this.check();
-      if(confirm('Do you want to delete this account?')){
-      try {
-        await fetch(
-          `http://localhost:3000/admin/deletebrand?IdBrand=${brandId.idBrand}`,
-          // `${process.env.VUE_APP_ROOT_API}admin/deletebrand?IdBrand=${brandId.idBrand}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
-          }
-        );
-        this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
-        // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
-      }
+      if (confirm("Do you want to delete this account?")) {
+        try {
+          await fetch(
+            `http://localhost:3000/admin/deletebrand?IdBrand=${brandId.idBrand}`,
+            // `${process.env.VUE_APP_ROOT_API}admin/deletebrand?IdBrand=${brandId.idBrand}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${this.$store.state.auth.token}`,
+              },
+            }
+          );
+          this.brandCreated = await this.fetch(
+            "http://localhost:3000/main/brand"
+          );
+          // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
+        }
       }
     },
     showSaveEdit(idBrand) {
@@ -396,37 +413,41 @@ export default {
       this.check();
       (this.showEdit = true), (this.showSave = false);
       this.brandIdForCheck = "";
-       if (this.brandInput){
-      try {
-        await fetch(
-          `http://localhost:3000/admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
-          // `${process.env.VUE_APP_ROOT_API}admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
-          {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
-          }
-        );
-        // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
-      }
+      if (this.brandInput) {
+        try {
+          await fetch(
+            `http://localhost:3000/admin/editbrand?IdBrand=${
+              brand.idBrand
+            }&BrandName=${encodeURIComponent(brand.brandName)}`,
+            // `${process.env.VUE_APP_ROOT_API}admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${this.$store.state.auth.token}`,
+              },
+            }
+          );
+          // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}brand`);
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
         }
-        this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
-        // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+      }
+      this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+      // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
     },
   },
   async created() {
-    if(this.$store.state.auth.user){
-      if(this.$store.state.auth.user.idRole.idRole == 1){
-         this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+    if (this.$store.state.auth.user) {
+      if (this.$store.state.auth.user.idRole.idRole == 1) {
+        this.brandCreated = await this.fetch(
+          "http://localhost:3000/main/brand"
+        );
         // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
-      }else{
-          this.$router.push('/product/views')
-        }
-    }else{
-      this.$router.push('/product/views')
+      } else {
+        this.$router.push("/product/views");
+      }
+    } else {
+      this.$router.push("/product/views");
     }
   },
 };

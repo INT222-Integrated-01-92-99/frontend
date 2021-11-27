@@ -1,7 +1,7 @@
 <script>
 export default {
   emits: [],
-  props: ["if-select-col","send-color"],
+  props: ["if-select-col", "send-color"],
   data() {
     return {
       colorArray: [],
@@ -11,7 +11,6 @@ export default {
     };
   },
   methods: {
-
     selectColor(color) {
       if (
         this.product.item.map((c) => c.color.idColor).includes(color.idColor)
@@ -22,7 +21,7 @@ export default {
       } else {
         this.product.item.push({ color: color });
       }
-      console.log(this.product.item);
+      // console.log(this.product.item);
     },
     async fetch(url) {
       try {
@@ -34,7 +33,7 @@ export default {
       }
     },
   },
-   watch: {
+  watch: {
     sendColor: function check() {
       if (this.ifSelectCol == true) {
         this.selectColor(this.sendColor);

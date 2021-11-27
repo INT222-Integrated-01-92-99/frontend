@@ -10,6 +10,7 @@ import Profile from '../views/Profile.vue'
 import Receipt from '../views/Receipt.vue'
 import Account from '../views/Account.vue'
 import Brand from '../views/Brand.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 import store from '@/store'
 
 const routes = [
@@ -41,7 +42,7 @@ const routes = [
     name: 'SignIn',
     component: SignIn,
     beforeEnter: (to, from, next) => {
-      if(store.getters['auth/authenticated']){
+      if (store.getters['auth/authenticated']) {
         return next({
           name: 'Home'
         })
@@ -54,7 +55,7 @@ const routes = [
     name: 'SignUp',
     component: SignUp,
     beforeEnter: (to, from, next) => {
-      if(store.getters['auth/authenticated']){
+      if (store.getters['auth/authenticated']) {
         return next({
           name: 'Home'
         })
@@ -67,11 +68,11 @@ const routes = [
     name: 'Cart',
     component: Cart,
     beforeEnter: (to, from, next) => {
-      if(!store.getters['auth/authenticated']){
+      if (!store.getters['auth/authenticated']) {
         return next({
           name: 'SignIn'
         })
-      }else if(store.getters['auth/user'].idRole.idRole != 3){
+      } else if (store.getters['auth/user'].idRole.idRole != 3) {
         return next({
           name: 'Home'
         })
@@ -84,7 +85,7 @@ const routes = [
     name: 'Profile',
     component: Profile,
     beforeEnter: (to, from, next) => {
-      if(!store.getters['auth/authenticated']){
+      if (!store.getters['auth/authenticated']) {
         return next({
           name: 'SignIn'
         })
@@ -97,7 +98,7 @@ const routes = [
     name: 'Receipt',
     component: Receipt,
     beforeEnter: (to, from, next) => {
-      if(!store.getters['auth/authenticated']){
+      if (!store.getters['auth/authenticated']) {
         return next({
           name: 'SignIn'
         })
@@ -114,6 +115,11 @@ const routes = [
     path: '/addbrand',
     name: 'Brand',
     component: Brand,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'PageNotFound',
+    component: PageNotFound,
   },
 ]
 

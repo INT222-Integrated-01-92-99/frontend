@@ -64,7 +64,16 @@
       >
       </base-button>
     </div>
-    <div class="2xl:pt-36 2xl:pb-8 lg:pt-36 lg:pb-8 md:pt-32 md:pb-8 pt-32 pb-8 space-y-4">
+    <div
+      class="
+        2xl:pt-36 2xl:pb-8
+        lg:pt-36 lg:pb-8
+        md:pt-32 md:pb-8
+        pt-32
+        pb-8
+        space-y-4
+      "
+    >
       <h1
         class="
           font-prompt-regular-400
@@ -106,7 +115,9 @@
               "
             >
               <form>
-                <table class="min-w-max w-full table-auto font-prompt-regular-400">
+                <table
+                  class="min-w-max w-full table-auto font-prompt-regular-400"
+                >
                   <thead>
                     <tr
                       class="
@@ -140,7 +151,10 @@
                         <div class="flex items-center">
                           <input
                             id="username"
-                            :class="{ 'bg-red-50': validate.usernameInput ,'bg-red-50': wrongUsername }"
+                            :class="{
+                              'bg-red-50': validate.usernameInput,
+                              'bg-red-50': wrongUsername,
+                            }"
                             class="bg-white border p-2 rounded-sm"
                             type="text"
                             placeholder="Username"
@@ -153,13 +167,14 @@
                           v-if="validate.usernameInput"
                           class="font-prompt-regular-400 text-red-600"
                         >
-                          Please enter your username!
+                          Please enter your username and username can not less
+                          than 5 letters!
                         </p>
                         <p
                           v-if="wrongUsername"
                           class="font-prompt-regular-400 text-red-600"
                         >
-                          {{message}}
+                          {{ message }}
                         </p>
                       </td>
                       <td class="py-3 px-6 text-left">
@@ -224,7 +239,7 @@
                             class="bg-white border p-2 rounded-sm"
                             type="tel"
                             maxlength="10"
-                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                             placeholder="Phone"
                             v-model="person.accPhone"
                           />
@@ -321,7 +336,9 @@
             "
           >
             <div class="bg-white rounded my-6">
-              <table class="min-w-max w-full table-auto font-prompt-regular-400">
+              <table
+                class="min-w-max w-full table-auto font-prompt-regular-400"
+              >
                 <thead>
                   <tr
                     class="
@@ -361,12 +378,13 @@
                       <div class="flex items-center">
                         <input
                           class="bg-white border p-2 rounded-sm"
-                          :class="{ 'bg-red-50': r.accUsername === '','bg-red-50': wrongUsername }"
+                          :class="{
+                            'bg-red-50': r.accUsername === '',
+                            'bg-red-50': wrongUsername,
+                          }"
                           id="userName"
                           type="text"
                           placeholder="Username"
-                          
-                          
                           v-model.trim="person.accUsername"
                           @keyup="checkUsername()"
                           @keydown="setFalse()"
@@ -379,11 +397,11 @@
                         Enter Username!
                       </p>
                       <p
-                          v-if="wrongUsername"
-                          class="font-prompt-regular-400 text-red-600"
-                        >
-                          {{message}}
-                        </p>
+                        v-if="wrongUsername"
+                        class="font-prompt-regular-400 text-red-600"
+                      >
+                        {{ message }}
+                      </p>
                     </td>
                     <td v-else class="py-3 px-6 text-left">
                       <div class="flex items-center">
@@ -457,8 +475,8 @@
                           :class="{ 'bg-red-50': r.accPhone === '' }"
                           id="phoneNum"
                           type="tel"
-                            maxlength="10"
-                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                          maxlength="10"
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                           placeholder="Phone"
                           v-model.trim="person.accPhone"
                         />
@@ -653,33 +671,38 @@ export default {
         selectRole: false,
       },
       wrongUsername: false,
-      message:''
+      message: "",
     };
   },
   methods: {
-    setFalse(){
-      this.wrongUsername = false
+    setFalse() {
+      this.wrongUsername = false;
     },
     checkUsername() {
-      for (let i = 0; i < this.people.length; i++){
-        if(this.person.accUsername === this.people[i].accUsername && this.person.idAccount != this.people[i].idAccount){
-        this.message ='This username is already taken.'
-        this.wrongUsername = true
+      for (let i = 0; i < this.people.length; i++) {
+        if (
+          this.person.accUsername === this.people[i].accUsername &&
+          this.person.idAccount != this.people[i].idAccount
+        ) {
+          this.message = "This username is already taken.";
+          this.wrongUsername = true;
         }
       }
     },
     check() {
-      this.validate.usernameInput = this.person.accUsername === "" || this.person.accUsername.length<5;
+      this.validate.usernameInput =
+        this.person.accUsername === "" || this.person.accUsername.length < 5;
       this.validate.passwordInput = this.person.accPass === "";
       this.validate.firstnameInput = this.person.accFname === "";
       this.validate.lastnameInput = this.person.accLname === "";
-      this.validate.phoneInput = (this.person.accPhone === "" || this.person.accPhone !== "") &&
-        this.person.accPhone.length !== 10
+      this.validate.phoneInput =
+        (this.person.accPhone === "" || this.person.accPhone !== "") &&
+        this.person.accPhone.length !== 10;
       this.validate.addressInput = this.person.accAddress === "";
       this.validate.selectRole = !this.person.idRole.idRole;
     },
-    clear(){
-        this.person = {
+    clear() {
+      this.person = {
         accUsername: "",
         accPass: "",
         accFname: "",
@@ -687,19 +710,19 @@ export default {
         accPhone: "",
         accAddress: "",
         idRole: {},
-      }
+      };
     },
-    openAddUser(){
+    openAddUser() {
       this.wrongUsername = false;
-      this.roleIdForCheck = ''
-      this.showEdit = true
-      this.isOpen = !this.isOpen
-      this.clear()
+      this.roleIdForCheck = "";
+      this.showEdit = true;
+      this.isOpen = !this.isOpen;
+      this.clear();
     },
     async addAccount() {
       this.check();
       // console.log(this.person);
-       if (
+      if (
         !this.validate.usernameInput &&
         !this.validate.passwordInput &&
         !this.validate.firstnameInput &&
@@ -708,33 +731,32 @@ export default {
         !this.validate.addressInput &&
         !this.validate.selectRole &&
         !this.wrongUsername
-      ){
-      try {
-        const jsonPro = await JSON.stringify(this.person);
-        await fetch("http://localhost:3000/main/registaccount", {
-          // await fetch(`${process.env.VUE_APP_ROOT_API}main/registaccount`, {
-          method: "POST",
-          body: jsonPro,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${this.$store.state.auth.token}`
-          },
-
-        });
-        this.people = await this.fetch("http://localhost:3000/admin/account");
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
-        this.clear()
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
+      ) {
+        try {
+          const jsonPro = await JSON.stringify(this.person);
+          await fetch("http://localhost:3000/main/registaccount", {
+            // await fetch(`${process.env.VUE_APP_ROOT_API}main/registaccount`, {
+            method: "POST",
+            body: jsonPro,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
+          });
+          this.people = await this.fetch("http://localhost:3000/admin/account");
+          // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
+          this.clear();
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
+        }
       }
-    }
     },
     async editAccount() {
       this.showEdit = true;
       this.showSave = false;
       this.roleIdForCheck = "";
       this.check();
-       if (
+      if (
         !this.validate.usernameInput &&
         !this.validate.passwordInput &&
         !this.validate.firstnameInput &&
@@ -743,46 +765,46 @@ export default {
         !this.validate.addressInput &&
         !this.validate.selectRole &&
         !this.wrongUsername
-      ){
-      try {
-        const jsonPro = JSON.stringify(this.person);
+      ) {
+        try {
+          const jsonPro = JSON.stringify(this.person);
 
-        await fetch("http://localhost:3000/allroles/editaccount", {
-          // await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
-          method: "PUT",
-          body: jsonPro,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${this.$store.state.auth.token}`
-          },
-        });
-        this.clear()
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
-      }
+          await fetch("http://localhost:3000/allroles/editaccount", {
+            // await fetch(`${process.env.VUE_APP_ROOT_API}allroles/editaccount`, {
+            method: "PUT",
+            body: jsonPro,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
+          });
+          this.clear();
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
+        }
       }
       this.people = await this.fetch("http://localhost:3000/admin/account");
       // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
     },
     async delRole(roleId) {
       this.check();
-      if(confirm('Do you want to delete this account?')){
-      try {
-        await fetch(
-          `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
-          // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
-          }
-        );
-        this.people = await this.fetch("http://localhost:3000/admin/account");
-        // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
-      }
+      if (confirm("Do you want to delete this account?")) {
+        try {
+          await fetch(
+            `http://localhost:3000/admin/deleteaccount?idAccount=${roleId.idAccount}`,
+            // `${process.env.VUE_APP_ROOT_API}deleteaccount?idAccount=${roleId.idAccount}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${this.$store.state.auth.token}`,
+              },
+            }
+          );
+          this.people = await this.fetch("http://localhost:3000/admin/account");
+          // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}account`);
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
+        }
       }
     },
     showSaveEdit(roleId) {
@@ -807,18 +829,20 @@ export default {
     },
   },
   async created() {
-    if(this.$store.state.auth.user){
-      if(this.$store.state.auth.user.idRole.idRole == 2 || this.$store.state.auth.user.idRole.idRole == 3){
-        this.$router.push('/product/views')
-      }else{
+    if (this.$store.state.auth.user) {
+      if (
+        this.$store.state.auth.user.idRole.idRole == 2 ||
+        this.$store.state.auth.user.idRole.idRole == 3
+      ) {
+        this.$router.push("/product/views");
+      } else {
         this.people = await this.fetch("http://localhost:3000/admin/account");
         // this.people = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/account`);
         this.roles = await this.fetch("http://localhost:3000/admin/role");
         // this.roles = await this.fetch(`${process.env.VUE_APP_ROOT_API}admin/role`);
       }
-
-    }else{
-      this.$router.push('/product/views')
+    } else {
+      this.$router.push("/product/views");
     }
   },
 };
