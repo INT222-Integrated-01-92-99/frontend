@@ -230,7 +230,7 @@ export default {
     window.addEventListener("scroll", this.backToTop);
     // this.brand = await this.fetch("http://localhost:3000/main/brand", true);
     // console.log(this.brand)
-    this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+    this.brand = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`, true);
     if (this.$store.state.auth.user.idRole.idRole == 3) {
       // this.cart = await this.fetch("http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount);
       this.cart = await this.fetch(`${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount)
