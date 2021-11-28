@@ -500,9 +500,8 @@ export default {
       this.$store.state.auth.user.idRole.idRole == 3
     ) {
       this.cart = await this.fetch(
-        "http://localhost:3000/member/cart/" +
-          this.$store.state.auth.user.idAccount
-        // `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
+        // "http://localhost:3000/member/cart/" + this.$store.state.auth.user.idAccount
+        `${process.env.VUE_APP_ROOT_API}member/cart/` + this.$store.state.auth.user.idAccount
       );
       // console.log(this.cart.cartDetails.length);
       this.setCart(this.cart.cartDetails.length);
