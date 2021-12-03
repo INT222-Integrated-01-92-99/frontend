@@ -337,6 +337,7 @@ export default {
       showSave: false,
       showEdit: true,
       brandIdForCheck: "",
+      x: "",
     };
   },
   methods: {
@@ -359,10 +360,11 @@ export default {
       // console.log(this.enterBrandName);
       for (let i = 0; i < this.brandCreated.length; i++) {
         // const element = array[i];
+        this.x = this.brandCreated[i].brandName
         console.log(this.brandCreated[i].brandName)
         console.log(this.enterBrandName)
-        this.brandInput = this.enterBrandName === "" || this.enterBrandName === this.brandCreated[i].brandName;
       }
+      this.brandInput = this.enterBrandName === this.x || this.enterBrandName === ""
     },
     async addBrand(brandName) {
       this.check();
