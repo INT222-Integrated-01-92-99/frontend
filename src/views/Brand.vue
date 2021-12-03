@@ -368,6 +368,7 @@ export default {
     },
     async addBrand(brandName) {
       this.check();
+      if(!this.brandInput){
       try {
         const response = await fetch(
           // `http://localhost:3000/admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
@@ -390,6 +391,7 @@ export default {
       } catch (error) {
         console.log(`Could not save! ${error}`);
       }
+    }
     },
     async delBrand(brandId) {
       this.check();
@@ -421,7 +423,7 @@ export default {
       this.check();
       (this.showEdit = true), (this.showSave = false);
       this.brandIdForCheck = "";
-      if (this.brandInput) {
+      if (!this.brandInput) {
         try {
           await fetch(
             // `http://localhost:3000/admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
