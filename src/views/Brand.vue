@@ -337,7 +337,7 @@ export default {
       showSave: false,
       showEdit: true,
       brandIdForCheck: "",
-      x: "",
+      error: ''
     };
   },
   methods: {
@@ -357,19 +357,18 @@ export default {
       this.enterBrandName = "";
     },
     check() {
-      // console.log(this.enterBrandName);
-      for (let i = 0; i < this.brandCreated.length; i++) {
-        // const element = array[i];
-        this.x = this.brandCreated[i].brandName
-        console.log(this.brandCreated[i].brandName)
-        console.log(this.enterBrandName)
-      }
-      this.brandInput = this.enterBrandName === this.x || this.enterBrandName === ""
+       this.brandInput = this.enterBrandName === ""
+      // for (let i = 0; i < this.brandCreated.length; i++) {
+      //   console.log('brand ที่ลูป' + this.brandCreated[i].brandName)
+      //    this.brandInput = this.enterBrandName === this.brandCreated[i].brandName || this.enterBrandName === ""
+      // }
+      // console.log('type' + this.enterBrandName)
+      // console.log(this.brandInput)
     },
     async addBrand(brandName) {
       this.check();
       try {
-        await fetch(
+        const response = await fetch(
           `http://localhost:3000/admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
           // `${process.env.VUE_APP_ROOT_API}admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
           {
@@ -379,6 +378,11 @@ export default {
             },
           }
         );
+        // console.log(response.json())
+        this.error = await response.json()
+        if (this.error.errorCode == "BRAND_NAME_HAVE_ALREADY") {
+            this.brandInput = true
+          }
         this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
         // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
         this.clearForm();
