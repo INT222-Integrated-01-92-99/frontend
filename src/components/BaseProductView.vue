@@ -211,8 +211,8 @@ export default {
     async getData() {
       await axios
         .get(
-          `http://localhost:3000/main/search?proname=${this.query}&idbrand=${this.keepId}`
-          // `${process.env.VUE_APP_ROOT_API}main/search?proname=${this.query}&idbrand=${this.keepId}`
+          // `http://localhost:3000/main/search?proname=${this.query}&idbrand=${this.keepId}`
+          `${process.env.VUE_APP_ROOT_API}main/search?proname=${this.query}&idbrand=${this.keepId}`
         )
         .then((response) => {
           this.searchPro = response.data;
