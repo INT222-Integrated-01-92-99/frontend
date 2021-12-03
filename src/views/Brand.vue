@@ -357,9 +357,11 @@ export default {
     },
     check() {
       // console.log(this.enterBrandName);
-      console.log(this.brandCreated)
-      console.log(this.brandCreated.brandName)
-      this.brandInput = this.enterBrandName === "" || this.enterBrandName === this.brandCreated.brandName;
+      for (let i = 0; i < this.brandCreated.length; i++) {
+        // const element = array[i];
+        console.log(this.brandCreated[i].brandName)
+        this.brandInput = this.enterBrandName === "" || this.enterBrandName === this.brandCreated[i].brandName;
+      }
     },
     async addBrand(brandName) {
       this.check();
