@@ -376,8 +376,8 @@ export default {
         item: [],
       },
       productArray: [],
-      // urlImage: "http://localhost:3000/main/image",
-      urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
+      urlImage: "http://localhost:3000/main/image",
+      // urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
       ifSelectCol: false,
       sendColor: null,
     };
@@ -439,8 +439,8 @@ export default {
           !this.ChooseColor
         ) {
           this.idProduct =
-            // (await this.fetch("http://localhost:3000/main/getmaxidPro")) + 1;
-          (await this.fetch(`${process.env.VUE_APP_ROOT_API}main/getmaxidPro`)) + 1;
+            (await this.fetch("http://localhost:3000/main/getmaxidPro")) + 1;
+          // (await this.fetch(`${process.env.VUE_APP_ROOT_API}main/getmaxidPro`)) + 1;
           const addPro = {
             idProduct: this.idProduct,
             imgFile: this.imgFile,
@@ -508,8 +508,8 @@ export default {
       let formData = new FormData();
       await formData.append("editProduct", blob);
       if (this.imgFile == null) {
-        // const res = await fetch("http://localhost:3000/staff/edit", {
-          const res = await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit`, {
+        const res = await fetch("http://localhost:3000/staff/edit", {
+          // const res = await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${this.$store.state.auth.token}`,
@@ -522,8 +522,8 @@ export default {
         alert("Edited");
       } else {
         formData.append("image", editPro.imgFile, editPro.proPathImg);
-        // await fetch("http://localhost:3000/staff/edit/image", {
-          await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit/image`, {
+        await fetch("http://localhost:3000/staff/edit/image", {
+          // await fetch(`${process.env.VUE_APP_ROOT_API}staff/edit/image`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${this.$store.state.auth.token}`,
@@ -607,18 +607,18 @@ export default {
 
   async created() {
     // console.log(this.proId);
-    // this.brandArray = await this.fetch("http://localhost:3000/main/brand");
-    this.brandArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
-    // this.colorArray = await this.fetch("http://localhost:3000/main/color");
-    this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/color`);
-    // this.productArray = await this.fetch("http://localhost:3000/main/product/");
-    this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product/`);
+    this.brandArray = await this.fetch("http://localhost:3000/main/brand");
+    // this.brandArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+    this.colorArray = await this.fetch("http://localhost:3000/main/color");
+    // this.colorArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/color`);
+    this.productArray = await this.fetch("http://localhost:3000/main/product/");
+    // this.productArray = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/product/`);
     // console.log(this.productArray);
     if (!isNaN(this.proId)) {
       if (this.$store.state.auth.user) {
         const product = await this.fetch(
-          // "http://localhost:3000/main/product/" + this.proId
-          `${process.env.VUE_APP_ROOT_API}main/product/` + this.proId
+          "http://localhost:3000/main/product/" + this.proId
+          // `${process.env.VUE_APP_ROOT_API}main/product/` + this.proId
         );
         this.idProduct = product.idPro;
         this.image = this.urlImage + "/" + product.proPathImg;

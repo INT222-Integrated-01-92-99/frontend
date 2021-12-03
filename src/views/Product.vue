@@ -127,8 +127,8 @@ export default {
         let formData = new FormData();
         formData.append("image", addNewPro.imgFile, addNewPro.proPathImg);
         await formData.append("newproduct", blob);
-        // const response = await fetch("http://localhost:3000/staff/add/image", {
-          const response = await fetch(`${process.env.VUE_APP_ROOT_API}staff/add/image`, {
+        const response = await fetch("http://localhost:3000/staff/add/image", {
+          // const response = await fetch(`${process.env.VUE_APP_ROOT_API}staff/add/image`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${this.$store.state.auth.token}`,
