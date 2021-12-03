@@ -392,7 +392,7 @@ export default {
     },
     async delBrand(brandId) {
       this.check();
-      if (confirm("Do you want to delete this account?")) {
+      if (confirm("Do you want to delete this brand? The brand's product will also delete too")) {
         try {
           await fetch(
             `http://localhost:3000/admin/deletebrand?IdBrand=${brandId.idBrand}`,
