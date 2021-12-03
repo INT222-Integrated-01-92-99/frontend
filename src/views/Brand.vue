@@ -154,7 +154,7 @@
                         v-if="brandInput"
                         class="font-prompt-regular-400 text-red-600"
                       >
-                        Enter Brand Name!
+                        Enter Brand Name or this Brand Name is used!
                       </p>
                     </td>
                     <td class="py-3 px-6 text-center">
@@ -357,6 +357,8 @@ export default {
     },
     check() {
       // console.log(this.enterBrandName);
+      console.log(this.brandCreated)
+      console.log(this.brandCreated.brandName)
       this.brandInput = this.enterBrandName === "" || this.enterBrandName === this.brandCreated.brandName;
     },
     async addBrand(brandName) {
