@@ -32,8 +32,8 @@ export default ({
     },
     actions: {
         async signIn({ dispatch }, credentials) {
-            let response = await axios.post('http://localhost:3000/main/login', credentials)
-            //   let response = await axios.post(`${process.env.VUE_APP_ROOT_API}main/login`, credentials)
+            // let response = await axios.post('http://localhost:3000/main/login', credentials)
+              let response = await axios.post(`${process.env.VUE_APP_ROOT_API}main/login`, credentials)
             console.log(response.data)
 
             return dispatch('attempt', response.data.token)
@@ -49,8 +49,8 @@ export default ({
             }
 
             try {
-                let response = await axios.get('http://localhost:3000/allroles/me')
-                // let response = await axios.get(`${process.env.VUE_APP_ROOT_API}allroles/me`)
+                // let response = await axios.get('http://localhost:3000/allroles/me')
+                let response = await axios.get(`${process.env.VUE_APP_ROOT_API}allroles/me`)
                 commit('SET_USER', response.data)
                 console.log(state.user)
             } catch (e) {
@@ -60,8 +60,8 @@ export default ({
         },
         async user({ commit, state }) {
             try {
-                let response = await axios.get('http://localhost:3000/allroles/me')
-                // let response = await axios.get(`${process.env.VUE_APP_ROOT_API}allroles/me`)
+                // let response = await axios.get('http://localhost:3000/allroles/me')
+                let response = await axios.get(`${process.env.VUE_APP_ROOT_API}allroles/me`)
                 commit('SET_USER', response.data)
                 console.log(state.user)
             } catch (e) {

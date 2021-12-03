@@ -369,8 +369,8 @@ export default {
       this.check();
       try {
         const response = await fetch(
-          `http://localhost:3000/admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
-          // `${process.env.VUE_APP_ROOT_API}admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
+          // `http://localhost:3000/admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
+          `${process.env.VUE_APP_ROOT_API}admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
           {
             method: "POST",
             headers: {
@@ -383,8 +383,8 @@ export default {
         if (this.error.errorCode == "BRAND_NAME_HAVE_ALREADY") {
             this.brandInput = true
           }
-        this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
-        // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+        // this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+        this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
         this.clearForm();
       } catch (error) {
         console.log(`Could not save! ${error}`);
@@ -395,8 +395,8 @@ export default {
       if (confirm("Do you want to delete this brand? The brand's product will also delete too")) {
         try {
           await fetch(
-            `http://localhost:3000/admin/deletebrand?IdBrand=${brandId.idBrand}`,
-            // `${process.env.VUE_APP_ROOT_API}admin/deletebrand?IdBrand=${brandId.idBrand}`,
+            // `http://localhost:3000/admin/deletebrand?IdBrand=${brandId.idBrand}`,
+            `${process.env.VUE_APP_ROOT_API}admin/deletebrand?IdBrand=${brandId.idBrand}`,
             {
               method: "DELETE",
               headers: {
@@ -404,8 +404,8 @@ export default {
               },
             }
           );
-          this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
-          // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+          // this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+          this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
         } catch (error) {
           console.log(`Could not save! ${error}`);
         }
@@ -423,8 +423,8 @@ export default {
       if (this.brandInput) {
         try {
           await fetch(
-            `http://localhost:3000/admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
-            // `${process.env.VUE_APP_ROOT_API}admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
+            // `http://localhost:3000/admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
+            `${process.env.VUE_APP_ROOT_API}admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
             {
               method: "PUT",
               headers: {
@@ -436,15 +436,15 @@ export default {
           console.log(`Could not save! ${error}`);
         }
       }
-      this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
-      // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+      // this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+      this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
     },
   },
   async created() {
     if (this.$store.state.auth.user) {
       if (this.$store.state.auth.user.idRole.idRole == 1) {
-        this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
-        // this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
+        // this.brandCreated = await this.fetch("http://localhost:3000/main/brand");
+        this.brandCreated = await this.fetch(`${process.env.VUE_APP_ROOT_API}main/brand`);
       } else {
         this.$router.push("/product/views");
       }

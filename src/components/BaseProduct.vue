@@ -147,12 +147,12 @@ export default {
     return {
       brandArray: [],
       productArray: [],
-      // urlProduct: `${process.env.VUE_APP_ROOT_API}main/product`,
-      // urlBrand: `${process.env.VUE_APP_ROOT_API}main/brand`,
-      // urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
-      urlProduct: "http://localhost:3000/main/product",
-      urlBrand: "http://localhost:3000/main/brand",
-      urlImage: "http://localhost:3000/main/image",
+      urlProduct: `${process.env.VUE_APP_ROOT_API}main/product`,
+      urlBrand: `${process.env.VUE_APP_ROOT_API}main/brand`,
+      urlImage: `${process.env.VUE_APP_ROOT_API}main/image`,
+      // urlProduct: "http://localhost:3000/main/product",
+      // urlBrand: "http://localhost:3000/main/brand",
+      // urlImage: "http://localhost:3000/main/image",
       sendToDelete: false,
       sendId: 0,
     };
