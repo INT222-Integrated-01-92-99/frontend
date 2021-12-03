@@ -357,14 +357,14 @@ export default {
     },
     check() {
       // console.log(this.enterBrandName);
-      this.brandInput = this.enterBrandName === "";
+      this.brandInput = this.enterBrandName === "" || this.enterBrandName === this.brandCreated.brandName;
     },
     async addBrand(brandName) {
       this.check();
       try {
         await fetch(
-          // `http://localhost:3000/admin/addbrand?BrandName=${brandName}`,
-          `${process.env.VUE_APP_ROOT_API}admin/addbrand?BrandName=${brandName}`,
+          // `http://localhost:3000/admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
+          `${process.env.VUE_APP_ROOT_API}admin/addbrand?BrandName=${encodeURIComponent(brandName)}`,
           {
             method: "POST",
             headers: {
