@@ -357,7 +357,8 @@ export default {
       this.enterBrandName = "";
     },
     check() {
-       this.brandInput = this.enterBrandName === ""
+       this.brandInput = this.enterBrandName === "" ? true : false
+       console.log(this.brandInput)
       // for (let i = 0; i < this.brandCreated.length; i++) {
       //   console.log('brand ที่ลูป' + this.brandCreated[i].brandName)
       //    this.brandInput = this.enterBrandName === this.brandCreated[i].brandName || this.enterBrandName === ""
