@@ -423,7 +423,7 @@ export default {
       this.check();
       (this.showEdit = true), (this.showSave = false);
       this.brandIdForCheck = "";
-      if ( !this.brandInput ) {
+      if (this.brandInput) {
         try {
           await fetch(
             // `http://localhost:3000/admin/editbrand?IdBrand=${brand.idBrand}&BrandName=${encodeURIComponent(brand.brandName)}`,
