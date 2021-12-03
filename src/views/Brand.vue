@@ -360,6 +360,7 @@ export default {
       for (let i = 0; i < this.brandCreated.length; i++) {
         // const element = array[i];
         console.log(this.brandCreated[i].brandName)
+        console.log(this.enterBrandName)
         this.brandInput = this.enterBrandName === "" || this.enterBrandName === this.brandCreated[i].brandName;
       }
     },
